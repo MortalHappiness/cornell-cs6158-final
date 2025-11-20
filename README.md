@@ -13,4 +13,9 @@ git clone --branch v2.9.1 --depth 1 https://github.com/pytorch/pytorch.git repos
 conda activate cs6158-final -n python=3.10
 conda activate cs6158-final
 pip install -r requirements.txt
+
+# Generate mapping files
+python src/mapping.py
+# Convert tests
+python src/convert.py
 ```
