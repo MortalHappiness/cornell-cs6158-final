@@ -38,10 +38,10 @@ from google import genai
 
 MODEL_NAME = "gemini-2.5-flash"
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 TVM_ROOT = ROOT / "repos" / "tvm"
 MAPPING_PATH = ROOT / "data" / "tvm_torch_mapping.json"
-OUTPUT_ROOT = ROOT / "converted_tests"
+OUTPUT_ROOT = ROOT / "converted_tests" / "tvm_torch"
 
 
 def _get_attr_chain(node):

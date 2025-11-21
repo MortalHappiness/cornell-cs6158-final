@@ -12,7 +12,7 @@ load_dotenv()
 
 MODEL_NAME = "gemini-2.5-flash"
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 TVM_ROOT = ROOT / "repos" / "tvm"
 TORCH_ROOT = ROOT / "repos" / "pytorch"
 OUTPUT_PATH = ROOT / "data" / "tvm_torch_mapping.json"
