@@ -19,3 +19,11 @@ python src/mapping.py
 # Convert tests
 python src/convert.py
 ```
+
+## Run Analysis
+
+```bash
+python src/analyze.py > analysis.txt
+# Also ask gemini for whether the converted tests and the original tests actually test the same thing
+python src/analyze.py --use-gemini > analysis.txt
+```

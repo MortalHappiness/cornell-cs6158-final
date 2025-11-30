@@ -1,0 +1,455 @@
+[pytest] Running: repos/tvm/tests/python/contrib/test_arm_compute_lib/test_concatenate.py
+[pytest] PASS: repos/tvm/tests/python/contrib/test_arm_compute_lib/test_concatenate.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_concatenate.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_concatenate.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_arm_compute_lib/test_conv2d.py
+[pytest] PASS: repos/tvm/tests/python/contrib/test_arm_compute_lib/test_conv2d.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_conv2d.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_conv2d.py (exit_code=2)
+[pytest] Running: repos/tvm/tests/python/contrib/test_arm_compute_lib/test_maximum.py
+[pytest] PASS: repos/tvm/tests/python/contrib/test_arm_compute_lib/test_maximum.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_maximum.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_maximum.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_arm_compute_lib/test_reshape.py
+[pytest] PASS: repos/tvm/tests/python/contrib/test_arm_compute_lib/test_reshape.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_reshape.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_reshape.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_arm_compute_lib/test_runtime.py
+[pytest] PASS: repos/tvm/tests/python/contrib/test_arm_compute_lib/test_runtime.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_runtime.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_runtime.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_bnns/test_conv2d.py
+[pytest] PASS: repos/tvm/tests/python/contrib/test_bnns/test_conv2d.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_bnns/test_conv2d.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_bnns/test_conv2d.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_clml/test_ops.py
+[pytest] PASS: repos/tvm/tests/python/contrib/test_clml/test_ops.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_clml/test_ops.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_clml/test_ops.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_leaky_relu.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_leaky_relu.py (exit_code=2)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_leaky_relu.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_leaky_relu.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_relu.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_relu.py (exit_code=2)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_relu.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_relu.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_reshape.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_reshape.py (exit_code=2)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_reshape.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_reshape.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_sigmoid.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_sigmoid.py (exit_code=2)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_sigmoid.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_sigmoid.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_split.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_split.py (exit_code=2)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_split.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_split.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_tanh.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_tanh.py (exit_code=2)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_tanh.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_tanh.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_topologies.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_topologies.py (exit_code=2)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_topologies.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_topologies.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/contrib/test_hexagon/topi/test_reduce.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_hexagon/topi/test_reduce.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_reduce.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_reduce.py (exit_code=2)
+[pytest] Running: repos/tvm/tests/python/relay/test_analysis_extract_fake_quantized_ops.py
+[pytest] PASS: repos/tvm/tests/python/relay/test_analysis_extract_fake_quantized_ops.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_analysis_extract_fake_quantized_ops.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/relay/test_analysis_extract_fake_quantized_ops.py (exit_code=5)
+[pytest] Running: repos/tvm/tests/python/topi/python/test_topi_reduce.py
+[pytest] PASS: repos/tvm/tests/python/topi/python/test_topi_reduce.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/topi/python/test_topi_reduce.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/topi/python/test_topi_reduce.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/topi/python/test_topi_util.py
+[pytest] PASS: repos/tvm/tests/python/topi/python/test_topi_util.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/topi/python/test_topi_util.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/topi/python/test_topi_util.py (exit_code=5)
+[pytest] Running: repos/tvm/tests/python/unittest/test_te_autodiff.py
+[pytest] PASS: repos/tvm/tests/python/unittest/test_te_autodiff.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/unittest/test_te_autodiff.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/unittest/test_te_autodiff.py (exit_code=1)
+
+[pytest-batch] Running batch pytest command:
+    /home/mortalhappiness/miniforge3/envs/cs6158-final/bin/python -m pytest repos/tvm/tests/python/contrib/test_arm_compute_lib/test_concatenate.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_conv2d.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_maximum.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_reshape.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_runtime.py repos/tvm/tests/python/contrib/test_bnns/test_conv2d.py repos/tvm/tests/python/contrib/test_clml/test_ops.py repos/tvm/tests/python/contrib/test_ethosn/test_leaky_relu.py repos/tvm/tests/python/contrib/test_ethosn/test_relu.py repos/tvm/tests/python/contrib/test_ethosn/test_reshape.py repos/tvm/tests/python/contrib/test_ethosn/test_sigmoid.py repos/tvm/tests/python/contrib/test_ethosn/test_split.py repos/tvm/tests/python/contrib/test_ethosn/test_tanh.py repos/tvm/tests/python/contrib/test_ethosn/test_topologies.py repos/tvm/tests/python/contrib/test_hexagon/topi/test_reduce.py repos/tvm/tests/python/relay/test_analysis_extract_fake_quantized_ops.py repos/tvm/tests/python/topi/python/test_topi_reduce.py repos/tvm/tests/python/topi/python/test_topi_util.py repos/tvm/tests/python/unittest/test_te_autodiff.py
+[pytest-batch] Exit code=1, tests_run=0, tests_failed=0, session_started=False
+
+[pytest-batch] Running batch pytest command:
+    /home/mortalhappiness/miniforge3/envs/cs6158-final/bin/python -m pytest converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_concatenate.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_conv2d.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_maximum.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_reshape.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_runtime.py converted_tests/tvm_torch/tests/python/contrib/test_bnns/test_conv2d.py converted_tests/tvm_torch/tests/python/contrib/test_clml/test_ops.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_leaky_relu.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_relu.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_reshape.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_sigmoid.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_split.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_tanh.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_topologies.py converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_reduce.py converted_tests/tvm_torch/tests/python/relay/test_analysis_extract_fake_quantized_ops.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_reduce.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_util.py converted_tests/tvm_torch/tests/python/unittest/test_te_autodiff.py
+[pytest-batch] Exit code=2, tests_run=3, tests_failed=3, session_started=True
+
+================================================================================
+SUMMARY for mode = tvm_torch
+================================================================================
+Number of converted test files:       19
+Number with matching original file:   19
+Total test functions (original):      53
+Total test functions (converted):     39
+Overall coverage (by test functions): 73.58%
+
+Per-file coverage (only where original exists):
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_concatenate.py
+  original:  repos/tvm/tests/python/contrib/test_arm_compute_lib/test_concatenate.py
+  tests original=2, converted=1, coverage=50.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_conv2d.py
+  original:  repos/tvm/tests/python/contrib/test_arm_compute_lib/test_conv2d.py
+  tests original=4, converted=0, coverage=0.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_maximum.py
+  original:  repos/tvm/tests/python/contrib/test_arm_compute_lib/test_maximum.py
+  tests original=2, converted=1, coverage=50.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_reshape.py
+  original:  repos/tvm/tests/python/contrib/test_arm_compute_lib/test_reshape.py
+  tests original=2, converted=1, coverage=50.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_runtime.py
+  original:  repos/tvm/tests/python/contrib/test_arm_compute_lib/test_runtime.py
+  tests original=3, converted=3, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_bnns/test_conv2d.py
+  original:  repos/tvm/tests/python/contrib/test_bnns/test_conv2d.py
+  tests original=3, converted=3, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_clml/test_ops.py
+  original:  repos/tvm/tests/python/contrib/test_clml/test_ops.py
+  tests original=3, converted=3, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_leaky_relu.py
+  original:  repos/tvm/tests/python/contrib/test_ethosn/test_leaky_relu.py
+  tests original=2, converted=2, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_relu.py
+  original:  repos/tvm/tests/python/contrib/test_ethosn/test_relu.py
+  tests original=2, converted=2, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_reshape.py
+  original:  repos/tvm/tests/python/contrib/test_ethosn/test_reshape.py
+  tests original=2, converted=2, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_sigmoid.py
+  original:  repos/tvm/tests/python/contrib/test_ethosn/test_sigmoid.py
+  tests original=2, converted=2, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_split.py
+  original:  repos/tvm/tests/python/contrib/test_ethosn/test_split.py
+  tests original=2, converted=2, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_tanh.py
+  original:  repos/tvm/tests/python/contrib/test_ethosn/test_tanh.py
+  tests original=2, converted=2, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_topologies.py
+  original:  repos/tvm/tests/python/contrib/test_ethosn/test_topologies.py
+  tests original=8, converted=8, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_reduce.py
+  original:  repos/tvm/tests/python/contrib/test_hexagon/topi/test_reduce.py
+  tests original=1, converted=1, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/relay/test_analysis_extract_fake_quantized_ops.py
+  original:  repos/tvm/tests/python/relay/test_analysis_extract_fake_quantized_ops.py
+  tests original=6, converted=0, coverage=0.0%
+- converted: converted_tests/tvm_torch/tests/python/topi/python/test_topi_reduce.py
+  original:  repos/tvm/tests/python/topi/python/test_topi_reduce.py
+  tests original=2, converted=2, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/topi/python/test_topi_util.py
+  original:  repos/tvm/tests/python/topi/python/test_topi_util.py
+  tests original=1, converted=0, coverage=0.0%
+- converted: converted_tests/tvm_torch/tests/python/unittest/test_te_autodiff.py
+  original:  repos/tvm/tests/python/unittest/test_te_autodiff.py
+  tests original=4, converted=4, coverage=100.0%
+
+Pytest file summary (from per-file runs):
+  Original files:  11 passed, 8 failed
+  Converted files: 6 passed, 13 failed
+
+Pytest batch execution summary (from one pytest run per side):
+  Original tests: batch pytest failed during configuration (exit code 1); test counts unavailable
+  Converted tests: 3 run, 3 failed
+
+Gemini analysis (only pairs with suspected issues):
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/contrib/test_arm_compute_lib/test_concatenate.py
+Converted: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_concatenate.py
+Issues:
+- The `test_codegen_concatenate` function was removed, which drops verification of generated backend code.
+- Runtime comparison changed from comparing TVM vs. ACL to checking PyTorch self-consistency, losing cross-backend validation.
+
+Suggestions:
+- Introduce PyTorch-specific graph or IR verification if a similar concept to codegen testing exists.
+- Compare PyTorch output against a separate reference implementation (e.g., NumPy) for correctness validation.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/contrib/test_arm_compute_lib/test_conv2d.py
+Converted: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_conv2d.py
+Issues:
+- Asymmetric padding for conv2d (when `has_pad=False`) is converted to symmetric padding using `max`, changing behavior.
+- Codegen tests (`test_codegen_conv2d`, `test_codegen_qnn_conv2d`) were removed, weakening coverage.
+- The calculation of quantized output zero points/scales might not precisely align with PyTorch's internal QNN logic.
+
+Suggestions:
+- For asymmetric padding, apply `torch.nn.functional.pad` explicitly before `F.conv2d` to match original behavior.
+- Review and align `_get_qnn_params` output scale/zero point calculations with PyTorch's quantization semantics.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/contrib/test_arm_compute_lib/test_maximum.py
+Converted: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_maximum.py
+Issues:
+- The `test_codegen_maximum` function was removed, which drops verification of generated backend code.
+- Runtime comparison changed from comparing TVM vs. ACL to checking PyTorch self-consistency, losing cross-backend validation.
+
+Suggestions:
+- Introduce PyTorch-specific graph or IR verification if a similar concept to codegen testing exists.
+- Compare PyTorch output against a separate reference implementation (e.g., NumPy) for correctness validation.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/contrib/test_arm_compute_lib/test_reshape.py
+Converted: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_reshape.py
+Issues:
+- The converted `test_reshape` loses the core purpose of comparing TVM (without ACL) vs TVM (with ACL) outputs.
+- The `test_codegen_reshape` is entirely removed, thus losing coverage for generated code inspection.
+
+Suggestions:
+- Reintroduce a mechanism to compare PyTorch's native execution against an ACL-accelerated PyTorch execution (if applicable).
+- Consider an equivalent test for codegen if a target-specific PyTorch backend integration is being developed.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/contrib/test_arm_compute_lib/test_runtime.py
+Converted: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_runtime.py
+Issues:
+- All original tests (`test_multiple_ops`, `test_heterogeneous`, `test_multiple_runs`) lose their primary purpose of validating TVM's ACL integration and runtime behavior (e.g., partitioning, heterogeneous execution, multiple runs).
+- The heterogeneous execution test, which verifies operator fallback mechanisms, is completely removed from the converted test suite.
+
+Suggestions:
+- The converted tests should aim to validate PyTorch's runtime with an ACL backend, mirroring the original integration goals.
+- Introduce a test specifically for heterogeneous execution or operator fallback for PyTorch's ACL integration.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/contrib/test_bnns/test_conv2d.py
+Converted: converted_tests/tvm_torch/tests/python/contrib/test_bnns/test_conv2d.py
+Issues:
+- All BNNS integration testing is removed, with tests marked as skipped, losing crucial coverage for backend acceleration.
+- The conversion of TVM's specific 4-tuple padding `(ph_b, pw_b, ph_a, pw_a)` to PyTorch's symmetric padding `(pad_h, pad_w)` is an approximation and might change behavior for asymmetric cases.
+
+Suggestions:
+- Implement or adapt infrastructure to enable BNNS backend testing for PyTorch, similar to the original TVM tests.
+- Ensure accurate handling of asymmetric padding by using explicit `F.pad` before `F.conv2d` if asymmetric padding is a valid scenario.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/contrib/test_clml/test_ops.py
+Converted: converted_tests/tvm_torch/tests/python/contrib/test_clml/test_ops.py
+Issues:
+- Tests for `_test_batchnorm`, `test_concat`, and `test_avgpool` are completely missing from the converted file.
+- The `test_conv2d` no longer compares outputs from two backends but only asserts shape, losing original comparison coverage.
+
+Suggestions:
+- Convert the missing tests (`_test_batchnorm`, `test_concat`, `test_avgpool`) to their PyTorch equivalents.
+- Clarify shape interpretations in `test_conv2d` trials and implement numerical comparison against a reference or between PyTorch implementations.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/contrib/test_ethosn/test_leaky_relu.py
+Converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_leaky_relu.py
+Issues:
+- The `test_leaky_relu_unsupported_alpha` test no longer verifies Ethos-N compiler error handling for specific alpha values.
+- The primary `test_leaky_relu` loses the crucial comparison between NPU-accelerated and non-NPU execution paths.
+
+Suggestions:
+- Re-evaluate if a similar failure case or constraint can be tested in PyTorch or document the reduced scope.
+- Consider adding numerical assertions for `test_leaky_relu` to verify functional correctness.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/contrib/test_ethosn/test_relu.py
+Converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_relu.py
+Issues:
+- The `test_relu_failure` test now asserts successful PyTorch execution for cases where Ethos-N would error, losing specific compiler validation.
+- The primary `test_relu` test loses the comparison between NPU-accelerated and non-NPU execution.
+
+Suggestions:
+- Explicitly document the change in intent for `test_relu_failure` as a positive PyTorch capability test.
+- Add numerical assertions in `test_relu` to ensure functional correctness across expected inputs.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/contrib/test_ethosn/test_reshape.py
+Converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_reshape.py
+Issues:
+- Many `output_shape` test cases from the original are skipped due to semantic differences in `0` and negative dimensions in `torch.reshape` vs `relay.reshape`.
+- The `test_reshape_failure` originally verified NPU-specific compilation errors; the converted test simply asserts successful PyTorch execution, losing original failure condition coverage.
+
+Suggestions:
+- Adapt skipped `0` and negative-dimension cases using `torch.flatten` or `tensor.view` where appropriate to mimic TVM's behavior, or document precise non-translatability.
+- Re-evaluate the purpose of `test_reshape_failure`. If it's about NPU constraints, consider removing or clearly stating the changed scope.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/contrib/test_ethosn/test_sigmoid.py
+Converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_sigmoid.py
+Issues:
+- The `test_sigmoid_failure` cases, originally asserting Ethos-N compiler errors, now simply assert successful PyTorch execution.
+- The original NPU-specific constraints and error handling are entirely lost, reducing coverage of hardware/compiler-specific limitations.
+
+Suggestions:
+- Remove `test_sigmoid_failure` as the failure conditions are not directly relevant to PyTorch behavior.
+- If future Ethos-N-specific testing is needed, a different framework or explicit checks would be required.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/contrib/test_ethosn/test_split.py
+Converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_split.py
+Issues:
+- The `test_split_failure` cases, originally asserting Ethos-N compiler errors, now simply assert successful PyTorch execution.
+- The conversion loses all coverage of hardware/compiler-specific constraints and error handling related to Ethos-N's `split`.
+
+Suggestions:
+- Remove `test_split_failure` as its original purpose (testing Ethos-N compiler limitations) is no longer relevant for direct PyTorch execution.
+- Document that the original failure modes are Ethos-N specific and do not translate to PyTorch behavior.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/contrib/test_ethosn/test_tanh.py
+Converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_tanh.py
+Issues:
+- The `test_tanh` verification is weak; it lacks numerical comparison, only asserting shape and dtype.
+- The `test_tanh_failure` fundamentally changed from testing compiler error conditions to asserting success.
+
+Suggestions:
+- Add robust numerical `assert_allclose` in `test_tanh` to compare PyTorch output with a float reference.
+- Remove `test_tanh_failure` as its original purpose (testing Ethos-N compiler errors) is not applicable.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/contrib/test_ethosn/test_topologies.py
+Converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_topologies.py
+Issues:
+- The `test_multiple_command_streams` loses crucial checks for NPU partitioning and host fallback logic.
+- The tests no longer verify Ethos-N specific compiler/runtime behaviors, only functional correctness in PyTorch.
+
+Suggestions:
+- Mark tests dependent on Ethos-N specific partitioning as irrelevant, or redesign for an analogous PyTorch flow.
+- Clearly state that converted tests validate only functional correctness in PyTorch, not Ethos-N behaviors.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/contrib/test_hexagon/topi/test_reduce.py
+Converted: converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_reduce.py
+Issues:
+- The `ref_data` fixture is incorrectly converted, leading to redundant reference data computation per test run.
+- The class-level parameter definition is non-standard and might cause issues or confusion in Pytest.
+
+Suggestions:
+- Refactor `ref_data_fixture` to properly use `pytest.fixture` and provide parameterized data to `test_reduce_map`.
+- Remove the non-standard class-level `pytest.mark.parametrize` assignment for `in_shape`, etc.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/relay/test_analysis_extract_fake_quantized_ops.py
+Converted: converted_tests/tvm_torch/tests/python/relay/test_analysis_extract_fake_quantized_ops.py
+Issues:
+- The converted test completely removes all original tests, leaving no functional coverage.
+- Core functionality (Relay IR analysis for fake quantization) is deemed non-translatable.
+
+Suggestions:
+- Investigate if PyTorch has equivalent graph analysis tools to detect quantization patterns.
+- Consider if a higher-level functional test for PyTorch's quantization could cover similar intent.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/topi/python/test_topi_reduce.py
+Converted: converted_tests/tvm_torch/tests/python/topi/python/test_topi_reduce.py
+Issues:
+- The 'test_complex_reduce' function, which tests chained operations, is entirely missing.
+- Converted tests do not explicitly test on different devices (e.g., CPU, GPU) as original.
+
+Suggestions:
+- Add a PyTorch equivalent of 'test_complex_reduce' to ensure coverage for chained operations.
+- Extend PyTorch tests to run on various devices (CPU, CUDA) using 'torch.device' for better coverage.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/topi/python/test_topi_util.py
+Converted: converted_tests/tvm_torch/tests/python/topi/python/test_topi_util.py
+Issues:
+- All original tests are commented out, resulting in no functional coverage for layout inference.
+- The core utility 'topi.utils.get_shape' is identified as TVM-specific with no direct PyTorch equivalent.
+
+Suggestions:
+- Clarify if PyTorch's 'permute' and 'reshape' adequately cover the intent of layout transformations.
+- If layout transformations are critical, explore how PyTorch's 'memory_format' APIs are tested for shape.
+
+--- Problematic pair ---
+Original:  repos/tvm/tests/python/unittest/test_te_autodiff.py
+Converted: converted_tests/tvm_torch/tests/python/unittest/test_te_autodiff.py
+Issues:
+- Many `test_basic_operation` cases involving complex reductions (sum, max), indexing, and custom reducers are missing.
+- The entire `test_topi` function is absent from the converted code, leaving significant coverage gaps for `topi` operations.
+
+Suggestions:
+- Translate and add the missing `test_basic_operation` cases, especially those with custom reducers or complex indexing.
+- Convert the `test_topi` function to PyTorch, covering `conv2d`, pooling, reshaping, and activation functions.
+[pytest] Running: repos/pytorch/test/bottleneck_test/test_args.py
+[pytest] FAIL: repos/pytorch/test/bottleneck_test/test_args.py (exit_code=5)
+[pytest] Running: converted_tests/torch_tvm/bottleneck_test/test_args.py
+[pytest] FAIL: converted_tests/torch_tvm/bottleneck_test/test_args.py (exit_code=5)
+[pytest] Running: repos/pytorch/test/dynamo/test_buffers_override.py
+[pytest] FAIL: repos/pytorch/test/dynamo/test_buffers_override.py (exit_code=2)
+[pytest] Running: converted_tests/torch_tvm/dynamo/test_buffers_override.py
+[pytest] FAIL: converted_tests/torch_tvm/dynamo/test_buffers_override.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/package/package_c/test_module.py
+[pytest] FAIL: repos/pytorch/test/package/package_c/test_module.py (exit_code=5)
+[pytest] Running: converted_tests/torch_tvm/package/package_c/test_module.py
+[pytest] FAIL: converted_tests/torch_tvm/package/package_c/test_module.py (exit_code=5)
+
+[pytest-batch] Running batch pytest command:
+    /home/mortalhappiness/miniforge3/envs/cs6158-final/bin/python -m pytest repos/pytorch/test/bottleneck_test/test_args.py repos/pytorch/test/dynamo/test_buffers_override.py repos/pytorch/test/package/package_c/test_module.py
+[pytest-batch] Exit code=2, tests_run=1, tests_failed=1, session_started=True
+
+[pytest-batch] Running batch pytest command:
+    /home/mortalhappiness/miniforge3/envs/cs6158-final/bin/python -m pytest converted_tests/torch_tvm/bottleneck_test/test_args.py converted_tests/torch_tvm/dynamo/test_buffers_override.py converted_tests/torch_tvm/package/package_c/test_module.py
+[pytest-batch] Exit code=2, tests_run=1, tests_failed=1, session_started=True
+
+================================================================================
+SUMMARY for mode = torch_tvm
+================================================================================
+Number of converted test files:       3
+Number with matching original file:   3
+Total test functions (original):      2
+Total test functions (converted):     0
+Overall coverage (by test functions): 0.00%
+
+Per-file coverage (only where original exists):
+- converted: converted_tests/torch_tvm/bottleneck_test/test_args.py
+  original:  repos/pytorch/test/bottleneck_test/test_args.py
+  tests original=0, converted=0, coverage=N/A
+- converted: converted_tests/torch_tvm/dynamo/test_buffers_override.py
+  original:  repos/pytorch/test/dynamo/test_buffers_override.py
+  tests original=2, converted=0, coverage=0.0%
+- converted: converted_tests/torch_tvm/package/package_c/test_module.py
+  original:  repos/pytorch/test/package/package_c/test_module.py
+  tests original=0, converted=0, coverage=N/A
+
+Pytest file summary (from per-file runs):
+  Original files:  0 passed, 3 failed
+  Converted files: 0 passed, 3 failed
+
+Pytest batch execution summary (from one pytest run per side):
+  Original tests:  1 run, 1 failed
+  Converted tests: 1 run, 1 failed
+
+Gemini analysis (only pairs with suspected issues):
+
+--- Problematic pair ---
+Original:  repos/pytorch/test/bottleneck_test/test_args.py
+Converted: converted_tests/torch_tvm/bottleneck_test/test_args.py
+Issues:
+- The converted test entirely omits the `.backward()` pass, which is the core behavior tested by the original.
+- It only constructs the forward Relay graph, leaving the automatic differentiation part as a "TODO" comment.
+
+Suggestions:
+- Add a test for AD by comparing gradients generated by `tvm.relay.transform.gradient` with expected numpy values.
+- Consider using `tvm.relay.build` to evaluate the gradient for concrete inputs for runtime testing.
+
+--- Problematic pair ---
+Original:  repos/pytorch/test/dynamo/test_buffers_override.py
+Converted: converted_tests/torch_tvm/dynamo/test_buffers_override.py
+Issues:
+- The converted test completely loses the original's intent of testing `torch.dynamo`'s handling of `nn.Module` buffer overrides.
+- PyTorch-specific `self.buffers = []` and `self.named_buffers = []` have no functional meaning in the TVM context.
+
+Suggestions:
+- Mark this test as `SKIP` or `XFAIL` as its core PyTorch-specific semantics cannot be directly converted.
+- If a TVM concept of module-like state management exists, adapt the test to verify similar behavior within that.
+
+--- Problematic pair ---
+Original:  repos/pytorch/test/package/package_c/test_module.py
+Converted: converted_tests/torch_tvm/package/package_c/test_module.py
+Issues:
+- The conversion entirely omits the `resnet18` model, which is a major component of the original `nn.Module` definition.
+- The original test's likely purpose (testing `torch.package` with complex models/dependencies) is lost.
+
+Suggestions:
+- Mark this test as `SKIP` or `XFAIL` if a full `torchvision.models` conversion is not yet supported.
+- If `tvm.relay.frontend.from_pytorch` supports it, use it to convert the `resnet18` model fully.
