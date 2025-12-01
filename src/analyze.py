@@ -72,6 +72,31 @@ def find_test_functions(path: str) -> int:
     return count
 
 
+def count_total_original_tests(mode: str, original_root: str) -> int:
+    """
+    Count total test functions in the *entire* original test tree.
+
+    This mirrors the earlier simple script:
+      - For tvm_torch: repos/tvm/tests/python
+      - For torch_tvm: repos/pytorch/test
+    """
+    if mode == "tvm_torch":
+        tests_root = os.path.join(original_root, "tests", "python")
+    else:  # torch_tvm
+        tests_root = os.path.join(original_root, "test")
+
+    total = 0
+    for root, _, files in os.walk(tests_root):
+        for fname in files:
+            if not fname.endswith(".py"):
+                continue
+            if not (fname.startswith("test_") or fname.endswith("_test.py")):
+                continue
+            path = os.path.join(root, fname)
+            total += find_test_functions(path)
+    return total
+
+
 # ---------------------------------------------------------------------------
 # Path mapping helpers
 # ---------------------------------------------------------------------------
@@ -382,14 +407,15 @@ def process_mode(
     original_root: str,
     use_gemini: bool,
     run_pytests: bool,
-) -> Tuple[list[TestPairResult], list[str], list[str]]:
+) -> Tuple[list[TestPairResult], list[str], list[str], int]:
     """
     mode: "tvm_torch" or "torch_tvm"
     converted_root: converted_tests/tvm_torch or converted_tests/torch_tvm
     original_root: repos/tvm or repos/pytorch
 
     Returns:
-      (results, original_files_for_batch, converted_files_for_batch)
+      (results, original_files_for_batch, converted_files_for_batch,
+       total_original_tests_overall)
     """
     results: list[TestPairResult] = []
     original_files_batch: list[str] = []
@@ -471,7 +497,10 @@ def process_mode(
     if use_gemini:
         analyze_pairs_with_gemini(mode, results)
 
-    return results, original_files_batch, converted_files_batch
+    # NEW: total original tests over the entire original test tree
+    total_original_tests_overall = count_total_original_tests(mode, original_root)
+
+    return results, original_files_batch, converted_files_batch, total_original_tests_overall
 
 
 # ---------------------------------------------------------------------------
@@ -487,6 +516,7 @@ def relpath_or_none(path: Optional[str]) -> str:
 def summarize_results(
     mode: str,
     results: list[TestPairResult],
+    total_original_tests_overall: int,
     batch_orig_exit: int,
     batch_orig_tests_run: int,
     batch_orig_tests_failed: int,
@@ -500,7 +530,6 @@ def summarize_results(
     print(f"SUMMARY for mode = {mode}")
     print("=" * 80)
 
-    total_original_tests = 0
     total_converted_tests = 0
     total_with_original = 0
 
@@ -512,8 +541,6 @@ def summarize_results(
     for r in results:
         if r.original_exists:
             total_with_original += 1
-        if r.original_exists and r.num_tests_original is not None:
-            total_original_tests += r.num_tests_original
         if r.num_tests_converted is not None:
             total_converted_tests += r.num_tests_converted
 
@@ -529,12 +556,12 @@ def summarize_results(
 
     print(f"Number of converted test files:       {len(results)}")
     print(f"Number with matching original file:   {total_with_original}")
-    print(f"Total test functions (original):      {total_original_tests}")
+    print(f"Total test functions (original):      {total_original_tests_overall}")
     print(f"Total test functions (converted):     {total_converted_tests}")
 
-    if total_original_tests > 0:
+    if total_original_tests_overall > 0:
         overall_coverage = (
-            100.0 * total_converted_tests / total_original_tests
+            100.0 * total_converted_tests / total_original_tests_overall
         )
         print(f"Overall coverage (by test functions): {overall_coverage:.2f}%")
     else:
@@ -671,7 +698,7 @@ def main() -> None:
 
     # tvm -> torch
     if args.mode in ("tvm_torch", "both"):
-        results, orig_files, conv_files = process_mode(
+        results, orig_files, conv_files, total_orig_tests = process_mode(
             mode="tvm_torch",
             converted_root=args.converted_tvm_torch_root,
             original_root=args.tvm_root,
@@ -702,6 +729,7 @@ def main() -> None:
         summarize_results(
             "tvm_torch",
             results,
+            total_orig_tests,
             batch_orig_exit,
             batch_orig_run,
             batch_orig_fail,
@@ -715,7 +743,7 @@ def main() -> None:
 
     # torch -> tvm
     if args.mode in ("torch_tvm", "both"):
-        results, orig_files, conv_files = process_mode(
+        results, orig_files, conv_files, total_orig_tests = process_mode(
             mode="torch_tvm",
             converted_root=args.converted_torch_tvm_root,
             original_root=args.pytorch_root,
@@ -746,6 +774,7 @@ def main() -> None:
         summarize_results(
             "torch_tvm",
             results,
+            total_orig_tests,
             batch_orig_exit,
             batch_orig_run,
             batch_orig_fail,
