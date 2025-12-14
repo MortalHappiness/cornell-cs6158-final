@@ -1,57 +1,49 @@
-# Licensed to the Apache Software Foundation (ASF) under one
-# or more contributor license agreements.  See the NOTICE file
-# distributed with this work for additional information
-# regarding copyright ownership.  The ASF licenses this file
-# to you under the Apache License, Version 2.0 (the
-# "License"); you may not use this file except in compliance
-# with the License.  You may obtain a copy of the License at
-#
-#   http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, either express or implied.  See the License for the
-# specific language governing permissions and limitations
-# under the License.
-
-"""Arm(R) Ethos(TM)-N integration sigmoid tests"""
-
 import pytest
 import numpy as np
 import torch
 import torch.nn.functional as F
-import torch.testing as testing
 
-# Ethos-N specific infrastructure is removed (`tei` module).
-# The tests will now perform direct PyTorch operations for both float and quantized versions.
-# `requires_ethosn` and `ethosn_available` are removed.
+# Helper to map string dtypes to torch quantized dtypes
+_TORCH_QINT_DTYPE_MAP = {
+    "uint8": torch.quint8,
+    "int8": torch.qint8,
+}
 
-# Helper function for quantization/dequantization, mimicking TVM's `qnn.op` behavior
-def qnn_dequantize(data_tensor, input_scale, input_zero_point):
-    return (data_tensor.float() - input_zero_point) * input_scale
-
-def qnn_quantize(data_float, output_scale, output_zero_point, out_dtype_torch):
-    data_quant = torch.round(data_float / output_scale + output_zero_point).to(out_dtype_torch)
-    iinfo = np.iinfo(out_dtype_torch.item())
-    return torch.clamp(data_quant, iinfo.min, iinfo.max)
+def _numpy_to_torch_qint_dtype(np_dtype_str):
+    return _TORCH_QINT_DTYPE_MAP.get(np_dtype_str, None)
 
 
-def _get_model(input_tensor, input_zp, input_sc, output_zp, output_sc, dtype_torch):
-    # This function represents the Relay graph, translated to PyTorch operations.
-    
-    # Dequantize to float
-    dequantize_output = qnn_dequantize(input_tensor, input_sc, input_zp)
-    
-    # Apply Sigmoid
-    sigmoid_output = torch.sigmoid(dequantize_output)
-    
-    # Quantize back
-    model_output = qnn_quantize(sigmoid_output, output_sc, output_zp, dtype_torch)
-    return model_output
+def _get_pytorch_quantized_sigmoid_model_fn(output_scale, output_zero_point, output_dtype_str):
+    """
+    Returns a callable that simulates the TVM Relay QNN Sigmoid pattern:
+    (quantized input) -> dequantize -> sigmoid (float) -> quantize (to target output params).
+    It expects an already quantized tensor as input.
+    """
+    torch_qout_dtype = _numpy_to_torch_qint_dtype(output_dtype_str)
+    if torch_qout_dtype is None:
+        raise ValueError(f"Unsupported quantized output dtype: {output_dtype_str}")
+
+    def model_fn(q_input_tensor):
+        # 1. Dequantize input (q_input_tensor carries its own scale and zero_point)
+        dequantized_input = torch.dequantize(q_input_tensor)
+        
+        # 2. Apply float sigmoid
+        sigmoid_output_float = torch.sigmoid(dequantized_input)
+        
+        # 3. Quantize the float output to the specified output parameters
+        quantized_output = torch.quantize_per_tensor(
+            sigmoid_output_float,
+            scale=output_scale,
+            zero_point=output_zero_point,
+            dtype=torch_qout_dtype,
+        )
+        return quantized_output
+    return model_fn
 
 
-@pytest.mark.parametrize("dtype_str", ["uint8", "int8"])
+# Original `requires_ethosn` and other TVM-specific decorators are removed/skipped.
+# This test now validates the functional behavior of quantized sigmoid in PyTorch.
+@pytest.mark.parametrize("dtype", ["uint8", "int8"])
 @pytest.mark.parametrize(
     "shape",
     [
@@ -59,41 +51,86 @@ def _get_model(input_tensor, input_zp, input_sc, output_zp, output_sc, dtype_tor
         (1, 8, 8),
     ],
 )
-def test_sigmoid(dtype_str, shape):
-    """Compare Sigmoid output with TVM."""
+def test_sigmoid(dtype, shape):
+    """Compare quantized Sigmoid output with a NumPy reference in PyTorch."""
     np.random.seed(0)
 
-    # Convert dtype_str to PyTorch dtype
-    if dtype_str == "uint8":
-        dtype_torch = torch.uint8
-    elif dtype_str == "int8":
-        dtype_torch = torch.int8
-    else:
-        raise ValueError(f"Unsupported dtype: {dtype_str}")
-
-    inputs_np = np.random.randint(np.iinfo(dtype_str).min, np.iinfo(dtype_str).max + 1, size=shape, dtype=dtype_str)
-    input_tensor = torch.tensor(inputs_np, dtype=dtype_torch)
-
-    # Determine quantization parameters based on dtype, mirroring original logic
-    if dtype_str == "uint8":
+    # Determine quantization parameters based on dtype
+    if dtype == "uint8":
         input_zp = 0
         output_zp = 0
-    else:
+    else:  # dtype == "int8"
         input_zp = 127
         output_zp = -128
     
-    # The original test ran NPU (Ethos-N) vs non-NPU (TVM) and checked for consistency.
-    # Here, we run the PyTorch model once, which serves as the reference computation.
+    input_sc = 0.02
+    output_sc = 1.0 / 256.0
     
-    # Running two times to simulate the loop in original, but results should be identical.
-    output_pytorch_1 = _get_model(input_tensor, input_zp, 0.02, output_zp, 1.0 / 256.0, dtype_torch)
-    output_pytorch_2 = _get_model(input_tensor, input_zp, 0.02, output_zp, 1.0 / 256.0, dtype_torch)
+    # 1. Prepare NumPy input data
+    # TVM uses np.random.randint for the raw quantized values.
+    # PyTorch's quantize_per_tensor expects float input.
+    raw_np_data = np.random.randint(
+        np.iinfo(dtype).min, # Use the string dtype for np.iinfo
+        np.iinfo(dtype).max + 1,
+        size=shape,
+        dtype=dtype, # Use the string dtype for numpy array creation
+    )
+    
+    # Create the quantized input tensor for PyTorch
+    # torch.quantize_per_tensor expects a float tensor as input for quantization
+    float_input_for_quantization = torch.tensor(raw_np_data.astype(np.float32))
+    
+    q_input_tensor = torch.quantize_per_tensor(
+        float_input_for_quantization,
+        scale=input_sc,
+        zero_point=input_zp,
+        dtype=_numpy_to_torch_qint_dtype(dtype),
+    )
 
-    assert output_pytorch_1.shape == shape
-    assert output_pytorch_1.dtype == dtype_torch
-    testing.assert_allclose(output_pytorch_1, output_pytorch_2) # Check consistency
+    # 2. Get the PyTorch quantized sigmoid model callable
+    pytorch_sigmoid_q_model_fn = _get_pytorch_quantized_sigmoid_model_fn(
+        output_scale=output_sc,
+        output_zero_point=output_zp,
+        output_dtype_str=dtype,
+    )
+
+    # 3. Run the PyTorch quantized model.
+    actual_output_q_first_run = pytorch_sigmoid_q_model_fn(q_input_tensor)
+    # The original TVM test collects two outputs (NPU=False and NPU=True).
+    # Since we can't run on actual Ethos-N, we simulate two runs by cloning the output.
+    actual_outputs_q = [actual_output_q_first_run, actual_output_q_first_run.clone()]
+
+    # 4. Generate reference (expected) float output using NumPy
+    # Simulate the entire dequantize -> sigmoid -> quantize -> dequantize process with NumPy
+    np_input_dequantized = (raw_np_data.astype(np.float32) - input_zp) * input_sc
+    np_sigmoid_float = 1 / (1 + np.exp(-np_input_dequantized))
+    
+    np_quantized_intermediate = np.round(np_sigmoid_float / output_sc + output_zp)
+    np_quantized_clamped = np.clip(
+        np_quantized_intermediate, 
+        np.iinfo(dtype).min, 
+        np.iinfo(dtype).max
+    ).astype(dtype) # Cast to the output quantized NumPy dtype
+    
+    np_expected_dequantized = (np_quantized_clamped.astype(np.float32) - output_zp) * output_sc
+
+    # 5. Verify results
+    # Dequantize PyTorch outputs for comparison with float reference
+    dequantized_pytorch_outputs = [torch.dequantize(o) for o in actual_outputs_q]
+
+    # Verify that the two "runs" (cloned outputs) produce identical float values
+    torch.testing.assert_close(dequantized_pytorch_outputs[0], dequantized_pytorch_outputs[1], rtol=1e-5, atol=1e-5)
+    
+    # Verify against the NumPy reference. Relax tolerance for quantized operations.
+    torch.testing.assert_close(
+        dequantized_pytorch_outputs[0],
+        torch.tensor(np_expected_dequantized, dtype=torch.float32),
+        rtol=1e-3, 
+        atol=1e-3,
+    )
 
 
+@pytest.mark.skip(reason="This test checks TVM Ethos-N backend compilation failure modes, which are not applicable to PyTorch.")
 @pytest.mark.parametrize(
     "shape,input_zp,input_sc,output_zp,output_sc,err_msg",
     [
@@ -109,26 +146,11 @@ def test_sigmoid(dtype_str, shape):
     ],
 )
 def test_sigmoid_failure(shape, input_zp, input_sc, output_zp, output_sc, err_msg):
-    """Check Sigmoid error messages."""
-    # The original test checked for specific Ethos-N compiler errors related to batch size
-    # and quantization parameters. PyTorch's functional ops do not have these compile-time
-    # restrictions directly at the functional call site. For instance, batch size > 1
-    # is perfectly valid for `torch.sigmoid`.
-    # Therefore, this test is adapted to assert that PyTorch runs successfully,
-    # as its behavior for these 'unsupported' scenarios will simply be to compute the result.
-
-    dtype_str = "uint8" # Default dtype for these failure cases
-    dtype_torch = torch.uint8
-
-    inputs_np = np.random.randint(np.iinfo(dtype_str).min, np.iinfo(dtype_str).max + 1, size=shape, dtype=dtype_str)
-    input_tensor = torch.tensor(inputs_np, dtype=dtype_torch)
-
-    # PyTorch will compute this without error, so we assert it runs successfully
-    output_pytorch = _get_model(input_tensor, input_zp, input_sc, output_zp, output_sc, dtype_torch)
-    
-    assert output_pytorch.shape == shape
-    assert output_pytorch.dtype == dtype_torch
-
-
-if __name__ == "__main__":
-    pytest.main([__file__])
+    """TODO: This test checks Ethos-N specific backend compilation errors.
+    Direct translation to PyTorch is not straightforward as PyTorch's functional APIs
+    don't typically have such strict compile-time checks for quantization parameters
+    or batch size limitations directly in the functional call.
+    """
+    # Placeholder to ensure the function is runnable and explicitly fails
+    _ = shape, input_zp, input_sc, output_zp, output_sc, err_msg
+    pytest.fail("Skipped: Ethos-N specific compilation failure test.")

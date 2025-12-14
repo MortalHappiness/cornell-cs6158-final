@@ -1,113 +1,178 @@
-# Licensed to the Apache Software Foundation (ASF) under one
-# or more contributor license agreements.  See the NOTICE file
-# distributed with this work for additional information
-# regarding copyright ownership.  The ASF licenses this file
-# to you under the Apache License, Version 2.0 (the
-# "License"); you may not use this file except in compliance
-# with the License.  You may obtain a copy of the License at
-#
-#   http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, either express or implied.  See the License for the
-# specific language governing permissions and limitations
-# under the License.
-"""CLML integration conv2d tests."""
-
 import torch
-import numpy as np
+import torch.nn as nn
 import torch.nn.functional as F
+import numpy as np
 import pytest
+import os # For checking CUDA availability
 
-# Infrastructure components from TVM contrib.clml are not directly convertible.
-# The tests will be rewritten to use direct PyTorch execution and comparison.
-# `build_and_run`, `Device`, `skip_codegen_test` are removed.
+# Mock tvm.nd.array for easy conversion to numpy arrays, if tvm.nd.array objects are passed.
+class tvm_nd_array_mock:
+    def __init__(self, np_array):
+        self._array = np_array
+    def asnumpy(self):
+        return self._array
+    def __str__(self):
+        return f"tvm_nd_array_mock({self._array})"
+
+# Mock for tvm.testing.requires_openclml
+def requires_openclml(f):
+    # This decorator implies a specific TVM backend requirement.
+    # For PyTorch conversion, we'll run on CPU/CUDA if available.
+    # If the test is truly for a niche hardware accelerator,
+    # it might need `pytest.mark.skip` based on PyTorch backend availability.
+    # For now, it's a pass-through.
+    return f
+
+# Mock for skip_codegen_test (can be just a pass-through decorator or ignore)
+def skip_codegen_test(f):
+    return f
+
+# Mock for Device (just a string for PyTorch device)
+# In PyTorch, device is typically a string like 'cpu' or 'cuda'.
+# We dynamically set it based on CUDA availability for broader test coverage.
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+def to_torch_dtype(dtype_str):
+    if dtype_str == "float32":
+        return torch.float32
+    elif dtype_str == "float16":
+        return torch.float16
+    elif dtype_str == "int32":
+        return torch.int32
+    elif dtype_str == "int64":
+        return torch.int64
+    else:
+        raise ValueError(f"Unsupported dtype: {dtype_str}")
+
+# Wrapper to handle PyTorch model execution and comparison
+def run_pytorch_model(model_instance, inputs_dict, output_idx, device_str, enable_compiler):
+    current_device = torch.device(device_str)
+    model_instance = model_instance.to(current_device)
+
+    # Convert inputs to torch.Tensor and move to device
+    torch_inputs = {}
+    for k, v in inputs_dict.items():
+        if isinstance(v, np.ndarray):
+            torch_inputs[k] = torch.tensor(v, device=current_device)
+        elif isinstance(v, torch.Tensor):
+            torch_inputs[k] = v.to(current_device)
+        elif isinstance(v, tvm_nd_array_mock): # Handle mocked tvm.nd.array
+            torch_inputs[k] = torch.tensor(v.asnumpy(), device=current_device)
+        else: # Fallback for other potential types in inputs
+            torch_inputs[k] = torch.tensor(v, device=current_device)
+
+    if enable_compiler:
+        # torch.compile requires the model to be a callable (nn.Module or function)
+        compiled_model = torch.compile(model_instance, dynamic=False)
+        output = compiled_model(**torch_inputs)
+    else:
+        output = model_instance(**torch_inputs)
+
+    # Assuming the output is always a tensor, or a tuple/list of tensors if more than one.
+    # The TVM `build_and_run` returns a list of outputs, typically one.
+    if isinstance(output, (tuple, list)):
+        return [output[output_idx].cpu().detach().numpy()]
+    else:
+        return [output.cpu().detach().numpy()]
+
 
 def _get_conv_model(
-    input_tensor,
+    input_shape, # Expected as (N, C, H, W)
     kernel_h,
     kernel_w,
-    padding,
-    strides,
-    dilation,
+    padding_tuple_hw, # TVM style (h_pad, w_pad) for `relay.nn.pad` or `conv2d`
+    strides_tuple_hw,
+    dilation_tuple_hw,
     groups,
+    dtype_str,
     out_channels,
+    # The 'var' parameter from TVM (input placeholder name) is not directly used in PyTorch Module.
+    var_for_input_name_dummy, 
     has_bias=False,
     has_activation=False,
     has_pad=False,
 ):
-    """Return a PyTorch model (functional representation) and its parameters."""
-    
-    # PyTorch expects padding as (pad_left, pad_right, pad_top, pad_bottom, ...)
-    # TVM's padding can be (H_pad, W_pad) or (H_top, W_left, H_bottom, W_right).
-    # Assuming TVM's padding (p_h, p_w) means symmetric padding (p_h, p_w, p_h, p_w)
-    if isinstance(padding, (list, tuple)) and len(padding) == 2:
-        padding_pytorch = (padding[1], padding[1], padding[0], padding[0]) # PyTorch pad order is (W, W, H, H) for 2D
-    else:
-        # If it's already in (top, left, bottom, right) it would need reordering,
-        # but the test cases generally use 2-element tuples.
-        # Assuming for conv2d, padding is symmetric (ph, pw).
-        padding_pytorch = padding
+    """Returns a PyTorch ConvModule instance and a dictionary of its initial NumPy parameters."""
+    torch_dtype = to_torch_dtype(dtype_str)
 
+    class ConvModule(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.has_pad = has_pad
+            self.has_activation = has_activation
+            
+            # Determine effective input channels for nn.Conv2d
+            current_input_ch = input_shape[1]
+            
+            # Determine padding configuration for F.pad and nn.Conv2d
+            if self.has_pad:
+                # TVM's `relay.nn.pad` takes `pad_width` as `((0,0), (ph,ph), (pw,pw), (0,0))` for NCHW.
+                # PyTorch `F.pad` takes a flat tuple `(left, right, top, bottom, ...)`.
+                self.torch_pad_tuple = (padding_tuple_hw[1], padding_tuple_hw[1], # width padding (left, right)
+                                        padding_tuple_hw[0], padding_tuple_hw[0]) # height padding (top, bottom)
+                conv_padding_arg = (0, 0) # After explicit F.pad, conv itself needs no further padding.
+            else:
+                self.torch_pad_tuple = None # No explicit F.pad needed.
+                conv_padding_arg = padding_tuple_hw # nn.Conv2d handles this padding directly.
 
-    current_input = input_tensor
-    if has_pad:
-        # TVM pad_width=((0,0),(padding[0],padding[0]),(padding[1],padding[1]),(0,0)) for NCHW
-        # PyTorch F.pad expects (pad_left, pad_right, pad_top, pad_bottom, ...) for last dims
-        # So for NCHW and padding[0]=H, padding[1]=W: (W_before, W_after, H_before, H_after)
-        
-        # Original TVM:
-        # p = ((0, 0), (padding[0], padding[0]), (padding[1], padding[1]), (0, 0)) # Assuming NCHW input
-        # current_input = relay.nn.pad(a, pad_width=p)
+            # Initialize nn.Conv2d layer
+            self.conv_layer = nn.Conv2d(
+                in_channels=current_input_ch,
+                out_channels=out_channels,
+                kernel_size=(kernel_h, kernel_w),
+                stride=strides_tuple_hw,
+                padding=conv_padding_arg,
+                dilation=dilation_tuple_hw,
+                groups=groups,
+                bias=has_bias,
+                dtype=torch_dtype # Specify dtype here
+            )
 
-        # Assuming input is NCHW, so padding applies to dims 2 (H) and 3 (W)
-        # Pad format is (pad_left, pad_right, pad_top, pad_bottom)
-        padding_for_f_pad = (padding[1], padding[1], padding[0], padding[0])
-        current_input = F.pad(current_input, padding_for_f_pad)
-        padding_conv = (0, 0) # No additional padding for conv since it's already padded
-    else:
-        padding_conv = padding # Use the given padding for conv
+            # Manually initialize weights and bias using np.random.uniform, matching TVM test.
+            # This overwrites the default initialization of nn.Conv2d.
+            weight_shape = (out_channels, current_input_ch // groups, kernel_h, kernel_w)
+            self.conv_layer.weight.data = torch.tensor(
+                np.random.uniform(-1, 1, weight_shape).astype(dtype_str),
+                dtype=torch_dtype
+            )
+            if has_bias:
+                bias_shape = out_channels
+                self.conv_layer.bias.data = torch.tensor(
+                    np.random.uniform(-1, 1, bias_shape).astype(dtype_str),
+                    dtype=torch_dtype
+                )
 
-    # For Conv2D, PyTorch weight format is (out_channels, in_channels/groups, kernel_h, kernel_w)
-    in_channels_for_weight = input_tensor.shape[1] // groups
-    weight_shape = (out_channels, in_channels_for_weight, kernel_h, kernel_w)
-    
-    weights_np = np.random.uniform(-1, 1, weight_shape).astype(input_tensor.dtype)
-    weights = torch.tensor(weights_np, dtype=input_tensor.dtype)
+        def forward(self, a):
+            x = a 
+            if self.has_pad:
+                x = F.pad(x, self.torch_pad_tuple, mode='constant', value=0.0)
+            
+            out = self.conv_layer(x)
 
-    out = F.conv2d(
-        current_input,
-        weights,
-        bias=None, # Bias handled separately if has_bias is true
-        stride=strides,
-        padding=padding_conv,
-        dilation=dilation,
-        groups=groups,
-    )
-    
-    params = {"w": weights}
-    
+            if self.has_activation:
+                out = F.relu(out)
+            
+            return out
+
+    model_instance = ConvModule()
+
+    # Create a dictionary of NumPy parameters, matching the structure TVM's `params` dict would have.
+    # This is mainly for alignment with the original TVM test structure, though not directly used by `run_pytorch_model` anymore.
+    params_np_dict = {
+        "w": model_instance.conv_layer.weight.data.cpu().numpy()
+    }
     if has_bias:
-        bias_shape = out_channels
-        bias_np = np.random.uniform(-1, 1, bias_shape).astype(input_tensor.dtype)
-        bias_tensor = torch.tensor(bias_np, dtype=input_tensor.dtype)
-        out = out + bias_tensor.view(1, -1, 1, 1) # Bias_add in NCHW
-        params["b"] = bias_tensor
+        params_np_dict["b"] = model_instance.conv_layer.bias.data.cpu().numpy()
 
-    if has_activation:
-        out = F.relu(out)
-
-    return out, params
+    return model_instance, params_np_dict
 
 
-@pytest.mark.parametrize("dtype", [torch.float32])
-# @pytest.mark.skipif(skip_codegen_test(), reason="Skip because CLML codegen is not available")
-# @tvm.testing.requires_openclml # Removed, now direct PyTorch test
-def test_conv2d(dtype):
+@pytest.mark.parametrize("dtype", ["float32"])
+@requires_openclml
+def test_conv2d(dtype): # Removed 'device' from signature as it's global
     trials = [
-        # Normal convolution
+        # (kernel_h, kernel_w, pad_hw, stride_hw, dilation_hw, out_channels, input_chw, composite_flags)
+        # input_chw is (C, H, W)
         [3, 3, (1, 1), (1, 1), (1, 1), 4, (14, 10, 10), (False, False, False)],
         [2, 1, (2, 2), (1, 1), (1, 1), 7, (15, 16, 12), (False, False, True)],
         [3, 3, (2, 1), (1, 1), (1, 1), 4, (14, 10, 10), (False, True, False)],
@@ -122,233 +187,235 @@ def test_conv2d(dtype):
         [2, 2, (2, 2), (1, 1), (1, 1), 4, (20, 20, 20), (False, True, False)],
         [5, 5, (1, 1), (2, 2), (1, 1), 4, (14, 10, 10), (False, False, False)],
         [3, 3, (2, 1), (1, 1), (1, 1), 7, (20, 20, 20), (False, False, False)],
-        [3, 3, (1, 1), (2, 2), (1, 1), 16, (10, 10, 14), (False, True, True)], # This one had (14,10,10) before
+        [3, 3, (1, 1), (2, 2), (1, 1), 16, (14, 10, 10), (False, True, True)],
     ]
 
     for (
         kernel_h,
         kernel_w,
-        pad,
+        pad, # (h_pad, w_pad)
         stride,
         dilation,
         out_channels,
-        shape_hwc, # Original was (H,W,C), now it's (C,H,W) for PyTorch NCHW
-        composite,
+        shape_chw, # (C, H, W)
+        composite, # (has_pad, has_bias, has_activation)
     ) in trials:
-        # Convert (C,H,W) from TVM's interpretation of shape to NCHW for PyTorch
-        if len(shape_hwc) == 3: # (C,H,W)
-            shape = (1, shape_hwc[0], shape_hwc[1], shape_hwc[2]) # (N,C,H,W)
-        else: # (H,W,C)
-            shape = (1, shape_hwc[2], shape_hwc[0], shape_hwc[1]) # (N,C,H,W)
-
+        input_full_shape = (1, *shape_chw) # (N, C, H, W)
         groups = 1
         
-        input_np = np.random.uniform(-1, 1, shape).astype(dtype)
-        input_tensor = torch.tensor(input_np, dtype=dtype)
+        # Prepare random input for the 'a' variable
+        input_np = np.random.uniform(-1, 1, input_full_shape).astype(dtype)
+        inputs_dict = {"a": tvm_nd_array_mock(input_np)} # Wrap numpy array in mock tvm.nd.array
 
-        # Run with PyTorch (this represents the baseline)
-        output_pytorch, _ = _get_conv_model(
-            input_tensor,
+        model_instance, _ = _get_conv_model( # `_` for TVM-style params, not directly used by run_pytorch_model
+            input_full_shape,
             kernel_h,
             kernel_w,
             pad,
             stride,
             dilation,
             groups,
+            dtype,
             out_channels,
+            list(inputs_dict.keys())[0], # The input name "a" (dummy arg now)
             has_pad=composite[0],
             has_bias=composite[1],
             has_activation=composite[2],
         )
         
-        # In the original test, `clml_out` and `opencl_out` are compared.
-        # Here we only have one execution path, so we're ensuring it runs and produces
-        # a valid tensor. If a reference was available, we would compare against it.
-        # For now, a self-consistency check or basic sanity is sufficient for conversion.
-        # Since the original test compared two TVM backends against each other,
-        # we assume that the PyTorch implementation provides the correct baseline.
-        assert output_pytorch is not None
-        assert output_pytorch.shape == _get_expected_conv_shape(shape, kernel_h, kernel_w, pad, stride, dilation, out_channels, composite[0])
-        
+        # Run with normal PyTorch (reference)
+        reference_out = run_pytorch_model(model_instance, inputs_dict, 0, device, enable_compiler=False)[0]
+        # Run with TorchInductor (compiled)
+        compiled_out = run_pytorch_model(model_instance, inputs_dict, 0, device, enable_compiler=True)[0]
 
-def _get_expected_conv_shape(input_shape, kernel_h, kernel_w, padding, strides, dilation, out_channels, has_pad):
-    # This helper function mimics the output shape calculation
-    # For NCHW input (N, C_in, H_in, W_in)
-    N, C_in, H_in, W_in = input_shape
-    S_H, S_W = strides
-    D_H, D_W = dilation
-    P_H, P_W = padding # Assuming symmetric padding (ph, pw)
+        torch.testing.assert_allclose(
+            compiled_out, reference_out, rtol=1e-5, atol=1e-5
+        )
 
-    if has_pad:
-        # Effective input dimensions after explicit padding
-        H_in_padded = H_in + 2 * P_H
-        W_in_padded = W_in + 2 * P_W
-        P_H, P_W = (0, 0) # No additional padding for conv op
-    else:
-        H_in_padded = H_in
-        W_in_padded = W_in
 
-    H_out = int((H_in_padded + 2 * P_H - D_H * (kernel_h - 1) - 1) / S_H) + 1
-    W_out = int((W_in_padded + 2 * P_W - D_W * (kernel_w - 1) - 1) / S_W) + 1
+def _get_batchnorm_model(in_shape, channels, dtype_str, input_np_data, epsilon=0.0001):
+    """Returns a PyTorch BatchNormModule instance."""
+    torch_dtype = to_torch_dtype(dtype_str)
+
+    # Generate random numpy data for parameters that are not derived from input
+    gamma_np = np.random.uniform(-1, 1, (channels)).astype(dtype_str)
+    beta_np = np.random.uniform(-1, 1, (channels)).astype(dtype)
+
+    # Compute mean and variance from the actual input data, matching TVM test setup
+    mean_np = np.mean(input_np_data, axis=(0, 2, 3), keepdims=False).astype(dtype_str)
+    variance_np = np.var(input_np_data, axis=(0, 2, 3), keepdims=False).astype(dtype_str)
+
+    class BatchNormModule(nn.Module):
+        def __init__(self):
+            super().__init__()
+            # For inference mode (training=False), running_mean/var are read-only.
+            # We initialize them with the pre-computed values.
+            self.register_buffer('running_mean', torch.tensor(mean_np, dtype=torch_dtype))
+            self.register_buffer('running_var', torch.tensor(variance_np, dtype=torch_dtype))
+            self.weight = nn.Parameter(torch.tensor(gamma_np, dtype=torch_dtype))
+            self.bias = nn.Parameter(torch.tensor(beta_np, dtype=torch_dtype))
+            self.eps = epsilon
+
+        def forward(self, a):
+            # F.batch_norm in inference mode uses these fixed values
+            return F.batch_norm(
+                a,
+                self.running_mean,
+                self.running_var,
+                self.weight,
+                self.bias,
+                training=False, # Important: use pre-computed mean/var
+                momentum=0.1, # PyTorch default, not exposed in TVM signature for this op
+                eps=self.eps
+            )
     
-    return (N, out_channels, H_out, W_out)
+    model_instance = BatchNormModule()
+    # The original TVM test's `params` dict for `build_and_run` was empty for batch_norm.
+    # The mean/variance, gamma/beta are directly passed to `relay.nn.batch_norm` as constants/variables.
+    params_np_dict_dummy = {} # Return an empty dict to match `_get_conv_model`'s signature
+    return model_instance, params_np_dict_dummy
 
 
-@pytest.mark.parametrize("dtype", [torch.float16])
-# @tvm.testing.requires_openclml # Removed, now direct PyTorch test
-def _test_batchnorm(dtype):
-    # TODO: This test case uses `relay.nn.batch_norm` which returns a tuple.
-    # The PyTorch `F.batch_norm` does not return a tuple in the same way.
-    # It takes `running_mean` and `running_var` for inference mode, and updates them for training.
-    # The original TVM code takes `mean` and `variance` as constants, implying inference mode.
-    # We will map to `F.batch_norm` in inference mode.
-    
-    in_shape = (1, 8, 64, 64) # NCHW
+@pytest.mark.parametrize("dtype", ["float16"])
+@requires_openclml
+def _test_batchnorm(dtype): # Removed 'device' from signature
+    in_shape = (1, 8, 64, 64)
     channels = 8
 
     input_np = np.random.uniform(-1, 1, in_shape).astype(dtype)
-    input_tensor = torch.tensor(input_np, dtype=dtype)
-    gamma_np = np.random.uniform(-1, 1, (channels)).astype(dtype)
-    beta_np = np.random.uniform(-1, 1, (channels)).astype(dtype)
-    gamma = torch.tensor(gamma_np, dtype=dtype)
-    beta = torch.tensor(beta_np, dtype=dtype)
+    inputs_dict = {"a": tvm_nd_array_mock(input_np)} # Mock tvm.nd.array
 
-    mean_np = np.mean(input_np, axis=(0, 2, 3), keepdims=False)
-    mean = torch.tensor(mean_np, dtype=dtype)
-    variance_np = np.var(input_np, axis=(0, 2, 3), keepdims=False)
-    variance = torch.tensor(variance_np, dtype=dtype)
-
-    # PyTorch F.batch_norm expects input, running_mean, running_var, weight, bias, training, momentum, eps
-    # `weight` corresponds to gamma, `bias` to beta.
-    # `training=False` for inference mode, using provided running_mean and running_var.
-    func_output = F.batch_norm(
-        input_tensor,
-        running_mean=mean,
-        running_var=variance,
-        weight=gamma,
-        bias=beta,
-        training=False,
-        momentum=0.1, # Default momentum
-        eps=0.0001
+    model_instance, _ = _get_batchnorm_model(
+        in_shape, channels, dtype, input_np, epsilon=0.0001
     )
 
-    # Here we are comparing to itself if it were compiled by two different TVM backends.
-    # For PyTorch, we just assert that it ran and produced a tensor of the expected shape.
-    assert func_output is not None
-    assert func_output.shape == in_shape
+    reference_out = run_pytorch_model(model_instance, inputs_dict, 0, device, enable_compiler=False)[0]
+    compiled_out = run_pytorch_model(model_instance, inputs_dict, 0, device, enable_compiler=True)[0]
 
-@pytest.mark.parametrize("dtype", [torch.float16])
-# @tvm.testing.requires_openclml # Removed, now direct PyTorch test
-def test_concat(dtype):
-    in_shape_1 = (1, 16, 16, 16) # NCHW
-    in_shape_2 = (1, 16, 16, 16) # NCHW
+    torch.testing.assert_allclose(
+        compiled_out, reference_out, rtol=1e-5, atol=1e-5
+    )
+
+
+def _get_concat_model(dtype_str, axis):
+    """Returns a PyTorch ConcatModule instance."""
+    torch_dtype = to_torch_dtype(dtype_str)
+
+    class ConcatModule(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.axis = axis # Store dim for cat
+
+        def forward(self, input_1, input_2): # Inputs correspond to relay.var names
+            return torch.cat((input_1, input_2), dim=self.axis)
+    
+    model_instance = ConcatModule()
+    params_np_dict_dummy = {} # No learnable parameters
+    return model_instance, params_np_dict_dummy
+
+
+@pytest.mark.parametrize("dtype", ["float16"])
+@requires_openclml
+def test_concat(dtype): # Removed 'device' from signature
+    in_shape_1 = (1, 16, 16, 16)
+    in_shape_2 = (1, 16, 16, 16)
     
     input_1_np = np.random.uniform(-1, 1, in_shape_1).astype(dtype)
     input_2_np = np.random.uniform(-1, 1, in_shape_2).astype(dtype)
 
-    input_1 = torch.tensor(input_1_np, dtype=dtype)
-    input_2 = torch.tensor(input_2_np, dtype=dtype)
+    inputs_dict = {
+        "input_1": tvm_nd_array_mock(input_1_np),
+        "input_2": tvm_nd_array_mock(input_2_np),
+    }
 
-    # TVM `relay.concatenate((a, b), axis=1)`
-    func_output = torch.cat((input_1, input_2), dim=1) # Concatenate along C dimension
+    model_instance, _ = _get_concat_model(dtype, axis=1)
 
-    expected_shape = (1, 32, 16, 16)
-    assert func_output is not None
-    assert func_output.shape == expected_shape
+    reference_out = run_pytorch_model(model_instance, inputs_dict, 0, device, enable_compiler=False)[0]
+    compiled_out = run_pytorch_model(model_instance, inputs_dict, 0, device, enable_compiler=True)[0]
 
-@pytest.mark.parametrize("dtype", [torch.float16])
-# @tvm.testing.requires_openclml # Removed, now direct PyTorch test
-def test_avgpool(dtype):
+    torch.testing.assert_allclose(
+        compiled_out, reference_out, rtol=1e-3, atol=1e-3
+    )
+
+
+def _get_pooling_model(input_shape, pool_size, stride, padding_4tuple_tvm, pooling_type, dtype_str):
+    """Returns a PyTorch PoolingModule instance."""
+    torch_dtype = to_torch_dtype(dtype_str)
+
+    # PyTorch functional pooling ops take `padding` as `(pad_height, pad_width)` or a single int.
+    # TVM's `padding` for pooling ops is (P_top, P_bottom, P_left, P_right).
+    # We map this to (P_top, P_left) for PyTorch's `padding` argument.
+    pytorch_padding_for_pooling = (padding_4tuple_tvm[0], padding_4tuple_tvm[2])
+
+    class PoolingModule(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.pooling_type = pooling_type
+            self.pool_size = pool_size
+            self.stride = stride
+            self.padding = pytorch_padding_for_pooling
+            self.ceil_mode = False # TVM's default in these tests, matching PyTorch default
+            self.count_include_pad = True # PyTorch `avg_pool2d` default. TVM may vary by implementation.
+
+        def forward(self, input_1):
+            if self.pooling_type == "max":
+                return F.max_pool2d(
+                    input_1,
+                    kernel_size=self.pool_size,
+                    stride=self.stride,
+                    padding=self.padding,
+                    ceil_mode=self.ceil_mode,
+                )
+            else: # "avg"
+                return F.avg_pool2d(
+                    input_1,
+                    kernel_size=self.pool_size,
+                    stride=self.stride,
+                    padding=self.padding,
+                    ceil_mode=self.ceil_mode,
+                    count_include_pad=self.count_include_pad,
+                )
+    
+    model_instance = PoolingModule()
+    params_np_dict_dummy = {}
+    return model_instance, params_np_dict_dummy
+
+
+@pytest.mark.parametrize("dtype", ["float16"])
+@requires_openclml
+def test_avgpool(dtype): # Removed 'device' from signature
     trials = [
-        # input size         pool_size stride  padding          pooling_type
+        # input_shape         pool_size stride  padding (TVM 4-tuple)    pooling_type
         [(1, 64, 147, 147), (3, 3), (2, 2), (0, 0, 0, 0), "max"],
         [(1, 192, 71, 71), (3, 3), (2, 2), (0, 0, 0, 0), "max"],
         [(1, 288, 35, 35), (3, 3), (2, 2), (0, 0, 0, 0), "max"],
         [(1, 768, 17, 17), (3, 3), (2, 2), (0, 0, 0, 0), "max"],
         [(1, 2048, 17, 17), (3, 3), (2, 2), (0, 0, 0, 0), "max"],
-        [(1, 192, 35, 35), (3, 3), (1, 1), (0, 0, 1, 1), "avg"],
-        [(1, 256, 35, 35), (3, 3), (1, 1), (0, 0, 1, 1), "avg"],
-        [(1, 288, 35, 35), (3, 3), (1, 1), (0, 0, 1, 1), "avg"],
-        [(1, 768, 17, 17), (3, 3), (1, 1), (0, 0, 1, 1), "avg"],
-        [(1, 1280, 8, 8), (3, 3), (1, 1), (0, 0, 1, 1), "avg"],
+        [(1, 192, 35, 35), (3, 3), (1, 1), (0, 0, 1, 1), "avg"], # PyTorch padding (0,1)
+        [(1, 256, 35, 35), (3, 3), (1, 1), (0, 0, 1, 1), "avg"], # PyTorch padding (0,1)
+        [(1, 288, 35, 35), (3, 3), (1, 1), (0, 0, 1, 1), "avg"], # PyTorch padding (0,1)
+        [(1, 768, 17, 17), (3, 3), (1, 1), (0, 0, 1, 1), "avg"], # PyTorch padding (0,1)
+        [(1, 1280, 8, 8), (3, 3), (1, 1), (0, 0, 1, 1), "avg"], # PyTorch padding (0,1)
     ]
     
     for (
         input_shape,
         pool_size,
         stride,
-        padding,
+        padding_4tuple_tvm,
         pooling_type,
     ) in trials:
         input_np = np.random.uniform(-1, 1, input_shape).astype(dtype)
-        input_tensor = torch.tensor(input_np, dtype=dtype)
-        
-        # PyTorch F.pooling padding expects a single value or tuple (H, W) or (H_left, H_right, W_top, W_bottom)
-        # TVM `padding=(0, 0, 0, 0)` is (pad_h_before, pad_w_before, pad_h_after, pad_w_after)
-        # PyTorch uses (pad_left, pad_right, pad_top, pad_bottom) for 2D.
-        # This means TVM (ph_b, pw_b, ph_a, pw_a) -> PyTorch (pw_b, pw_a, ph_b, ph_a)
-        
-        if len(padding) == 4:
-            padding_pytorch = (padding[1], padding[3], padding[0], padding[2])
-        elif len(padding) == 2:
-            padding_pytorch = (padding[1], padding[1], padding[0], padding[0])
-        else: # single int
-            padding_pytorch = padding
+        inputs_dict = {"input_1": tvm_nd_array_mock(input_np)}
 
-        if pooling_type == "max":
-            func_output = F.max_pool2d(
-                input_tensor, 
-                kernel_size=pool_size, 
-                stride=stride, 
-                padding=padding_pytorch
-            )
-        else: # avg
-            func_output = F.avg_pool2d(
-                input_tensor, 
-                kernel_size=pool_size, 
-                stride=stride, 
-                padding=padding_pytorch
-            )
+        model_instance, _ = _get_pooling_model(
+            input_shape, pool_size, stride, padding_4tuple_tvm, pooling_type, dtype
+        )
 
-        assert func_output is not None
-        # Basic shape check to ensure it ran. Detailed numerical checks would be needed if a reference was provided.
-        assert func_output.shape == _get_expected_pool_shape(input_shape, pool_size, stride, padding, pooling_type)
+        reference_out = run_pytorch_model(model_instance, inputs_dict, 0, device, enable_compiler=False)[0]
+        compiled_out = run_pytorch_model(model_instance, inputs_dict, 0, device, enable_compiler=True)[0]
 
-def _get_expected_pool_shape(input_shape, pool_size, stride, padding, pooling_type):
-    N, C_in, H_in, W_in = input_shape
-    K_H, K_W = pool_size
-    S_H, S_W = stride
-
-    # TVM padding for avg_pool2d/max_pool2d is (pad_top, pad_left, pad_bottom, pad_right)
-    # PyTorch functional pool2d padding is (H_pad_top, H_pad_bottom, W_pad_left, W_pad_right) for symetric
-    # However, F.pool2d argument `padding` is either an int or a tuple (pad_h, pad_w)
-    # So assuming TVM's padding values are total padding to apply on each side,
-    # and they typically map to PyTorch's (pad_h, pad_w) argument which implies symmetric.
-    # For (0,0,1,1) in TVM, that means 0 on top/bottom, 1 on left/right. PyTorch `padding=(0,1)`
-    
-    if len(padding) == 4:
-        # Assuming TVM (p_h_b, p_w_b, p_h_a, p_w_a) -> PyTorch (pad_h, pad_w)
-        # Effectively the sum of before and after padding might be used, but F.pool2d uses symmetric.
-        # For simple cases, if TVM gives (0,0,1,1) it means pad_top=0, pad_left=0, pad_bottom=1, pad_right=1
-        # PyTorch pool2d(padding=(pad_h, pad_w)) means pad_h on top/bottom, pad_w on left/right
-        # This implies it should be (max(p_h_b, p_h_a), max(p_w_b, p_w_a)) or similar, or F.pad before.
-        # For now, let's assume padding for F.pool2d is like total symmetric.
-        # This is an approximation as PyTorch padding behavior for pooling can be subtle.
-        P_H = padding[0] + padding[2] # Sum of padding before and after height
-        P_W = padding[1] + padding[3] # Sum of padding before and after width
-        P_H = P_H // 2 # Symmetric padding
-        P_W = P_W // 2 # Symmetric padding
-    elif len(padding) == 2:
-        P_H, P_W = padding
-    else: # single int
-        P_H, P_W = padding, padding
-    
-    # Calculation with ceil_mode=False (default for F.pool2d)
-    H_out = int(np.floor((H_in + 2 * P_H - K_H) / S_H)) + 1
-    W_out = int(np.floor((W_in + 2 * P_W - K_W) / S_W)) + 1
-
-    return (N, C_in, H_out, W_out)
-
-
-if __name__ == "__main__":
-    pytest.main([__file__])
+        # Use 1e-3 for float16, as in test_concat
+        torch.testing.assert_allclose(
+            compiled_out, reference_out, rtol=1e-3, atol=1e-3
+        )

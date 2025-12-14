@@ -1,41 +1,91 @@
-# Licensed to the Apache Software Foundation (ASF) under one
-# or more contributor license agreements.  See the NOTICE file
-# distributed with this work for additional information
-# regarding copyright ownership.  The ASF licenses this file
-# to you under the Apache License, Version 2.0 (the
-# "License"); you may not use this file except in compliance
-# with the License.  You may obtain a copy of the License at
-#
-#   http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, either express or implied.  See the License for the
-# specific language governing permissions and limitations
-# under the License.
-
-"""Arm(R) Ethos(TM)-N integration relu tests"""
-
 import numpy as np
 import pytest
 import torch
 import torch.nn.functional as F
-import torch.testing as testing
 
-# Ethos-N specific infrastructure is removed (`tei` module).
-# The tests will now perform direct PyTorch operations.
-# `requires_ethosn` is removed.
+# --- Mappings for TVM Dtypes to PyTorch Dtypes ---
+# Assuming common dtypes used in TVM tests are convertible to PyTorch
+DTYPE_MAP = {
+    "uint8": torch.uint8,
+    "int8": torch.int8,
+    "int16": torch.int16,
+    "int32": torch.int32,
+    "float16": torch.float16,
+    "float32": torch.float32,
+    "float64": torch.float64,
+}
+
+# --- Dummy Ethos-N related decorators/infrastructure ---
+def requires_ethosn(f):
+    """Decorator for tests that conceptually require Ethos-N.
+    In the PyTorch context, these tests will run without a specific Ethos-N backend.
+    """
+    return f
+
+class MockEthosNInfrastructure:
+    """A mock infrastructure to bridge TVM-specific test utilities to PyTorch."""
+
+    def make_module(self, model_func, _params):
+        """Simulates TVM's module creation by simply returning the PyTorch callable."""
+        return model_func
+
+    def build_and_run(self, model_func, inputs, _num_runs, _params, npu, additional_config_args):
+        """Simulates TVM's build_and_run.
+        `npu=False` maps to eager execution.
+        `npu=True` maps to `torch.compile` execution.
+        """
+        input_tensor = inputs["a"]
+        if npu:
+            # Simulate "NPU" path with torch.compile
+            compiled_model = torch.compile(model_func)
+            result = compiled_model(input_tensor)
+        else:
+            # Simulate "non-NPU" path with eager execution
+            result = model_func(input_tensor)
+        # Convert to numpy and then back to TVM-like ndarray for compatibility with verify
+        return result.cpu()
+
+    def verify(self, outputs, _dtype, _tol):
+        """Verifies outputs. Expects two outputs (eager, compiled) and asserts their closeness."""
+        assert len(outputs) == 2, "Expected two outputs (eager and compiled)"
+        # Convert outputs to numpy for comparison
+        output_0_np = outputs[0].numpy() if isinstance(outputs[0], torch.Tensor) else outputs[0]
+        output_1_np = outputs[1].numpy() if isinstance(outputs[1], torch.Tensor) else outputs[1]
+        np.testing.assert_allclose(output_0_np, output_1_np, rtol=1e-5, atol=1e-5)
+
+    def make_ethosn_partition(self, model_func):
+        """Mock for Ethos-N graph partitioning; returns the original model."""
+        return model_func
+
+    def test_error(self, model_or_module, inputs, err_msg):
+        """Mock for testing specific backend compilation errors.
+        Since these errors are typically TVM/Ethos-N specific and not reproducible
+        by standard PyTorch ops or `torch.compile` (which generally handles valid ops),
+        these tests are skipped with a clear message.
+        """
+        pytest.skip(f"TODO: Cannot directly replicate TVM backend error: {err_msg}")
+
+# Instantiate the mock infrastructure
+tei = MockEthosNInfrastructure()
+
+def _get_model(shape, dtype_str, a_min, a_max):
+    """
+    Creates a PyTorch functional model for clip (ReLU-like behavior).
+    TVM's `relay.clip` maps to PyTorch's `torch.clamp`.
+    """
+    dtype = DTYPE_MAP[dtype_str]
+
+    # In PyTorch, a model is a callable that takes tensors
+    def model_func(input_tensor):
+        # Ensure the input tensor is of the correct dtype as specified by the test
+        # and has requires_grad=False for inference-like tests, similar to TVM's default
+        return torch.clamp(input_tensor.to(dtype), min=a_min, max=a_max)
+    return model_func
 
 
-def _get_model(input_tensor, a_min, a_max):
-    """Return a PyTorch model (functional representation) for Clip/ReLU."""
-    # TVM `relay.clip(a, a_min=a_min, a_max=a_max)` maps to `torch.clamp(a, min=a_min, max=a_max)`
-    return torch.clamp(input_tensor, min=a_min, max=a_max)
-
-
+@requires_ethosn
 @pytest.mark.parametrize(
-    "shape,a_min,a_max,dtype_str",
+    "shape,a_min,a_max,dtype",
     [
         ((1, 4, 4, 4), 65, 178, "uint8"),
         ((1, 8, 4, 2), 1, 254, "uint8"),
@@ -43,36 +93,38 @@ def _get_model(input_tensor, a_min, a_max):
         ((1, 16), -120, -20, "int8"),
     ],
 )
-def test_relu(dtype_str, shape, a_min, a_max):
-    """Compare Relu output with TVM."""
+def test_relu(dtype, shape, a_min, a_max):
+    """Compare Relu output with PyTorch (eager and compiled)."""
     np.random.seed(0)
 
-    # Convert dtype_str to PyTorch dtype
-    if dtype_str == "uint8":
-        dtype_torch = torch.uint8
-    elif dtype_str == "int8":
-        dtype_torch = torch.int8
-    else:
-        raise ValueError(f"Unsupported dtype: {dtype_str}")
+    # Convert dtype string to NumPy dtype for random data generation
+    np_dtype = np.dtype(dtype)
 
-    inputs_np = np.random.randint(
-        low=np.iinfo(dtype_str).min,
-        high=np.iinfo(dtype_str).max + 1,
-        size=shape,
-        dtype=dtype_str,
-    )
-    input_tensor = torch.tensor(inputs_np, dtype=dtype_torch)
+    inputs = {
+        "a": torch.tensor(
+            np.random.randint(
+                low=np.iinfo(np_dtype).min,
+                high=np.iinfo(np_dtype).max + 1,
+                size=shape,
+                dtype=np_dtype,
+            ),
+            dtype=DTYPE_MAP[dtype],
+            device='cpu'
+        ),
+    }
+    outputs = []
+    # Simulate TVM's npu=[False, True] with eager vs. compiled PyTorch
+    for is_compiled in [False, True]:
+        model_func = _get_model(inputs["a"].shape, dtype, a_min, a_max)
+        output = tei.build_and_run(model_func, inputs, 1, {}, npu=is_compiled, additional_config_args={})
+        outputs.append(output)
 
-    # The original test ran NPU (Ethos-N) vs non-NPU (TVM) and checked for consistency.
-    # Here, we run the PyTorch model once, which serves as the reference computation.
-    output_pytorch = _get_model(input_tensor, a_min, a_max)
-    
-    assert output_pytorch.shape == shape
-    assert output_pytorch.dtype == dtype_torch
+    tei.verify(outputs, dtype, 1)
 
 
+@requires_ethosn
 @pytest.mark.parametrize(
-    "shape,dtype_str,a_min,a_max,err_msg",
+    "shape,dtype,a_min,a_max,err_msg",
     [
         ((1, 4, 4, 4, 4), "uint8", 65, 78, "dimensions=5, dimensions must be <= 4"),
         ((1, 8, 4, 2), "int16", 1, 254, "dtype='int16', dtype must be either uint8, int8 or int32"),
@@ -80,55 +132,13 @@ def test_relu(dtype_str, shape, a_min, a_max):
         ((2, 2, 2, 2), "uint8", 1, 63, "batch size=2, batch size must = 1; "),
     ],
 )
-def test_relu_failure(shape, dtype_str, a_min, a_max, err_msg):
-    """Check Relu error messages."""
-    # The original test checked for specific Ethos-N compiler errors related to unsupported dimensions,
-    # dtype, invalid bounds, or batch size.
-    # PyTorch's `torch.clamp` will handle different dimensions/dtypes gracefully if valid,
-    # and for invalid bounds (`a_min > a_max`), it simply produces an output where elements are clamped.
-    # For batch size > 1, it's valid.
-    # So, this test will now assert that PyTorch runs successfully, as its behavior for these 'unsupported'
-    # scenarios will simply be to compute a result. Only truly invalid tensor ops would error.
-
-    # Convert dtype_str to PyTorch dtype
-    if dtype_str == "float32": # Fallback to float32 for unsupported dtypes if needed
-        dtype_torch = torch.float32
-    elif dtype_str == "uint8":
-        dtype_torch = torch.uint8
-    elif dtype_str == "int8":
-        dtype_torch = torch.int8
-    else: # For 'int16' etc., PyTorch would usually just use it if supported.
-          # For consistency with TVM failure, we'll convert to the closest valid PyTorch dtype or skip.
-          # Given the error message is specifically about the *NPU*, PyTorch would not raise that.
-        pytest.skip(f"Test for Ethos-N specific dtype/dimension error: {err_msg}")
-        # To make it runnable, we might use a default compatible type if not explicitly converting.
-        # But this test is about specific NPU error messages.
-
-    inputs_np = np.random.randint(
-        low=np.iinfo(dtype_str).min if dtype_str in ['uint8', 'int8'] else -128,
-        high=np.iinfo(dtype_str).max if dtype_str in ['uint8', 'int8'] else 127,
-        size=shape,
-        dtype=dtype_str if dtype_str in ['uint8', 'int8'] else 'int8', # Use compatible dtype for numpy
-    )
-    # Clamp inputs for specific tests like `a_min > a_max` or specific ranges if needed for numpy.
-    
-    # For `dimensions=5` case: PyTorch ops will generally work fine with 5D tensors.
-    # For `dtype='int16'`: PyTorch `clamp` works with `int16`.
-    # For `a_min > a_max`: PyTorch `clamp` gives correct (reversed) output.
-    # For `batch size=2`: PyTorch works with batch size 2.
-
-    # So, PyTorch will generally *not* raise an error for these cases.
-    # The test `test_error` is specific to the TVM Ethos-N compilation flow.
-    # Therefore, this test fundamentally changes its nature: it now asserts successful execution
-    # in PyTorch for cases where Ethos-N would fail.
-    
-    input_tensor = torch.tensor(inputs_np, dtype=dtype_torch) # Try to create tensor with the specified dtype.
-
-    output_pytorch = _get_model(input_tensor, a_min, a_max)
-    
-    assert output_pytorch.shape == shape
-    assert output_pytorch.dtype == dtype_torch
-
-
-if __name__ == "__main__":
-    pytest.main([__file__])
+def test_relu_failure(shape, dtype, a_min, a_max, err_msg):
+    """Check Relu error messages.
+    These TVM/Ethos-N specific validation errors are not directly convertible
+    to PyTorch's native `torch.clamp` or `torch.compile` behavior, which
+    would generally allow these operations (e.g., 5D tensors, int16 dtypes,
+    or a_min > a_max which produces an output without error).
+    """
+    model = _get_model(shape, dtype, a_min, a_max)
+    mod = tei.make_ethosn_partition(model) # This might represent a failed compilation in TVM
+    tei.test_error(mod, {}, err_msg)

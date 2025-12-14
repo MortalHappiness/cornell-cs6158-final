@@ -302,10 +302,6 @@ def main():
     )
     args = parser.parse_args()
 
-    # Always delete the output folder before each run
-    if OUTPUT_ROOT.exists():
-        shutil.rmtree(OUTPUT_ROOT)
-
     OUTPUT_ROOT.mkdir(parents=True, exist_ok=True)
 
     print("Loading mapping table...")

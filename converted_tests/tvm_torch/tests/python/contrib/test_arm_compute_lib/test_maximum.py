@@ -1,100 +1,157 @@
-# Licensed to the Apache Software Foundation (ASF) under one
-# or more contributor license agreements.  See the NOTICE file
-# distributed with this work for additional information
-# regarding copyright ownership.  The ASF licenses this file
-# to you under the Apache License, Version 2.0 (the
-# "License"); you may not use this file except in compliance
-# with the License.  You may obtain a copy of the License at
-#
-#   http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, either express or implied.  See the License for the
-# specific language governing permissions and limitations
-# under the License.
-"""Arm Compute Library integration maximum tests."""
-
 import numpy as np
 import pytest
-
 import torch
-import torch.testing as testing
+import functools
 
-# TVM-specific infrastructure for Arm Compute Library (ACL) are removed.
-# `skip_runtime_test`, `skip_codegen_test`, `build_and_run`, `verify`, `verify_codegen` are not used.
-# `Device` is not used.
+# Mocking TVM-specific infrastructure
+# In a real PyTorch environment, you would use torch.cuda.is_available() and device placement.
+# For testing purposes, we'll assume a CPU device for now or add a CUDA check.
+class MockDevice:
+    _loaded_config = {}
 
-# A simple numerical verification function, since `verify` from infrastructure is gone.
-def assert_outputs_equal(outputs, atol, rtol, config=None):
-    if not outputs:
-        pytest.fail("No outputs to verify.")
-    if len(outputs) == 1:
-        # If only one output, just check it's a tensor and has data.
-        assert isinstance(outputs[0], torch.Tensor)
-        assert outputs[0].numel() > 0, "Output tensor is empty"
-        print(f"Single output verified. Shape: {outputs[0].shape}, Dtype: {outputs[0].dtype}")
-        if config:
-            print(f"Test config: {config}")
-        return
+    @classmethod
+    def load(cls, config_path):
+        # In a real scenario, this would load device configurations.
+        # For PyTorch, device detection is usually dynamic.
+        pass
 
-    # Assuming outputs are from different "backends" (e.g., TVM vs ACL),
-    # but here they will all be PyTorch results. So they should be identical.
-    first_output = outputs[0]
-    for i, output in enumerate(outputs[1:]):
-        testing.assert_allclose(first_output, output, atol=atol, rtol=rtol, msg=f"Output mismatch at index {i+1}")
-    print(f"All {len(outputs)} outputs are numerically close within tolerance.")
-    if config:
-        print(f"Test config: {config}")
+    def __init__(self):
+        self._device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    @property
+    def device(self):
+        return self._device
+
+# Placeholder for build_and_run and verify.
+# In PyTorch, we run eagerly and then with torch.compile, then compare.
+def _run_pytorch_model(model_func, inputs, device, enable_compile=False):
+    input_tensors = {k: torch.tensor(v.numpy(), device=device) for k, v in inputs.items()}
+
+    # Create dummy Relay-like variables for the _get_model function signature consistency
+    # (though _get_model will be refactored)
+    # The original _get_model expected `relay.var` which implies symbolic graph construction.
+    # For PyTorch, we'll directly call torch.maximum.
+    a = input_tensors['a']
+    b = input_tensors['b']
+
+    if enable_compile:
+        compiled_model = torch.compile(model_func)
+        return compiled_model(a, b)
+    else:
+        return model_func(a, b)
+
+def _get_model(input_shape, dtype, var_names):
+    # In PyTorch, this function would typically return a torch.nn.Module or a callable.
+    # For simple element-wise ops, it can be the torch operator itself.
+    # We will pass this callable to _run_pytorch_model.
+    def maximum_op(a, b):
+        return torch.maximum(a, b)
+    return maximum_op
+
+def _verify_results(outputs, atol, rtol):
+    assert len(outputs) >= 2, "Expected at least two outputs for verification (eager vs compiled)"
+    ref_output = outputs[0]
+    for i in range(1, len(outputs)):
+        torch.testing.assert_allclose(ref_output, outputs[i], rtol=rtol, atol=atol)
+
+# Replace skip functions with pytest.mark.skipif
+skip_runtime_test = lambda: False # Assume tests run by default
+skip_codegen_test = lambda: False # Assume tests run by default (will adapt codegen test)
+
+# Helper to convert string dtype to torch.dtype
+def _to_torch_dtype(dtype_str):
+    if dtype_str == "float32":
+        return torch.float32
+    elif dtype_str == "float64":
+        return torch.float64
+    elif dtype_str == "int32":
+        return torch.int32
+    elif dtype_str == "int64":
+        return torch.int64
+    else:
+        raise ValueError(f"Unsupported dtype: {dtype_str}")
 
 
-def _get_model(input_tensor_a, input_tensor_b):
-    """Return a PyTorch model (functional representation) for maximum."""
-    # TVM `relay.maximum(a, b)` maps to `torch.maximum(a, b)`
-    return torch.maximum(input_tensor_a, input_tensor_b)
+@pytest.mark.parametrize("dtype_str, low, high, atol, rtol", [
+    ("float32", -127, 128, 0.001, 0.001),
+    ("float32", -1, 1, 0.001, 0.001),
+])
+def test_maximum(dtype_str, low, high, atol, rtol):
+    MockDevice.load("test_config.json") # Call mock load
 
+    if skip_runtime_test(): # Always False with mock, but keep structure
+        pytest.skip("Runtime tests are skipped.")
 
-# _get_expected_codegen is removed as it's TVM-specific.
-
-
-def test_maximum():
+    device_obj = MockDevice()
+    device = device_obj.device
     np.random.seed(0)
 
-    for dtype_str, low, high, atol, rtol in [
-        ("float32", -127, 128, 0.001, 0.001),
-        ("float32", -1, 1, 0.001, 0.001),
-    ]:
-        # Convert dtype_str to PyTorch dtype
-        if dtype_str == "float32":
-            dtype_torch = torch.float32
-        else:
-            raise ValueError(f"Unsupported dtype: {dtype_str}")
+    input_shape = (100, 100)
+    dtype = _to_torch_dtype(dtype_str)
 
-        # Create NumPy inputs
-        input_a_np = np.random.uniform(low, high, (100, 100)).astype(dtype_str)
-        input_b_np = np.random.uniform(low, high, (100, 100)).astype(dtype_str)
+    inputs_np = {
+        "a": np.random.uniform(low, high, input_shape).astype(dtype_str),
+        "b": np.random.uniform(low, high, input_shape).astype(dtype_str),
+    }
 
-        # Convert to PyTorch tensors
-        input_tensor_a = torch.tensor(input_a_np, dtype=dtype_torch)
-        input_tensor_b = torch.tensor(input_b_np, dtype=dtype_torch)
+    # In PyTorch, _get_model returns the actual callable op.
+    maximum_op_callable = _get_model(input_shape, dtype, None) # var_names is unused after refactor
 
-        outputs = []
-        # Original test iterates `acl in [False, True]`, here we just run PyTorch.
-        # We can run it twice to check self-consistency.
-        output_pytorch_1 = _get_model(input_tensor_a, input_tensor_b)
-        output_pytorch_2 = _get_model(input_tensor_a, input_tensor_b)
-        outputs.append(output_pytorch_1)
-        outputs.append(output_pytorch_2)
+    outputs = []
 
-        config = {
-            "shape": input_tensor_a.shape,
-            "dtype": dtype_str,
-        }
-        assert_outputs_equal(outputs, atol=1e-7, rtol=1e-7, config=config)
+    # Run without torch.compile (eager mode)
+    input_tensors = {k: torch.tensor(v, device=device) for k, v in inputs_np.items()}
+    eager_output = torch.maximum(input_tensors['a'], input_tensors['b'])
+    outputs.append(eager_output)
+
+    # Run with torch.compile (simulating ACL integration via Inductor)
+    # Note: TorchInductor might not always perform different codegen for simple ops.
+    # The purpose here is to verify functional equivalence.
+    compiled_maximum_op = torch.compile(maximum_op_callable)
+    compiled_output = compiled_maximum_op(input_tensors['a'], input_tensors['b'])
+    outputs.append(compiled_output)
+
+    _verify_results(outputs, atol=atol, rtol=rtol)
 
 
-# test_codegen_maximum is removed as it's TVM-specific.
+# The original `test_codegen_maximum` checks TVM's internal IR and generated kernels.
+# There is no direct, generic equivalent for this in PyTorch/TorchInductor
+# without deep inspection of TorchInductor's internals, which is out of scope for a general mapping.
+# We will create a functional test that ensures torch.compile works for this op.
+@pytest.mark.parametrize("dtype_str, shape", [
+    ("float32", (100, 100)),
+])
+def test_codegen_maximum_pytorch_equivalent(dtype_str, shape):
+    if skip_codegen_test():
+        pytest.skip("Codegen tests are skipped.")
+
+    device_obj = MockDevice()
+    device = device_obj.device
+    np.random.seed(0)
+
+    dtype = _to_torch_dtype(dtype_str)
+
+    # Create random inputs
+    input_a_np = np.random.uniform(-1, 1, shape).astype(dtype_str)
+    input_b_np = np.random.uniform(-1, 1, shape).astype(dtype_str)
+
+    a = torch.tensor(input_a_np, device=device)
+    b = torch.tensor(input_b_np, device=device)
+
+    # Eager execution for reference
+    eager_output = torch.maximum(a, b)
+
+    # Compile the operation
+    compiled_maximum_op = torch.compile(torch.maximum)
+    compiled_output = compiled_maximum_op(a, b)
+
+    # Verify functional correctness
+    torch.testing.assert_allclose(eager_output, compiled_output, rtol=1e-7, atol=1e-7)
+
+    # TODO: For a true `codegen` test in TorchInductor, one might need to
+    # inspect the generated Triton/Cuda code or graph. This is highly internal
+    # and framework-specific and does not have a general direct mapping here.
+    # The functional correctness check above is the closest equivalent for user-facing tests.
 
 
 if __name__ == "__main__":

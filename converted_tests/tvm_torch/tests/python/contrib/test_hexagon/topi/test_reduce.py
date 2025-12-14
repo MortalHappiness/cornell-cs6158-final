@@ -18,94 +18,47 @@
 import numpy as np
 import pytest
 import torch
-import torch.testing as testing
+import torch.testing
 
-# TVM-specific imports and infrastructure for Hexagon are removed.
-# `tvm`, `te`, `topi`, `Session`, `get_hexagon_target` are not used.
 
+# Helper numpy functions, used for computing reference values.
+# These functions emulate NumPy's argmax/argmin behavior with keepdims.
+# NumPy's `argmax` and `argmin` methods on arrays do not directly support `keepdims=True`
+# when `axis=None`, so manual reshaping is needed for consistency with PyTorch.
 def _my_npy_argmax(arr, axis, keepdims):
-    if not keepdims:
-        return arr.argmax(axis=axis)
-    else:
+    res = arr.argmax(axis=axis)
+    if keepdims:
         if axis is None:
             out_shape = [1 for _ in arr.shape]
+            return np.array(res).reshape(out_shape)  # Handle scalar result from flat argmax
         else:
             out_shape = list(arr.shape)
             out_shape[axis] = 1
-        return arr.argmax(axis=axis).reshape(out_shape)
+            return res.reshape(out_shape)  # Reshape array result from axis-specific argmax
+    else:
+        return res  # No reshape needed if keepdims is False
 
 
 def _my_npy_argmin(arr, axis, keepdims):
-    if not keepdims:
-        return arr.argmin(axis=axis)
-    else:
+    res = arr.argmin(axis=axis)
+    if keepdims:
         if axis is None:
             out_shape = [1 for _ in arr.shape]
+            return np.array(res).reshape(out_shape)
         else:
             out_shape = list(arr.shape)
             out_shape[axis] = 1
-        return arr.argmin(axis=axis).reshape(out_shape)
+            return res.reshape(out_shape)
+    else:
+        return res
 
 
 class TestReduce:
     """Test reduce class."""
 
-    in_shape, axis, keepdims, reduce_type, dtype_str = pytest.mark.parametrize(
-        "in_shape, axis, keepdims, reduce_type, dtype_str",
-        [
-            ((32,), 0, False, "argmax", "float32"),
-            ((32, 24, 32, 24), (1, 2, 3), True, "sum", "float32"),
-            ((2, 3), None, True, "all", "bool"),
-            ((32, 24 * 32 * 24), (1,), False, "max", "float32"),
-            ((32, 128, 24), None, True, "sum", "float32"),
-            ((32, 128, 24), None, True, "all", "bool"),
-            ((32, 24, 32, 24), (0, 2), False, "min", "float32"),
-            ((32, 128), 1, True, "argmax", "float32"),
-            ((32, 24, 32, 24), 2, False, "argmin", "float32"),
-            ((31, 21, 15), None, True, "argmax", "float32"),
-            ((31, 21, 15), None, False, "sum", "float32"),
-            ((2, 3), None, True, "any", "bool"),
-            ((32, 128, 24), None, True, "any", "bool"),
-            ((1, 4, 7), 1, True, "any", "bool"),
-            ((32, 24, 32, 24), 2, False, "any", "bool"),
-        ],
-    )(lambda in_shape, axis, keepdims, reduce_type, dtype_str: (in_shape, axis, keepdims, reduce_type, dtype_str))
-
-    @pytest.fixture(name="ref_data", params=[])
-    def ref_data_fixture(self, in_shape, axis, keepdims, reduce_type, dtype_str):
-        # Dynamically set params for this fixture
-        return self._generate_ref_data(in_shape, axis, keepdims, reduce_type, dtype_str)
-
-    def _generate_ref_data(self, in_shape, axis, keepdims, reduce_type, dtype_str):
-        """Generate test reference data."""
-        if dtype_str == "bool":
-            in_npy = np.random.choice([True, False], size=in_shape)
-        else:
-            in_npy = np.random.uniform(-1, 1, size=in_shape).astype(dtype_str)
-        
-        in_npy_map = np.sqrt(np.exp(in_npy)).astype(dtype_str) if dtype_str != "bool" else in_npy
-
-        if reduce_type == "sum":
-            out_npy = in_npy_map.sum(axis=axis, keepdims=keepdims)
-        elif reduce_type == "all" and dtype_str == "bool":
-            out_npy = in_npy_map.all(axis=axis, keepdims=keepdims)
-        elif reduce_type == "any" and dtype_str == "bool":
-            out_npy = in_npy_map.any(axis=axis, keepdims=keepdims)
-        elif reduce_type == "max":
-            out_npy = in_npy_map.max(axis=axis, keepdims=keepdims)
-        elif reduce_type == "min":
-            out_npy = in_npy_map.min(axis=axis, keepdims=keepdims)
-        elif reduce_type == "argmax":
-            out_npy = _my_npy_argmax(in_npy_map, axis=axis, keepdims=keepdims)
-        elif reduce_type == "argmin":
-            out_npy = _my_npy_argmin(in_npy_map, axis=axis, keepdims=keepdims)
-        else:
-            raise NotImplementedError(f"Unsupported reduce_type: {reduce_type}")
-
-        return in_npy, in_npy_map, out_npy
-
-    @pytest.mark.parametrize(
-        "in_shape, axis, keepdims, reduce_type, dtype_str",
+    # Parameterize the test cases using pytest.mark.parametrize
+    in_shape, axis, keepdims, reduce_type, dtype = pytest.mark.parametrize(
+        "in_shape, axis, keepdims, reduce_type, dtype",
         [
             ((32,), 0, False, "argmax", "float32"),
             ((32, 24, 32, 24), (1, 2, 3), True, "sum", "float32"),
@@ -124,93 +77,122 @@ class TestReduce:
             ((32, 24, 32, 24), 2, False, "any", "bool"),
         ],
     )
-    # @tvm.testing.requires_hexagon # Removed, not relevant for PyTorch
+
+    @pytest.fixture(name="ref_data")
+    def _ref_data(self, in_shape, axis, keepdims, reduce_type, dtype):
+        """Generate test reference data."""
+        if dtype == "bool":
+            in_npy = np.random.choice([True, False], size=in_shape)
+            in_npy_map = in_npy # For bool, map is identity
+        else:
+            in_npy = np.random.uniform(-1, 1, size=in_shape).astype(dtype)
+            # This intermediate mapping (sqrt(exp(x))) is part of the computation graph
+            in_npy_map = np.sqrt(np.exp(in_npy)).astype(dtype)
+
+        if reduce_type == "sum":
+            out_npy = in_npy_map.sum(axis=axis, keepdims=keepdims)
+        elif reduce_type == "all" and dtype == "bool":
+            out_npy = in_npy_map.all(axis=axis, keepdims=keepdims)
+        elif reduce_type == "any" and dtype == "bool":
+            out_npy = in_npy_map.any(axis=axis, keepdims=keepdims)
+        elif reduce_type == "max":
+            out_npy = in_npy_map.max(axis=axis, keepdims=keepdims)
+        elif reduce_type == "min":
+            out_npy = in_npy_map.min(axis=axis, keepdims=keepdims)
+        elif reduce_type == "argmax":
+            out_npy = _my_npy_argmax(in_npy_map, axis=axis, keepdims=keepdims)
+        elif reduce_type == "argmin":
+            out_npy = _my_npy_argmin(in_npy_map, axis=axis, keepdims=keepdims)
+        else:
+            raise NotImplementedError
+
+        return in_npy, in_npy_map, out_npy
+
     def test_reduce_map(
-        self, in_shape, axis, keepdims, reduce_type, dtype_str
+        self, ref_data, in_shape, axis, keepdims, reduce_type, dtype
     ):
         """Test reduce map."""
-        in_npy, in_npy_map, out_npy = self._generate_ref_data(in_shape, axis, keepdims, reduce_type, dtype_str)
+        in_npy, in_npy_map, out_npy = ref_data
 
-        # Convert string dtype to torch dtype
-        if dtype_str == "float32":
-            dtype_torch = torch.float32
-        elif dtype_str == "bool":
-            dtype_torch = torch.bool
-        elif dtype_str == "int32":
-            dtype_torch = torch.int32
-        else:
-            raise NotImplementedError(f"Unsupported dtype_str: {dtype_str}")
+        # Convert numpy inputs to PyTorch tensors
+        torch_dtype = getattr(torch, dtype) if dtype != "bool" else torch.bool
+        a_tensor_torch = torch.tensor(in_npy, dtype=torch_dtype)
 
-        data_torch = torch.tensor(in_npy, dtype=dtype_torch)
-        
-        # Applying mapping operations based on original TVM logic
-        if dtype_str != "bool":
-            a1_tensor = torch.sqrt(torch.exp(data_torch))
-        else:
-            a1_tensor = data_torch # for boolean inputs, sqrt(exp(bool)) is not meaningful
+        # Apply intermediate operations: `sqrt(exp(a_tensor))`
+        a1_tensor_torch = torch.sqrt(torch.exp(a_tensor_torch))
 
-        out_dtype_actual = dtype_torch
+        # Perform the reduction operation based on reduce_type
         if reduce_type == "sum":
-            b_tensor = torch.sum(a1_tensor, dim=axis, keepdim=keepdims)
+            b_tensor_torch = torch.sum(a1_tensor_torch, dim=axis, keepdim=keepdims)
         elif reduce_type == "all":
-            b_tensor = torch.all(data_torch, dim=axis, keepdim=keepdims)
+            b_tensor_torch = torch.all(a_tensor_torch, dim=axis, keepdim=keepdims)
         elif reduce_type == "any":
-            b_tensor = torch.any(data_torch, dim=axis, keepdim=keepdims)
+            b_tensor_torch = torch.any(a_tensor_torch, dim=axis, keepdim=keepdims)
         elif reduce_type == "max":
-            # torch.max returns a tuple (values, indices)
-            b_tensor = torch.max(a1_tensor, dim=axis, keepdim=keepdims).values
+            # torch.max(input, dim) returns (values, indices), need to get .values
+            b_tensor_torch = torch.max(a1_tensor_torch, dim=axis, keepdim=keepdims).values
         elif reduce_type == "min":
-            # torch.min returns a tuple (values, indices)
-            b_tensor = torch.min(a1_tensor, dim=axis, keepdim=keepdims).values
+            # torch.min(input, dim) returns (values, indices), need to get .values
+            b_tensor_torch = torch.min(a1_tensor_torch, dim=axis, keepdim=keepdims).values
         elif reduce_type == "argmax":
-            b_tensor = torch.argmax(a1_tensor, dim=axis, keepdim=keepdims)
-            out_dtype_actual = torch.int64 # PyTorch argmax returns long by default
+            # TVM's argmax/argmin specifies int32 output dtype. PyTorch defaults to long.
+            b_tensor_torch = torch.argmax(a1_tensor_torch, dim=axis, keepdim=keepdims).to(torch.int32)
         elif reduce_type == "argmin":
-            b_tensor = torch.argmin(a1_tensor, dim=axis, keepdim=keepdims)
-            out_dtype_actual = torch.int64 # PyTorch argmin returns long by default
+            b_tensor_torch = torch.argmin(a1_tensor_torch, dim=axis, keepdim=keepdims).to(torch.int32)
         else:
-            raise NotImplementedError(f"Unsupported reduce_type: {reduce_type}")
-        
-        out_tensor_pytorch = b_tensor
+            raise NotImplementedError
+
+        # Move PyTorch result to CPU and convert to NumPy for comparison
+        out_torch_numpy = b_tensor_torch.cpu().numpy()
 
         if reduce_type in ["argmax", "argmin"]:
-            # TVM output dtype was 'int32', PyTorch is 'int64'. Cast for comparison.
-            out_tensor_pytorch = out_tensor_pytorch.to(torch.int32)
-            out_tvm_indices = out_tensor_pytorch.numpy()
-            
-            # The following logic is for converting indices back to values
-            # for comparison, which is a bit complex for PyTorch direct comparison.
-            # We'll compare the indices themselves, and check if argmax/argmin is correct
-            # for the original data.
+            # TVM test uses a specific method to verify argmax/argmin:
+            # it takes the computed indices and uses them to fetch values from the original data,
+            # then compares these fetched values to the actual max/min values.
+            out_torch_indices = out_torch_numpy
 
-            # Convert expected out_npy (indices) to the correct dtype for comparison
-            # For argmax/argmin, `out_npy` is already the indices computed by numpy.
-            # Cast `out_npy` to `int32` for direct comparison with `out_tvm_indices`.
-            testing.assert_allclose(torch.from_numpy(out_tvm_indices), torch.from_numpy(out_npy).to(torch.int32), rtol=1e-3, atol=1e-3)
-            
-            # Additional check to ensure indices correctly point to max/min values (similar to TVM's internal check)
-            # This logic comes from the TVM test and uses NumPy.
+            # Adjust indices shape if keepdims was True, for proper fancy indexing later.
+            # PyTorch's `argmax(keepdim=True)` keeps the singleton dimension, but for NumPy
+            # fancy indexing, we need to remove it if `axis` is specified.
+            processed_indices = out_torch_indices
             if keepdims:
-                out_tvm_indices_flat = np.take(out_tvm_indices, indices=0, axis=axis)
-            else:
-                out_tvm_indices_flat = out_tvm_indices
+                if axis is not None:
+                    # Squeeze the singleton dimension for fancy indexing
+                    processed_indices = np.squeeze(out_torch_indices, axis=axis)
+                else:
+                    # If axis is None and keepdims=True, result is like [[[idx]]] (shape (1,1,1)).
+                    # Extract the scalar index value for ravel().
+                    processed_indices = out_torch_indices.item()
 
             if axis is None:
-                out_tvm_val = in_npy_map.ravel()[out_tvm_indices_flat]
+                # For global argmax/argmin, flatten the original map and get value by index
+                out_torch_val = in_npy_map.ravel()[processed_indices]
             else:
-                # Construct slice objects for dimensions other than `axis`
-                other_indices = tuple(np.indices(in_shape[0:axis] + in_shape[(axis + 1):]))
-                sel_indices = other_indices[0:axis] + (out_tvm_indices_flat,) + other_indices[axis:]
-                out_tvm_val = in_npy_map[sel_indices]
-            
+                # For axis-specific argmax/argmin, reconstruct the full indices for fancy indexing
+                other_dims = [d for d in range(in_npy_map.ndim) if d != axis]
+                grid_dims_shapes = [in_shape[d] for d in other_dims]
+                
+                # Use np.indices to create coordinate arrays for all dimensions except 'axis'
+                mesh_grids = np.indices(grid_dims_shapes)
+                
+                # Combine mesh_grids with the argmax/argmin result for fancy indexing
+                sel_indices_list = [None] * in_npy_map.ndim
+                current_mesh_idx = 0
+                for d in range(in_npy_map.ndim):
+                    if d == axis:
+                        sel_indices_list[d] = processed_indices # The actual argmax/argmin results
+                    else:
+                        sel_indices_list[d] = mesh_grids[current_mesh_idx]
+                        current_mesh_idx += 1
+                
+                sel_indices = tuple(sel_indices_list)
+                out_torch_val = in_npy_map[sel_indices]
+
             if reduce_type == "argmax":
-                testing.assert_allclose(torch.from_numpy(out_tvm_val), torch.from_numpy(in_npy_map.max(axis=axis)).to(dtype_torch), 1e-3, 1e-3)
+                torch.testing.assert_allclose(out_torch_val, in_npy_map.max(axis=axis), 1e-3, 1e-3)
             elif reduce_type == "argmin":
-                testing.assert_allclose(torch.from_numpy(out_tvm_val), torch.from_numpy(in_npy_map.min(axis=axis)).to(dtype_torch), 1e-3, 1e-3)
-
+                torch.testing.assert_allclose(out_torch_val, in_npy_map.min(axis=axis), 1e-3, 1e-3)
         else:
-            testing.assert_allclose(out_tensor_pytorch, torch.tensor(out_npy, dtype=dtype_torch), rtol=1e-3, atol=1e-3)
-
-
-if __name__ == "__main__":
-    pytest.main([__file__])
+            # For sum, all, any, max, min, direct comparison of output arrays is sufficient
+            # `out_npy` (reference) and `out_torch_numpy` (computed) should match.
+            torch.testing.assert_allclose(out_torch_numpy, out_npy, 1e-3, 1e-3)
