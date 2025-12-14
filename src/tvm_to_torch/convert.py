@@ -6,7 +6,8 @@ This script:
 1. Scans TVM tests under ./repos/tvm/tests/python
 2. Uses the mapping JSON from ./data/tvm_torch_mapping.json to decide which
    tests are good candidates (based on TVM API coverage)
-3. Packs a group of convertible tests into a SINGLE Gemini request
+3. Converts all convertible tests, sending them to Gemini in batches
+   of BATCH_SIZE tests per request
 4. Saves converted tests under ./converted_tests/<relative_path>.py
 
 Usage (from project root):
@@ -15,7 +16,6 @@ Usage (from project root):
 
 You can tweak:
 
-    --max-tests N
     --min-covered-ratio R   (default: 0.3, more relaxed)
 
 Environment:
@@ -37,6 +37,10 @@ from textwrap import dedent
 from google import genai
 
 MODEL_NAME = "gemini-2.5-flash"
+
+# Hard-coded Gemini batch size (how many tests per request).
+# Manually tune this based on context limits.
+BATCH_SIZE = 1
 
 ROOT = Path(__file__).resolve().parents[2]
 TVM_ROOT = ROOT / "repos" / "tvm"
@@ -291,12 +295,6 @@ for every <rel_path> given above, and nothing else.
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--max-tests",
-        type=int,
-        default=20,
-        help="Maximum number of tests to convert in one run (for context size)."
-    )
-    parser.add_argument(
         "--min-covered-ratio",
         type=float,
         default=0.3,
@@ -309,7 +307,6 @@ def main():
         shutil.rmtree(OUTPUT_ROOT)
 
     OUTPUT_ROOT.mkdir(parents=True, exist_ok=True)
-
 
     print("Loading mapping table...")
     mappings = load_mappings(MAPPING_PATH)
@@ -346,33 +343,51 @@ def main():
         print("No convertible tests found. Try lowering --min-covered-ratio further.")
         return
 
+    # Sort by coverage / number of covered calls (best first)
     candidates.sort(key=lambda c: (c["ratio"], len(c["covered"])), reverse=True)
-    selected = candidates[: args.max_tests]
 
-    print(f"Converting {len(selected)} tests in ONE Gemini request...")
-    for c in selected:
-        print(
-            f"  - {c['rel_path']} "
-            f"(coverage={c['ratio']:.2%}, covered={len(c['covered'])}, "
-            f"uncovered={len(c['uncovered'])})"
-        )
+    total = len(candidates)
+    print(
+        f"Converting all {total} candidate tests "
+        f"in batches of up to {BATCH_SIZE} tests per Gemini request..."
+    )
     print()
 
-    rel_to_code = call_gemini_convert_batch(selected, mappings)
+    # Process in batches
+    batch_num = 0
+    for start in range(0, total, BATCH_SIZE):
+        batch_num += 1
+        batch = candidates[start:start + BATCH_SIZE]
 
-    print("Saving converted tests...")
-    for item in selected:
-        rel = item["rel_path"]
-        code = rel_to_code.get(rel)
-        out_path = OUTPUT_ROOT / rel
-        out_path.parent.mkdir(parents=True, exist_ok=True)
+        print(
+            f"Batch {batch_num}: converting {len(batch)} tests "
+            f"(indices {start}..{start + len(batch) - 1})"
+        )
+        for c in batch:
+            print(
+                f"  - {c['rel_path']} "
+                f"(coverage={c['ratio']:.2%}, covered={len(c['covered'])}, "
+                f"uncovered={len(c['uncovered'])})"
+            )
+        print()
 
-        if not code:
-            print(f"WARNING: No output for {rel}, skipping.")
-            continue
+        rel_to_code = call_gemini_convert_batch(batch, mappings)
 
-        out_path.write_text(code, encoding="utf-8")
-        print(f"Saved {out_path}")
+        print("Saving converted tests for this batch...")
+        for item in batch:
+            rel = item["rel_path"]
+            code = rel_to_code.get(rel)
+            out_path = OUTPUT_ROOT / rel
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+
+            if not code:
+                print(f"WARNING: No output for {rel}, skipping.")
+                continue
+
+            out_path.write_text(code, encoding="utf-8")
+            print(f"  Saved {out_path}")
+
+        print()
 
     print("Done.")
 
