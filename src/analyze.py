@@ -100,6 +100,23 @@ def count_total_original_tests(mode: str, original_root: str) -> int:
 
 
 # ---------------------------------------------------------------------------
+# Size / eligibility helpers
+# ---------------------------------------------------------------------------
+
+def is_test_file_too_large(path: str) -> bool:
+    """
+    Returns True if the file is > TEST_FILE_TOO_LARGE_LINES lines
+    (or unreadable, in which case we treat it as ineligible for pytest).
+    """
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            # fast-ish line count without loading whole file
+            return sum(1 for _ in f) > TEST_FILE_TOO_LARGE_LINES
+    except OSError:
+        return True
+
+
+# ---------------------------------------------------------------------------
 # Path mapping helpers
 # ---------------------------------------------------------------------------
 
@@ -172,14 +189,18 @@ def run_pytest(test_path: str) -> Tuple[bool, int]:
     This is mainly for per-file PASS/FAIL reporting.
     """
     # Skip files that are too large to run pytest on
-    with open(test_path, "r", encoding="utf-8") as f:
-        lines = f.readlines()
-        if len(lines) > TEST_FILE_TOO_LARGE_LINES:
-            print(
-                f"[pytest] Skipping pytest on large file: {test_path} "
-                f"(lines={len(lines)})"
-            )
-            return False, -1
+    if is_test_file_too_large(test_path):
+        # try to print an approximate size message; if unreadable, still skip
+        try:
+            with open(test_path, "r", encoding="utf-8") as f:
+                n_lines = sum(1 for _ in f)
+        except OSError:
+            n_lines = None
+
+        extra = f"(lines={n_lines})" if n_lines is not None else "(unreadable)"
+        print(f"[pytest] Skipping pytest on large file: {test_path} {extra}")
+        return False, -1
+
     print(f"[pytest] Running: {test_path}")
     result = subprocess.run(
         [sys.executable, "-m", "pytest", test_path],
@@ -203,7 +224,25 @@ def run_pytest_batch(files: list[str]) -> Tuple[int, int, int, bool]:
     if not files:
         return 0, 0, 0, False
 
-    cmd = [sys.executable, "-m", "pytest"] + files
+    # IMPORTANT: filter out large files here (bug fix)
+    eligible: list[str] = []
+    skipped: list[str] = []
+    for f in files:
+        if is_test_file_too_large(f):
+            skipped.append(f)
+        else:
+            eligible.append(f)
+
+    if skipped:
+        print("[pytest-batch] Skipping large files (excluded from batch):")
+        for s in skipped:
+            print("   ", s)
+
+    if not eligible:
+        # Nothing to run after filtering
+        return 0, 0, 0, False
+
+    cmd = [sys.executable, "-m", "pytest"] + eligible
     print("\n[pytest-batch] Running batch pytest command:")
     print("   ", " ".join(cmd))
 
@@ -462,8 +501,22 @@ def process_mode(
             pytest_converted_exit_code = None
 
             if original_exists:
-                original_files_batch.append(original_path)
-                converted_files_batch.append(converted_path)
+                # BUG FIX: don't include large files in batch lists
+                if not is_test_file_too_large(original_path):
+                    original_files_batch.append(original_path)
+                else:
+                    print(
+                        f"[pytest-batch] Excluding large original file from batch: "
+                        f"{original_path}"
+                    )
+
+                if not is_test_file_too_large(converted_path):
+                    converted_files_batch.append(converted_path)
+                else:
+                    print(
+                        f"[pytest-batch] Excluding large converted file from batch: "
+                        f"{converted_path}"
+                    )
 
                 num_tests_original = find_test_functions(original_path)
                 num_tests_converted = find_test_functions(converted_path)
