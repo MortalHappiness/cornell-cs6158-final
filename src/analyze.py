@@ -18,6 +18,8 @@ load_dotenv()
 
 GEMINI_MODEL_NAME = "gemini-2.5-flash"
 
+TEST_FILE_TOO_LARGE_LINES = 2000
+
 
 # ---------------------------------------------------------------------------
 # Data structures
@@ -118,7 +120,7 @@ def map_torch_tvm(
     Map converted_tests/torch_tvm/... to repos/pytorch/test/...
     """
     rel = os.path.relpath(converted_file, converted_root)
-    return os.path.join(pytorch_root, "test", rel)
+    return os.path.join(pytorch_root, rel)
 
 
 # ---------------------------------------------------------------------------
@@ -169,6 +171,15 @@ def run_pytest(test_path: str) -> Tuple[bool, int]:
 
     This is mainly for per-file PASS/FAIL reporting.
     """
+    # Skip files that are too large to run pytest on
+    with open(test_path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+        if len(lines) > TEST_FILE_TOO_LARGE_LINES:
+            print(
+                f"[pytest] Skipping pytest on large file: {test_path} "
+                f"(lines={len(lines)})"
+            )
+            return False, -1
     print(f"[pytest] Running: {test_path}")
     result = subprocess.run(
         [sys.executable, "-m", "pytest", test_path],
@@ -640,6 +651,8 @@ def summarize_results(
             print(f"Original:  {relpath_or_none(r.original_file)}")
             print(f"Converted: {relpath_or_none(r.converted_file)}")
             print(r.gemini_summary)
+
+    print("\n" + "=" * 80)
 
 
 # ---------------------------------------------------------------------------

@@ -12,7 +12,10 @@ git clone --branch v2.9.1 --depth 1 https://github.com/pytorch/pytorch.git repos
 
 conda create -n cs6158-final python=3.10
 conda activate cs6158-final
-pip install -r requirements.txt
+cd repos/tvm
+python python/gen_requirements.py
+cd ../..
+pip install -r requirements.txt -r ./repos/pytorch/requirements.txt -r ./repos/tvm/python/requirements/core.txt -r ./repos/tvm/python/requirements/dev.txt
 
 # Generate mapping files
 python src/mapping.py
