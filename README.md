@@ -26,5 +26,8 @@ python src/convert.py
 ## Run Analysis
 
 ```bash
+# Just run pytest
+python src/analyze.py > analysis.txt
+# Also ask gemini
 python src/analyze.py --use-gemini > analysis.txt
 ```

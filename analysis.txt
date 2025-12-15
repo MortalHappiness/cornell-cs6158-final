@@ -14,14 +14,14 @@
 [pytest] FAIL: repos/tvm/tests/python/contrib/test_onnx.py (exit_code=5)
 [pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_onnx.py
 [pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_onnx.py (exit_code=5)
-[pytest] Running: repos/tvm/tests/python/contrib/test_tensorrt.py
-[pytest] PASS: repos/tvm/tests/python/contrib/test_tensorrt.py (exit_code=0)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_tensorrt.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_tensorrt.py (exit_code=1)
 [pytest] Running: repos/tvm/tests/python/contrib/test_rocblas.py
 [pytest] PASS: repos/tvm/tests/python/contrib/test_rocblas.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_rocblas.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_rocblas.py (exit_code=1)
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_rocblas.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_tensorrt.py
+[pytest] PASS: repos/tvm/tests/python/contrib/test_tensorrt.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_tensorrt.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_tensorrt.py (exit_code=0)
 [pytest] Running: repos/tvm/tests/python/contrib/test_arm_compute_lib/test_add.py
 [pytest] PASS: repos/tvm/tests/python/contrib/test_arm_compute_lib/test_add.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_add.py
@@ -74,86 +74,6 @@
 [pytest] PASS: repos/tvm/tests/python/contrib/test_clml/test_ops.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_clml/test_ops.py
 [pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_clml/test_ops.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_addition.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_addition.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_addition.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_addition.py (exit_code=1)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_codegen.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_codegen.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_codegen.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_codegen.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_concatenate.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_concatenate.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_concatenate.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_concatenate.py (exit_code=1)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_constant_duplication.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_constant_duplication.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_constant_duplication.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_constant_duplication.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_conv2d.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_conv2d.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_conv2d.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_conv2d.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_convert_equivalents.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_convert_equivalents.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_convert_equivalents.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_convert_equivalents.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_depth_to_space.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_depth_to_space.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_depth_to_space.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_depth_to_space.py (exit_code=1)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_leaky_relu.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_leaky_relu.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_leaky_relu.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_leaky_relu.py (exit_code=1)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_mean.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_mean.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_mean.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_mean.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_multiply.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_multiply.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_multiply.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_multiply.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_pooling.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_pooling.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_pooling.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_pooling.py (exit_code=1)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_relu.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_relu.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_relu.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_relu.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_requantize.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_requantize.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_requantize.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_requantize.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_reshape.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_reshape.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_reshape.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_reshape.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_sigmoid.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_sigmoid.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_sigmoid.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_sigmoid.py (exit_code=1)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_split.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_split.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_split.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_split.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_tanh.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_tanh.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_tanh.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_tanh.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_topologies.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_topologies.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_topologies.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_topologies.py (exit_code=1)
-[pytest] Running: repos/tvm/tests/python/contrib/test_hexagon/topi/test_pad.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_hexagon/topi/test_pad.py (exit_code=1)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_pad.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_pad.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/contrib/test_hexagon/topi/test_reduce.py
-[pytest] FAIL: repos/tvm/tests/python/contrib/test_hexagon/topi/test_reduce.py (exit_code=1)
-[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_reduce.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_reduce.py (exit_code=2)
 [pytest] Running: repos/tvm/tests/python/contrib/test_cmsisnn/test_generate_constants.py
 [pytest] PASS: repos/tvm/tests/python/contrib/test_cmsisnn/test_generate_constants.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_cmsisnn/test_generate_constants.py
@@ -162,6 +82,78 @@
 [pytest] FAIL: repos/tvm/tests/python/contrib/test_cmsisnn/test_softmax.py (exit_code=1)
 [pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_cmsisnn/test_softmax.py
 [pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_cmsisnn/test_softmax.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_addition.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_addition.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_addition.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_addition.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_codegen.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_codegen.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_codegen.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_codegen.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_concatenate.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_concatenate.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_concatenate.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_concatenate.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_constant_duplication.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_constant_duplication.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_constant_duplication.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_constant_duplication.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_conv2d.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_conv2d.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_conv2d.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_conv2d.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_convert_equivalents.py
+[pytest] PASS: repos/tvm/tests/python/contrib/test_ethosn/test_convert_equivalents.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_convert_equivalents.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_convert_equivalents.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_depth_to_space.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_depth_to_space.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_depth_to_space.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_depth_to_space.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_leaky_relu.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_leaky_relu.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_leaky_relu.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_leaky_relu.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_mean.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_mean.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_mean.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_mean.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_multiply.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_multiply.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_multiply.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_multiply.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_pooling.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_pooling.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_pooling.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_pooling.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_relu.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_relu.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_relu.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_relu.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_requantize.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_requantize.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_requantize.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_requantize.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_reshape.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_reshape.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_reshape.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_reshape.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_sigmoid.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_sigmoid.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_sigmoid.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_sigmoid.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_split.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_split.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_split.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_split.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_tanh.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_tanh.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_tanh.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_tanh.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_ethosn/test_topologies.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosn/test_topologies.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_topologies.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_topologies.py (exit_code=1)
 [pytest] Running: repos/tvm/tests/python/contrib/test_ethosu/test_preprocess.py
 [pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosu/test_preprocess.py (exit_code=5)
 [pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosu/test_preprocess.py
@@ -170,6 +162,26 @@
 [pytest] FAIL: repos/tvm/tests/python/contrib/test_ethosu/cascader/test_ethosu_inline_matcher.py (exit_code=5)
 [pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_ethosu/cascader/test_ethosu_inline_matcher.py
 [pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_ethosu/cascader/test_ethosu_inline_matcher.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_hexagon/topi/test_pad.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_hexagon/topi/test_pad.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_pad.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_pad.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/contrib/test_hexagon/topi/test_reduce.py
+[pytest] FAIL: repos/tvm/tests/python/contrib/test_hexagon/topi/test_reduce.py (exit_code=1)
+[pytest] Running: converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_reduce.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_reduce.py (exit_code=2)
+[pytest] Running: repos/tvm/tests/python/frontend/caffe2/test_forward.py
+[pytest] FAIL: repos/tvm/tests/python/frontend/caffe2/test_forward.py (exit_code=2)
+[pytest] Running: converted_tests/tvm_torch/tests/python/frontend/caffe2/test_forward.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/frontend/caffe2/test_forward.py (exit_code=2)
+[pytest] Running: repos/tvm/tests/python/integration/test_arm_mprofile_dsp.py
+[pytest] PASS: repos/tvm/tests/python/integration/test_arm_mprofile_dsp.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/integration/test_arm_mprofile_dsp.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/integration/test_arm_mprofile_dsp.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/integration/test_dot.py
+[pytest] PASS: repos/tvm/tests/python/integration/test_dot.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/integration/test_dot.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/integration/test_dot.py (exit_code=1)
 [pytest] Running: repos/tvm/tests/python/relay/test_analysis_extract_fake_quantized_ops.py
 [pytest] PASS: repos/tvm/tests/python/relay/test_analysis_extract_fake_quantized_ops.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_analysis_extract_fake_quantized_ops.py
@@ -182,14 +194,14 @@
 [pytest] PASS: repos/tvm/tests/python/relay/test_annotated_regions.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_annotated_regions.py
 [pytest] PASS: converted_tests/tvm_torch/tests/python/relay/test_annotated_regions.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/relay/test_any.py
-[pytest] PASS: repos/tvm/tests/python/relay/test_any.py (exit_code=0)
-[pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_any.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/relay/test_any.py (exit_code=2)
+[pytest-batch] Excluding large original file from batch: repos/tvm/tests/python/relay/test_any.py
+[pytest-batch] Excluding large converted file from batch: converted_tests/tvm_torch/tests/python/relay/test_any.py
+[pytest] Skipping pytest on large file: repos/tvm/tests/python/relay/test_any.py (lines=2162)
+[pytest] Skipping pytest on large file: converted_tests/tvm_torch/tests/python/relay/test_any.py (lines=2803)
+[pytest-batch] Excluding large converted file from batch: converted_tests/tvm_torch/tests/python/relay/test_dataflow_pattern.py
 [pytest] Running: repos/tvm/tests/python/relay/test_dataflow_pattern.py
 [pytest] PASS: repos/tvm/tests/python/relay/test_dataflow_pattern.py (exit_code=0)
-[pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_dataflow_pattern.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/relay/test_dataflow_pattern.py (exit_code=2)
+[pytest] Skipping pytest on large file: converted_tests/tvm_torch/tests/python/relay/test_dataflow_pattern.py (lines=2124)
 [pytest] Running: repos/tvm/tests/python/relay/test_op_fast_math.py
 [pytest] PASS: repos/tvm/tests/python/relay/test_op_fast_math.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_op_fast_math.py
@@ -202,8 +214,8 @@
 [pytest] PASS: repos/tvm/tests/python/relay/test_op_grad_level3.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_op_grad_level3.py
 [pytest] FAIL: converted_tests/tvm_torch/tests/python/relay/test_op_grad_level3.py (exit_code=1)
-[pytest] Running: repos/tvm/tests/python/relay/test_op_level3.py
-[pytest] PASS: repos/tvm/tests/python/relay/test_op_level3.py (exit_code=0)
+[pytest-batch] Excluding large original file from batch: repos/tvm/tests/python/relay/test_op_level3.py
+[pytest] Skipping pytest on large file: repos/tvm/tests/python/relay/test_op_level3.py (lines=2312)
 [pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_op_level3.py
 [pytest] FAIL: converted_tests/tvm_torch/tests/python/relay/test_op_level3.py (exit_code=5)
 [pytest] Running: repos/tvm/tests/python/relay/test_op_level6.py
@@ -225,15 +237,23 @@
 [pytest] Running: repos/tvm/tests/python/relay/test_pass_combine_parallel_dense.py
 [pytest] PASS: repos/tvm/tests/python/relay/test_pass_combine_parallel_dense.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_pass_combine_parallel_dense.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/relay/test_pass_combine_parallel_dense.py (exit_code=1)
+[pytest] PASS: converted_tests/tvm_torch/tests/python/relay/test_pass_combine_parallel_dense.py (exit_code=0)
+[pytest-batch] Excluding large original file from batch: repos/tvm/tests/python/relay/test_pass_convert_op_layout.py
+[pytest-batch] Excluding large converted file from batch: converted_tests/tvm_torch/tests/python/relay/test_pass_convert_op_layout.py
+[pytest] Skipping pytest on large file: repos/tvm/tests/python/relay/test_pass_convert_op_layout.py (lines=2789)
+[pytest] Skipping pytest on large file: converted_tests/tvm_torch/tests/python/relay/test_pass_convert_op_layout.py (lines=3181)
 [pytest] Running: repos/tvm/tests/python/relay/test_pass_defuse_ops.py
 [pytest] PASS: repos/tvm/tests/python/relay/test_pass_defuse_ops.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_pass_defuse_ops.py
 [pytest] PASS: converted_tests/tvm_torch/tests/python/relay/test_pass_defuse_ops.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/relay/test_pass_eliminate_common_subexpr.py
+[pytest] PASS: repos/tvm/tests/python/relay/test_pass_eliminate_common_subexpr.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_pass_eliminate_common_subexpr.py
+[pytest] FAIL: converted_tests/tvm_torch/tests/python/relay/test_pass_eliminate_common_subexpr.py (exit_code=1)
+[pytest-batch] Excluding large converted file from batch: converted_tests/tvm_torch/tests/python/relay/test_pass_fake_quantization_to_integer.py
 [pytest] Running: repos/tvm/tests/python/relay/test_pass_fake_quantization_to_integer.py
 [pytest] PASS: repos/tvm/tests/python/relay/test_pass_fake_quantization_to_integer.py (exit_code=0)
-[pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_pass_fake_quantization_to_integer.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/relay/test_pass_fake_quantization_to_integer.py (exit_code=1)
+[pytest] Skipping pytest on large file: converted_tests/tvm_torch/tests/python/relay/test_pass_fake_quantization_to_integer.py (lines=2617)
 [pytest] Running: repos/tvm/tests/python/relay/test_pass_fast_math.py
 [pytest] PASS: repos/tvm/tests/python/relay/test_pass_fast_math.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_pass_fast_math.py
@@ -242,6 +262,10 @@
 [pytest] PASS: repos/tvm/tests/python/relay/test_pass_fuse_ops.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_pass_fuse_ops.py
 [pytest] FAIL: converted_tests/tvm_torch/tests/python/relay/test_pass_fuse_ops.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/relay/test_pass_merge_composite.py
+[pytest] PASS: repos/tvm/tests/python/relay/test_pass_merge_composite.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_pass_merge_composite.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/relay/test_pass_merge_composite.py (exit_code=0)
 [pytest] Running: repos/tvm/tests/python/relay/test_pass_simplify_expr.py
 [pytest] PASS: repos/tvm/tests/python/relay/test_pass_simplify_expr.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_pass_simplify_expr.py
@@ -262,26 +286,14 @@
 [pytest] PASS: repos/tvm/tests/python/relay/test_used_memory_annotator.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_used_memory_annotator.py
 [pytest] PASS: converted_tests/tvm_torch/tests/python/relay/test_used_memory_annotator.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/relay/test_pass_convert_op_layout.py
-[pytest] PASS: repos/tvm/tests/python/relay/test_pass_convert_op_layout.py (exit_code=0)
-[pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_pass_convert_op_layout.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/relay/test_pass_convert_op_layout.py (exit_code=2)
-[pytest] Running: repos/tvm/tests/python/relay/test_pass_eliminate_common_subexpr.py
-[pytest] PASS: repos/tvm/tests/python/relay/test_pass_eliminate_common_subexpr.py (exit_code=0)
-[pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_pass_eliminate_common_subexpr.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/relay/test_pass_eliminate_common_subexpr.py (exit_code=1)
-[pytest] Running: repos/tvm/tests/python/relay/test_pass_merge_composite.py
-[pytest] PASS: repos/tvm/tests/python/relay/test_pass_merge_composite.py (exit_code=0)
-[pytest] Running: converted_tests/tvm_torch/tests/python/relay/test_pass_merge_composite.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/relay/test_pass_merge_composite.py (exit_code=0)
 [pytest] Running: repos/tvm/tests/python/relay/opencl_texture/test_conv2d_nchw_texture.py
 [pytest] PASS: repos/tvm/tests/python/relay/opencl_texture/test_conv2d_nchw_texture.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_conv2d_nchw_texture.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_conv2d_nchw_texture.py (exit_code=1)
+[pytest] PASS: converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_conv2d_nchw_texture.py (exit_code=0)
 [pytest] Running: repos/tvm/tests/python/relay/opencl_texture/test_conv2d_nhwc_texture.py
 [pytest] PASS: repos/tvm/tests/python/relay/opencl_texture/test_conv2d_nhwc_texture.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_conv2d_nhwc_texture.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_conv2d_nhwc_texture.py (exit_code=1)
+[pytest] PASS: converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_conv2d_nhwc_texture.py (exit_code=0)
 [pytest] Running: repos/tvm/tests/python/relay/opencl_texture/test_depthwise_conv2d_nchw_texture.py
 [pytest] PASS: repos/tvm/tests/python/relay/opencl_texture/test_depthwise_conv2d_nchw_texture.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_depthwise_conv2d_nchw_texture.py
@@ -289,7 +301,11 @@
 [pytest] Running: repos/tvm/tests/python/relay/opencl_texture/test_depthwise_conv2d_nhwc_texture.py
 [pytest] PASS: repos/tvm/tests/python/relay/opencl_texture/test_depthwise_conv2d_nhwc_texture.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_depthwise_conv2d_nhwc_texture.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_depthwise_conv2d_nhwc_texture.py (exit_code=1)
+[pytest] PASS: converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_depthwise_conv2d_nhwc_texture.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/topi/python/test_topi_argwhere.py
+[pytest] PASS: repos/tvm/tests/python/topi/python/test_topi_argwhere.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/topi/python/test_topi_argwhere.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/topi/python/test_topi_argwhere.py (exit_code=0)
 [pytest] Running: repos/tvm/tests/python/topi/python/test_topi_batch_norm.py
 [pytest] PASS: repos/tvm/tests/python/topi/python/test_topi_batch_norm.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/topi/python/test_topi_batch_norm.py
@@ -318,18 +334,18 @@
 [pytest] PASS: repos/tvm/tests/python/topi/python/test_topi_transform.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/topi/python/test_topi_transform.py
 [pytest] FAIL: converted_tests/tvm_torch/tests/python/topi/python/test_topi_transform.py (exit_code=2)
-[pytest] Running: repos/tvm/tests/python/topi/python/test_topi_util.py
-[pytest] PASS: repos/tvm/tests/python/topi/python/test_topi_util.py (exit_code=0)
-[pytest] Running: converted_tests/tvm_torch/tests/python/topi/python/test_topi_util.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/topi/python/test_topi_util.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/topi/python/test_topi_argwhere.py
-[pytest] PASS: repos/tvm/tests/python/topi/python/test_topi_argwhere.py (exit_code=0)
-[pytest] Running: converted_tests/tvm_torch/tests/python/topi/python/test_topi_argwhere.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/topi/python/test_topi_argwhere.py (exit_code=0)
 [pytest] Running: repos/tvm/tests/python/topi/python/test_topi_unique.py
 [pytest] PASS: repos/tvm/tests/python/topi/python/test_topi_unique.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/topi/python/test_topi_unique.py
 [pytest] FAIL: converted_tests/tvm_torch/tests/python/topi/python/test_topi_unique.py (exit_code=1)
+[pytest] Running: repos/tvm/tests/python/topi/python/test_topi_util.py
+[pytest] PASS: repos/tvm/tests/python/topi/python/test_topi_util.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/topi/python/test_topi_util.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/topi/python/test_topi_util.py (exit_code=0)
+[pytest] Running: repos/tvm/tests/python/unittest/test_arith_const_int_bound.py
+[pytest] PASS: repos/tvm/tests/python/unittest/test_arith_const_int_bound.py (exit_code=0)
+[pytest] Running: converted_tests/tvm_torch/tests/python/unittest/test_arith_const_int_bound.py
+[pytest] PASS: converted_tests/tvm_torch/tests/python/unittest/test_arith_const_int_bound.py (exit_code=0)
 [pytest] Running: repos/tvm/tests/python/unittest/test_autotvm_flop_calculator.py
 [pytest] PASS: repos/tvm/tests/python/unittest/test_autotvm_flop_calculator.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/unittest/test_autotvm_flop_calculator.py
@@ -341,11 +357,11 @@
 [pytest] Running: repos/tvm/tests/python/unittest/test_target_codegen_opencl.py
 [pytest] PASS: repos/tvm/tests/python/unittest/test_target_codegen_opencl.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/unittest/test_target_codegen_opencl.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/unittest/test_target_codegen_opencl.py (exit_code=1)
+[pytest] PASS: converted_tests/tvm_torch/tests/python/unittest/test_target_codegen_opencl.py (exit_code=0)
 [pytest] Running: repos/tvm/tests/python/unittest/test_target_codegen_rocm.py
 [pytest] PASS: repos/tvm/tests/python/unittest/test_target_codegen_rocm.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/unittest/test_target_codegen_rocm.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/unittest/test_target_codegen_rocm.py (exit_code=1)
+[pytest] PASS: converted_tests/tvm_torch/tests/python/unittest/test_target_codegen_rocm.py (exit_code=0)
 [pytest] Running: repos/tvm/tests/python/unittest/test_te_autodiff.py
 [pytest] PASS: repos/tvm/tests/python/unittest/test_te_autodiff.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/unittest/test_te_autodiff.py
@@ -366,30 +382,14 @@
 [pytest] PASS: repos/tvm/tests/python/unittest/test_tir_ops.py (exit_code=0)
 [pytest] Running: converted_tests/tvm_torch/tests/python/unittest/test_tir_ops.py
 [pytest] FAIL: converted_tests/tvm_torch/tests/python/unittest/test_tir_ops.py (exit_code=1)
-[pytest] Running: repos/tvm/tests/python/unittest/test_arith_const_int_bound.py
-[pytest] PASS: repos/tvm/tests/python/unittest/test_arith_const_int_bound.py (exit_code=0)
-[pytest] Running: converted_tests/tvm_torch/tests/python/unittest/test_arith_const_int_bound.py
-[pytest] PASS: converted_tests/tvm_torch/tests/python/unittest/test_arith_const_int_bound.py (exit_code=0)
-[pytest] Running: repos/tvm/tests/python/frontend/caffe2/test_forward.py
-[pytest] FAIL: repos/tvm/tests/python/frontend/caffe2/test_forward.py (exit_code=2)
-[pytest] Running: converted_tests/tvm_torch/tests/python/frontend/caffe2/test_forward.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/frontend/caffe2/test_forward.py (exit_code=2)
-[pytest] Running: repos/tvm/tests/python/integration/test_arm_mprofile_dsp.py
-[pytest] PASS: repos/tvm/tests/python/integration/test_arm_mprofile_dsp.py (exit_code=0)
-[pytest] Running: converted_tests/tvm_torch/tests/python/integration/test_arm_mprofile_dsp.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/integration/test_arm_mprofile_dsp.py (exit_code=1)
-[pytest] Running: repos/tvm/tests/python/integration/test_dot.py
-[pytest] PASS: repos/tvm/tests/python/integration/test_dot.py (exit_code=0)
-[pytest] Running: converted_tests/tvm_torch/tests/python/integration/test_dot.py
-[pytest] FAIL: converted_tests/tvm_torch/tests/python/integration/test_dot.py (exit_code=1)
 
 [pytest-batch] Running batch pytest command:
-    /home/jh2973/.conda/envs/cs6158-final/bin/python -m pytest repos/tvm/tests/python/contrib/test_dlpack.py repos/tvm/tests/python/contrib/test_mps.py repos/tvm/tests/python/contrib/test_mxnet_bridge.py repos/tvm/tests/python/contrib/test_onnx.py repos/tvm/tests/python/contrib/test_tensorrt.py repos/tvm/tests/python/contrib/test_rocblas.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_add.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_concatenate.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_conv2d.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_maximum.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_pooling.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_reshape.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_runtime.py repos/tvm/tests/python/contrib/test_bnns/test_conv2d.py repos/tvm/tests/python/contrib/test_bnns/test_dense.py repos/tvm/tests/python/contrib/test_bnns/test_normalization.py repos/tvm/tests/python/contrib/test_bnns/test_pooling.py repos/tvm/tests/python/contrib/test_clml/test_network.py repos/tvm/tests/python/contrib/test_clml/test_ops.py repos/tvm/tests/python/contrib/test_ethosn/test_addition.py repos/tvm/tests/python/contrib/test_ethosn/test_codegen.py repos/tvm/tests/python/contrib/test_ethosn/test_concatenate.py repos/tvm/tests/python/contrib/test_ethosn/test_constant_duplication.py repos/tvm/tests/python/contrib/test_ethosn/test_conv2d.py repos/tvm/tests/python/contrib/test_ethosn/test_convert_equivalents.py repos/tvm/tests/python/contrib/test_ethosn/test_depth_to_space.py repos/tvm/tests/python/contrib/test_ethosn/test_leaky_relu.py repos/tvm/tests/python/contrib/test_ethosn/test_mean.py repos/tvm/tests/python/contrib/test_ethosn/test_multiply.py repos/tvm/tests/python/contrib/test_ethosn/test_pooling.py repos/tvm/tests/python/contrib/test_ethosn/test_relu.py repos/tvm/tests/python/contrib/test_ethosn/test_requantize.py repos/tvm/tests/python/contrib/test_ethosn/test_reshape.py repos/tvm/tests/python/contrib/test_ethosn/test_sigmoid.py repos/tvm/tests/python/contrib/test_ethosn/test_split.py repos/tvm/tests/python/contrib/test_ethosn/test_tanh.py repos/tvm/tests/python/contrib/test_ethosn/test_topologies.py repos/tvm/tests/python/contrib/test_hexagon/topi/test_pad.py repos/tvm/tests/python/contrib/test_hexagon/topi/test_reduce.py repos/tvm/tests/python/contrib/test_cmsisnn/test_generate_constants.py repos/tvm/tests/python/contrib/test_cmsisnn/test_softmax.py repos/tvm/tests/python/contrib/test_ethosu/test_preprocess.py repos/tvm/tests/python/contrib/test_ethosu/cascader/test_ethosu_inline_matcher.py repos/tvm/tests/python/relay/test_analysis_extract_fake_quantized_ops.py repos/tvm/tests/python/relay/test_analysis_extract_intermediate_expr.py repos/tvm/tests/python/relay/test_annotated_regions.py repos/tvm/tests/python/relay/test_any.py repos/tvm/tests/python/relay/test_dataflow_pattern.py repos/tvm/tests/python/relay/test_op_fast_math.py repos/tvm/tests/python/relay/test_op_grad_level1.py repos/tvm/tests/python/relay/test_op_grad_level3.py repos/tvm/tests/python/relay/test_op_level3.py repos/tvm/tests/python/relay/test_op_level6.py repos/tvm/tests/python/relay/test_param_dict.py repos/tvm/tests/python/relay/test_pass_annotate_target.py repos/tvm/tests/python/relay/test_pass_combine_parallel_conv2d.py repos/tvm/tests/python/relay/test_pass_combine_parallel_dense.py repos/tvm/tests/python/relay/test_pass_defuse_ops.py repos/tvm/tests/python/relay/test_pass_fake_quantization_to_integer.py repos/tvm/tests/python/relay/test_pass_fast_math.py repos/tvm/tests/python/relay/test_pass_fuse_ops.py repos/tvm/tests/python/relay/test_pass_simplify_expr.py repos/tvm/tests/python/relay/test_pass_simplify_inference.py repos/tvm/tests/python/relay/test_recast.py repos/tvm/tests/python/relay/test_to_mixed_precision.py repos/tvm/tests/python/relay/test_used_memory_annotator.py repos/tvm/tests/python/relay/test_pass_convert_op_layout.py repos/tvm/tests/python/relay/test_pass_eliminate_common_subexpr.py repos/tvm/tests/python/relay/test_pass_merge_composite.py repos/tvm/tests/python/relay/opencl_texture/test_conv2d_nchw_texture.py repos/tvm/tests/python/relay/opencl_texture/test_conv2d_nhwc_texture.py repos/tvm/tests/python/relay/opencl_texture/test_depthwise_conv2d_nchw_texture.py repos/tvm/tests/python/relay/opencl_texture/test_depthwise_conv2d_nhwc_texture.py repos/tvm/tests/python/topi/python/test_topi_batch_norm.py repos/tvm/tests/python/topi/python/test_topi_einsum.py repos/tvm/tests/python/topi/python/test_topi_loss.py repos/tvm/tests/python/topi/python/test_topi_matmul.py repos/tvm/tests/python/topi/python/test_topi_reduce.py repos/tvm/tests/python/topi/python/test_topi_sort.py repos/tvm/tests/python/topi/python/test_topi_transform.py repos/tvm/tests/python/topi/python/test_topi_util.py repos/tvm/tests/python/topi/python/test_topi_argwhere.py repos/tvm/tests/python/topi/python/test_topi_unique.py repos/tvm/tests/python/unittest/test_autotvm_flop_calculator.py repos/tvm/tests/python/unittest/test_meta_schedule_feature_extractor.py repos/tvm/tests/python/unittest/test_target_codegen_opencl.py repos/tvm/tests/python/unittest/test_target_codegen_rocm.py repos/tvm/tests/python/unittest/test_te_autodiff.py repos/tvm/tests/python/unittest/test_te_schedule_lstm.py repos/tvm/tests/python/unittest/test_tir_analysis_expr_deep_equal.py repos/tvm/tests/python/unittest/test_tir_imm_values.py repos/tvm/tests/python/unittest/test_tir_ops.py repos/tvm/tests/python/unittest/test_arith_const_int_bound.py repos/tvm/tests/python/frontend/caffe2/test_forward.py repos/tvm/tests/python/integration/test_arm_mprofile_dsp.py repos/tvm/tests/python/integration/test_dot.py
+    /home/cl2837/miniforge3/envs/cs6158-final/bin/python -m pytest repos/tvm/tests/python/contrib/test_dlpack.py repos/tvm/tests/python/contrib/test_mps.py repos/tvm/tests/python/contrib/test_mxnet_bridge.py repos/tvm/tests/python/contrib/test_onnx.py repos/tvm/tests/python/contrib/test_rocblas.py repos/tvm/tests/python/contrib/test_tensorrt.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_add.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_concatenate.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_conv2d.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_maximum.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_pooling.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_reshape.py repos/tvm/tests/python/contrib/test_arm_compute_lib/test_runtime.py repos/tvm/tests/python/contrib/test_bnns/test_conv2d.py repos/tvm/tests/python/contrib/test_bnns/test_dense.py repos/tvm/tests/python/contrib/test_bnns/test_normalization.py repos/tvm/tests/python/contrib/test_bnns/test_pooling.py repos/tvm/tests/python/contrib/test_clml/test_network.py repos/tvm/tests/python/contrib/test_clml/test_ops.py repos/tvm/tests/python/contrib/test_cmsisnn/test_generate_constants.py repos/tvm/tests/python/contrib/test_cmsisnn/test_softmax.py repos/tvm/tests/python/contrib/test_ethosn/test_addition.py repos/tvm/tests/python/contrib/test_ethosn/test_codegen.py repos/tvm/tests/python/contrib/test_ethosn/test_concatenate.py repos/tvm/tests/python/contrib/test_ethosn/test_constant_duplication.py repos/tvm/tests/python/contrib/test_ethosn/test_conv2d.py repos/tvm/tests/python/contrib/test_ethosn/test_convert_equivalents.py repos/tvm/tests/python/contrib/test_ethosn/test_depth_to_space.py repos/tvm/tests/python/contrib/test_ethosn/test_leaky_relu.py repos/tvm/tests/python/contrib/test_ethosn/test_mean.py repos/tvm/tests/python/contrib/test_ethosn/test_multiply.py repos/tvm/tests/python/contrib/test_ethosn/test_pooling.py repos/tvm/tests/python/contrib/test_ethosn/test_relu.py repos/tvm/tests/python/contrib/test_ethosn/test_requantize.py repos/tvm/tests/python/contrib/test_ethosn/test_reshape.py repos/tvm/tests/python/contrib/test_ethosn/test_sigmoid.py repos/tvm/tests/python/contrib/test_ethosn/test_split.py repos/tvm/tests/python/contrib/test_ethosn/test_tanh.py repos/tvm/tests/python/contrib/test_ethosn/test_topologies.py repos/tvm/tests/python/contrib/test_ethosu/test_preprocess.py repos/tvm/tests/python/contrib/test_ethosu/cascader/test_ethosu_inline_matcher.py repos/tvm/tests/python/contrib/test_hexagon/topi/test_pad.py repos/tvm/tests/python/contrib/test_hexagon/topi/test_reduce.py repos/tvm/tests/python/frontend/caffe2/test_forward.py repos/tvm/tests/python/integration/test_arm_mprofile_dsp.py repos/tvm/tests/python/integration/test_dot.py repos/tvm/tests/python/relay/test_analysis_extract_fake_quantized_ops.py repos/tvm/tests/python/relay/test_analysis_extract_intermediate_expr.py repos/tvm/tests/python/relay/test_annotated_regions.py repos/tvm/tests/python/relay/test_dataflow_pattern.py repos/tvm/tests/python/relay/test_op_fast_math.py repos/tvm/tests/python/relay/test_op_grad_level1.py repos/tvm/tests/python/relay/test_op_grad_level3.py repos/tvm/tests/python/relay/test_op_level6.py repos/tvm/tests/python/relay/test_param_dict.py repos/tvm/tests/python/relay/test_pass_annotate_target.py repos/tvm/tests/python/relay/test_pass_combine_parallel_conv2d.py repos/tvm/tests/python/relay/test_pass_combine_parallel_dense.py repos/tvm/tests/python/relay/test_pass_defuse_ops.py repos/tvm/tests/python/relay/test_pass_eliminate_common_subexpr.py repos/tvm/tests/python/relay/test_pass_fake_quantization_to_integer.py repos/tvm/tests/python/relay/test_pass_fast_math.py repos/tvm/tests/python/relay/test_pass_fuse_ops.py repos/tvm/tests/python/relay/test_pass_merge_composite.py repos/tvm/tests/python/relay/test_pass_simplify_expr.py repos/tvm/tests/python/relay/test_pass_simplify_inference.py repos/tvm/tests/python/relay/test_recast.py repos/tvm/tests/python/relay/test_to_mixed_precision.py repos/tvm/tests/python/relay/test_used_memory_annotator.py repos/tvm/tests/python/relay/opencl_texture/test_conv2d_nchw_texture.py repos/tvm/tests/python/relay/opencl_texture/test_conv2d_nhwc_texture.py repos/tvm/tests/python/relay/opencl_texture/test_depthwise_conv2d_nchw_texture.py repos/tvm/tests/python/relay/opencl_texture/test_depthwise_conv2d_nhwc_texture.py repos/tvm/tests/python/topi/python/test_topi_argwhere.py repos/tvm/tests/python/topi/python/test_topi_batch_norm.py repos/tvm/tests/python/topi/python/test_topi_einsum.py repos/tvm/tests/python/topi/python/test_topi_loss.py repos/tvm/tests/python/topi/python/test_topi_matmul.py repos/tvm/tests/python/topi/python/test_topi_reduce.py repos/tvm/tests/python/topi/python/test_topi_sort.py repos/tvm/tests/python/topi/python/test_topi_transform.py repos/tvm/tests/python/topi/python/test_topi_unique.py repos/tvm/tests/python/topi/python/test_topi_util.py repos/tvm/tests/python/unittest/test_arith_const_int_bound.py repos/tvm/tests/python/unittest/test_autotvm_flop_calculator.py repos/tvm/tests/python/unittest/test_meta_schedule_feature_extractor.py repos/tvm/tests/python/unittest/test_target_codegen_opencl.py repos/tvm/tests/python/unittest/test_target_codegen_rocm.py repos/tvm/tests/python/unittest/test_te_autodiff.py repos/tvm/tests/python/unittest/test_te_schedule_lstm.py repos/tvm/tests/python/unittest/test_tir_analysis_expr_deep_equal.py repos/tvm/tests/python/unittest/test_tir_imm_values.py repos/tvm/tests/python/unittest/test_tir_ops.py
 [pytest-batch] Exit code=1, tests_run=0, tests_failed=0, session_started=False
 
 [pytest-batch] Running batch pytest command:
-    /home/jh2973/.conda/envs/cs6158-final/bin/python -m pytest converted_tests/tvm_torch/tests/python/contrib/test_dlpack.py converted_tests/tvm_torch/tests/python/contrib/test_mps.py converted_tests/tvm_torch/tests/python/contrib/test_mxnet_bridge.py converted_tests/tvm_torch/tests/python/contrib/test_onnx.py converted_tests/tvm_torch/tests/python/contrib/test_tensorrt.py converted_tests/tvm_torch/tests/python/contrib/test_rocblas.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_add.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_concatenate.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_conv2d.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_maximum.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_pooling.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_reshape.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_runtime.py converted_tests/tvm_torch/tests/python/contrib/test_bnns/test_conv2d.py converted_tests/tvm_torch/tests/python/contrib/test_bnns/test_dense.py converted_tests/tvm_torch/tests/python/contrib/test_bnns/test_normalization.py converted_tests/tvm_torch/tests/python/contrib/test_bnns/test_pooling.py converted_tests/tvm_torch/tests/python/contrib/test_clml/test_network.py converted_tests/tvm_torch/tests/python/contrib/test_clml/test_ops.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_addition.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_codegen.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_concatenate.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_constant_duplication.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_conv2d.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_convert_equivalents.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_depth_to_space.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_leaky_relu.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_mean.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_multiply.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_pooling.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_relu.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_requantize.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_reshape.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_sigmoid.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_split.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_tanh.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_topologies.py converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_pad.py converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_reduce.py converted_tests/tvm_torch/tests/python/contrib/test_cmsisnn/test_generate_constants.py converted_tests/tvm_torch/tests/python/contrib/test_cmsisnn/test_softmax.py converted_tests/tvm_torch/tests/python/contrib/test_ethosu/test_preprocess.py converted_tests/tvm_torch/tests/python/contrib/test_ethosu/cascader/test_ethosu_inline_matcher.py converted_tests/tvm_torch/tests/python/relay/test_analysis_extract_fake_quantized_ops.py converted_tests/tvm_torch/tests/python/relay/test_analysis_extract_intermediate_expr.py converted_tests/tvm_torch/tests/python/relay/test_annotated_regions.py converted_tests/tvm_torch/tests/python/relay/test_any.py converted_tests/tvm_torch/tests/python/relay/test_dataflow_pattern.py converted_tests/tvm_torch/tests/python/relay/test_op_fast_math.py converted_tests/tvm_torch/tests/python/relay/test_op_grad_level1.py converted_tests/tvm_torch/tests/python/relay/test_op_grad_level3.py converted_tests/tvm_torch/tests/python/relay/test_op_level3.py converted_tests/tvm_torch/tests/python/relay/test_op_level6.py converted_tests/tvm_torch/tests/python/relay/test_param_dict.py converted_tests/tvm_torch/tests/python/relay/test_pass_annotate_target.py converted_tests/tvm_torch/tests/python/relay/test_pass_combine_parallel_conv2d.py converted_tests/tvm_torch/tests/python/relay/test_pass_combine_parallel_dense.py converted_tests/tvm_torch/tests/python/relay/test_pass_defuse_ops.py converted_tests/tvm_torch/tests/python/relay/test_pass_fake_quantization_to_integer.py converted_tests/tvm_torch/tests/python/relay/test_pass_fast_math.py converted_tests/tvm_torch/tests/python/relay/test_pass_fuse_ops.py converted_tests/tvm_torch/tests/python/relay/test_pass_simplify_expr.py converted_tests/tvm_torch/tests/python/relay/test_pass_simplify_inference.py converted_tests/tvm_torch/tests/python/relay/test_recast.py converted_tests/tvm_torch/tests/python/relay/test_to_mixed_precision.py converted_tests/tvm_torch/tests/python/relay/test_used_memory_annotator.py converted_tests/tvm_torch/tests/python/relay/test_pass_convert_op_layout.py converted_tests/tvm_torch/tests/python/relay/test_pass_eliminate_common_subexpr.py converted_tests/tvm_torch/tests/python/relay/test_pass_merge_composite.py converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_conv2d_nchw_texture.py converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_conv2d_nhwc_texture.py converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_depthwise_conv2d_nchw_texture.py converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_depthwise_conv2d_nhwc_texture.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_batch_norm.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_einsum.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_loss.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_matmul.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_reduce.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_sort.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_transform.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_util.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_argwhere.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_unique.py converted_tests/tvm_torch/tests/python/unittest/test_autotvm_flop_calculator.py converted_tests/tvm_torch/tests/python/unittest/test_meta_schedule_feature_extractor.py converted_tests/tvm_torch/tests/python/unittest/test_target_codegen_opencl.py converted_tests/tvm_torch/tests/python/unittest/test_target_codegen_rocm.py converted_tests/tvm_torch/tests/python/unittest/test_te_autodiff.py converted_tests/tvm_torch/tests/python/unittest/test_te_schedule_lstm.py converted_tests/tvm_torch/tests/python/unittest/test_tir_analysis_expr_deep_equal.py converted_tests/tvm_torch/tests/python/unittest/test_tir_imm_values.py converted_tests/tvm_torch/tests/python/unittest/test_tir_ops.py converted_tests/tvm_torch/tests/python/unittest/test_arith_const_int_bound.py converted_tests/tvm_torch/tests/python/frontend/caffe2/test_forward.py converted_tests/tvm_torch/tests/python/integration/test_arm_mprofile_dsp.py converted_tests/tvm_torch/tests/python/integration/test_dot.py
-[pytest-batch] Exit code=2, tests_run=14, tests_failed=13, session_started=True
+    /home/cl2837/miniforge3/envs/cs6158-final/bin/python -m pytest converted_tests/tvm_torch/tests/python/contrib/test_dlpack.py converted_tests/tvm_torch/tests/python/contrib/test_mps.py converted_tests/tvm_torch/tests/python/contrib/test_mxnet_bridge.py converted_tests/tvm_torch/tests/python/contrib/test_onnx.py converted_tests/tvm_torch/tests/python/contrib/test_rocblas.py converted_tests/tvm_torch/tests/python/contrib/test_tensorrt.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_add.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_concatenate.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_conv2d.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_maximum.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_pooling.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_reshape.py converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_runtime.py converted_tests/tvm_torch/tests/python/contrib/test_bnns/test_conv2d.py converted_tests/tvm_torch/tests/python/contrib/test_bnns/test_dense.py converted_tests/tvm_torch/tests/python/contrib/test_bnns/test_normalization.py converted_tests/tvm_torch/tests/python/contrib/test_bnns/test_pooling.py converted_tests/tvm_torch/tests/python/contrib/test_clml/test_network.py converted_tests/tvm_torch/tests/python/contrib/test_clml/test_ops.py converted_tests/tvm_torch/tests/python/contrib/test_cmsisnn/test_generate_constants.py converted_tests/tvm_torch/tests/python/contrib/test_cmsisnn/test_softmax.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_addition.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_codegen.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_concatenate.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_constant_duplication.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_conv2d.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_convert_equivalents.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_depth_to_space.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_leaky_relu.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_mean.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_multiply.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_pooling.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_relu.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_requantize.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_reshape.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_sigmoid.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_split.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_tanh.py converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_topologies.py converted_tests/tvm_torch/tests/python/contrib/test_ethosu/test_preprocess.py converted_tests/tvm_torch/tests/python/contrib/test_ethosu/cascader/test_ethosu_inline_matcher.py converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_pad.py converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_reduce.py converted_tests/tvm_torch/tests/python/frontend/caffe2/test_forward.py converted_tests/tvm_torch/tests/python/integration/test_arm_mprofile_dsp.py converted_tests/tvm_torch/tests/python/integration/test_dot.py converted_tests/tvm_torch/tests/python/relay/test_analysis_extract_fake_quantized_ops.py converted_tests/tvm_torch/tests/python/relay/test_analysis_extract_intermediate_expr.py converted_tests/tvm_torch/tests/python/relay/test_annotated_regions.py converted_tests/tvm_torch/tests/python/relay/test_op_fast_math.py converted_tests/tvm_torch/tests/python/relay/test_op_grad_level1.py converted_tests/tvm_torch/tests/python/relay/test_op_grad_level3.py converted_tests/tvm_torch/tests/python/relay/test_op_level3.py converted_tests/tvm_torch/tests/python/relay/test_op_level6.py converted_tests/tvm_torch/tests/python/relay/test_param_dict.py converted_tests/tvm_torch/tests/python/relay/test_pass_annotate_target.py converted_tests/tvm_torch/tests/python/relay/test_pass_combine_parallel_conv2d.py converted_tests/tvm_torch/tests/python/relay/test_pass_combine_parallel_dense.py converted_tests/tvm_torch/tests/python/relay/test_pass_defuse_ops.py converted_tests/tvm_torch/tests/python/relay/test_pass_eliminate_common_subexpr.py converted_tests/tvm_torch/tests/python/relay/test_pass_fast_math.py converted_tests/tvm_torch/tests/python/relay/test_pass_fuse_ops.py converted_tests/tvm_torch/tests/python/relay/test_pass_merge_composite.py converted_tests/tvm_torch/tests/python/relay/test_pass_simplify_expr.py converted_tests/tvm_torch/tests/python/relay/test_pass_simplify_inference.py converted_tests/tvm_torch/tests/python/relay/test_recast.py converted_tests/tvm_torch/tests/python/relay/test_to_mixed_precision.py converted_tests/tvm_torch/tests/python/relay/test_used_memory_annotator.py converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_conv2d_nchw_texture.py converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_conv2d_nhwc_texture.py converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_depthwise_conv2d_nchw_texture.py converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_depthwise_conv2d_nhwc_texture.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_argwhere.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_batch_norm.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_einsum.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_loss.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_matmul.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_reduce.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_sort.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_transform.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_unique.py converted_tests/tvm_torch/tests/python/topi/python/test_topi_util.py converted_tests/tvm_torch/tests/python/unittest/test_arith_const_int_bound.py converted_tests/tvm_torch/tests/python/unittest/test_autotvm_flop_calculator.py converted_tests/tvm_torch/tests/python/unittest/test_meta_schedule_feature_extractor.py converted_tests/tvm_torch/tests/python/unittest/test_target_codegen_opencl.py converted_tests/tvm_torch/tests/python/unittest/test_target_codegen_rocm.py converted_tests/tvm_torch/tests/python/unittest/test_te_autodiff.py converted_tests/tvm_torch/tests/python/unittest/test_te_schedule_lstm.py converted_tests/tvm_torch/tests/python/unittest/test_tir_analysis_expr_deep_equal.py converted_tests/tvm_torch/tests/python/unittest/test_tir_imm_values.py converted_tests/tvm_torch/tests/python/unittest/test_tir_ops.py
+[pytest-batch] Exit code=2, tests_run=11, tests_failed=10, session_started=True
 
 ================================================================================
 SUMMARY for mode = tvm_torch
@@ -413,12 +413,12 @@ Per-file coverage (only where original exists):
 - converted: converted_tests/tvm_torch/tests/python/contrib/test_onnx.py
   original:  repos/tvm/tests/python/contrib/test_onnx.py
   tests original=31, converted=31, coverage=100.0%
-- converted: converted_tests/tvm_torch/tests/python/contrib/test_tensorrt.py
-  original:  repos/tvm/tests/python/contrib/test_tensorrt.py
-  tests original=47, converted=37, coverage=78.7%
 - converted: converted_tests/tvm_torch/tests/python/contrib/test_rocblas.py
   original:  repos/tvm/tests/python/contrib/test_rocblas.py
   tests original=2, converted=2, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_tensorrt.py
+  original:  repos/tvm/tests/python/contrib/test_tensorrt.py
+  tests original=47, converted=37, coverage=78.7%
 - converted: converted_tests/tvm_torch/tests/python/contrib/test_arm_compute_lib/test_add.py
   original:  repos/tvm/tests/python/contrib/test_arm_compute_lib/test_add.py
   tests original=2, converted=2, coverage=100.0%
@@ -458,6 +458,12 @@ Per-file coverage (only where original exists):
 - converted: converted_tests/tvm_torch/tests/python/contrib/test_clml/test_ops.py
   original:  repos/tvm/tests/python/contrib/test_clml/test_ops.py
   tests original=3, converted=3, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_cmsisnn/test_generate_constants.py
+  original:  repos/tvm/tests/python/contrib/test_cmsisnn/test_generate_constants.py
+  tests original=1, converted=1, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_cmsisnn/test_softmax.py
+  original:  repos/tvm/tests/python/contrib/test_cmsisnn/test_softmax.py
+  tests original=2, converted=2, coverage=100.0%
 - converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_addition.py
   original:  repos/tvm/tests/python/contrib/test_ethosn/test_addition.py
   tests original=4, converted=5, coverage=125.0%
@@ -512,23 +518,26 @@ Per-file coverage (only where original exists):
 - converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosn/test_topologies.py
   original:  repos/tvm/tests/python/contrib/test_ethosn/test_topologies.py
   tests original=8, converted=8, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosu/test_preprocess.py
+  original:  repos/tvm/tests/python/contrib/test_ethosu/test_preprocess.py
+  tests original=4, converted=4, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosu/cascader/test_ethosu_inline_matcher.py
+  original:  repos/tvm/tests/python/contrib/test_ethosu/cascader/test_ethosu_inline_matcher.py
+  tests original=1, converted=1, coverage=100.0%
 - converted: converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_pad.py
   original:  repos/tvm/tests/python/contrib/test_hexagon/topi/test_pad.py
   tests original=1, converted=1, coverage=100.0%
 - converted: converted_tests/tvm_torch/tests/python/contrib/test_hexagon/topi/test_reduce.py
   original:  repos/tvm/tests/python/contrib/test_hexagon/topi/test_reduce.py
   tests original=1, converted=1, coverage=100.0%
-- converted: converted_tests/tvm_torch/tests/python/contrib/test_cmsisnn/test_generate_constants.py
-  original:  repos/tvm/tests/python/contrib/test_cmsisnn/test_generate_constants.py
-  tests original=1, converted=1, coverage=100.0%
-- converted: converted_tests/tvm_torch/tests/python/contrib/test_cmsisnn/test_softmax.py
-  original:  repos/tvm/tests/python/contrib/test_cmsisnn/test_softmax.py
-  tests original=2, converted=2, coverage=100.0%
-- converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosu/test_preprocess.py
-  original:  repos/tvm/tests/python/contrib/test_ethosu/test_preprocess.py
-  tests original=4, converted=4, coverage=100.0%
-- converted: converted_tests/tvm_torch/tests/python/contrib/test_ethosu/cascader/test_ethosu_inline_matcher.py
-  original:  repos/tvm/tests/python/contrib/test_ethosu/cascader/test_ethosu_inline_matcher.py
+- converted: converted_tests/tvm_torch/tests/python/frontend/caffe2/test_forward.py
+  original:  repos/tvm/tests/python/frontend/caffe2/test_forward.py
+  tests original=6, converted=6, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/integration/test_arm_mprofile_dsp.py
+  original:  repos/tvm/tests/python/integration/test_arm_mprofile_dsp.py
+  tests original=7, converted=7, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/integration/test_dot.py
+  original:  repos/tvm/tests/python/integration/test_dot.py
   tests original=1, converted=1, coverage=100.0%
 - converted: converted_tests/tvm_torch/tests/python/relay/test_analysis_extract_fake_quantized_ops.py
   original:  repos/tvm/tests/python/relay/test_analysis_extract_fake_quantized_ops.py
@@ -572,8 +581,14 @@ Per-file coverage (only where original exists):
 - converted: converted_tests/tvm_torch/tests/python/relay/test_pass_combine_parallel_dense.py
   original:  repos/tvm/tests/python/relay/test_pass_combine_parallel_dense.py
   tests original=7, converted=7, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/relay/test_pass_convert_op_layout.py
+  original:  repos/tvm/tests/python/relay/test_pass_convert_op_layout.py
+  tests original=45, converted=45, coverage=100.0%
 - converted: converted_tests/tvm_torch/tests/python/relay/test_pass_defuse_ops.py
   original:  repos/tvm/tests/python/relay/test_pass_defuse_ops.py
+  tests original=3, converted=3, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/relay/test_pass_eliminate_common_subexpr.py
+  original:  repos/tvm/tests/python/relay/test_pass_eliminate_common_subexpr.py
   tests original=3, converted=3, coverage=100.0%
 - converted: converted_tests/tvm_torch/tests/python/relay/test_pass_fake_quantization_to_integer.py
   original:  repos/tvm/tests/python/relay/test_pass_fake_quantization_to_integer.py
@@ -584,6 +599,9 @@ Per-file coverage (only where original exists):
 - converted: converted_tests/tvm_torch/tests/python/relay/test_pass_fuse_ops.py
   original:  repos/tvm/tests/python/relay/test_pass_fuse_ops.py
   tests original=21, converted=21, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/relay/test_pass_merge_composite.py
+  original:  repos/tvm/tests/python/relay/test_pass_merge_composite.py
+  tests original=12, converted=12, coverage=100.0%
 - converted: converted_tests/tvm_torch/tests/python/relay/test_pass_simplify_expr.py
   original:  repos/tvm/tests/python/relay/test_pass_simplify_expr.py
   tests original=23, converted=23, coverage=100.0%
@@ -599,15 +617,6 @@ Per-file coverage (only where original exists):
 - converted: converted_tests/tvm_torch/tests/python/relay/test_used_memory_annotator.py
   original:  repos/tvm/tests/python/relay/test_used_memory_annotator.py
   tests original=12, converted=12, coverage=100.0%
-- converted: converted_tests/tvm_torch/tests/python/relay/test_pass_convert_op_layout.py
-  original:  repos/tvm/tests/python/relay/test_pass_convert_op_layout.py
-  tests original=45, converted=45, coverage=100.0%
-- converted: converted_tests/tvm_torch/tests/python/relay/test_pass_eliminate_common_subexpr.py
-  original:  repos/tvm/tests/python/relay/test_pass_eliminate_common_subexpr.py
-  tests original=3, converted=3, coverage=100.0%
-- converted: converted_tests/tvm_torch/tests/python/relay/test_pass_merge_composite.py
-  original:  repos/tvm/tests/python/relay/test_pass_merge_composite.py
-  tests original=12, converted=12, coverage=100.0%
 - converted: converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_conv2d_nchw_texture.py
   original:  repos/tvm/tests/python/relay/opencl_texture/test_conv2d_nchw_texture.py
   tests original=19, converted=19, coverage=100.0%
@@ -620,6 +629,9 @@ Per-file coverage (only where original exists):
 - converted: converted_tests/tvm_torch/tests/python/relay/opencl_texture/test_depthwise_conv2d_nhwc_texture.py
   original:  repos/tvm/tests/python/relay/opencl_texture/test_depthwise_conv2d_nhwc_texture.py
   tests original=5, converted=5, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/topi/python/test_topi_argwhere.py
+  original:  repos/tvm/tests/python/topi/python/test_topi_argwhere.py
+  tests original=1, converted=1, coverage=100.0%
 - converted: converted_tests/tvm_torch/tests/python/topi/python/test_topi_batch_norm.py
   original:  repos/tvm/tests/python/topi/python/test_topi_batch_norm.py
   tests original=1, converted=1, coverage=100.0%
@@ -641,15 +653,15 @@ Per-file coverage (only where original exists):
 - converted: converted_tests/tvm_torch/tests/python/topi/python/test_topi_transform.py
   original:  repos/tvm/tests/python/topi/python/test_topi_transform.py
   tests original=33, converted=0, coverage=0.0%
-- converted: converted_tests/tvm_torch/tests/python/topi/python/test_topi_util.py
-  original:  repos/tvm/tests/python/topi/python/test_topi_util.py
-  tests original=1, converted=1, coverage=100.0%
-- converted: converted_tests/tvm_torch/tests/python/topi/python/test_topi_argwhere.py
-  original:  repos/tvm/tests/python/topi/python/test_topi_argwhere.py
-  tests original=1, converted=1, coverage=100.0%
 - converted: converted_tests/tvm_torch/tests/python/topi/python/test_topi_unique.py
   original:  repos/tvm/tests/python/topi/python/test_topi_unique.py
   tests original=1, converted=1, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/topi/python/test_topi_util.py
+  original:  repos/tvm/tests/python/topi/python/test_topi_util.py
+  tests original=1, converted=1, coverage=100.0%
+- converted: converted_tests/tvm_torch/tests/python/unittest/test_arith_const_int_bound.py
+  original:  repos/tvm/tests/python/unittest/test_arith_const_int_bound.py
+  tests original=16, converted=16, coverage=100.0%
 - converted: converted_tests/tvm_torch/tests/python/unittest/test_autotvm_flop_calculator.py
   original:  repos/tvm/tests/python/unittest/test_autotvm_flop_calculator.py
   tests original=6, converted=6, coverage=100.0%
@@ -677,282 +689,602 @@ Per-file coverage (only where original exists):
 - converted: converted_tests/tvm_torch/tests/python/unittest/test_tir_ops.py
   original:  repos/tvm/tests/python/unittest/test_tir_ops.py
   tests original=6, converted=6, coverage=100.0%
-- converted: converted_tests/tvm_torch/tests/python/unittest/test_arith_const_int_bound.py
-  original:  repos/tvm/tests/python/unittest/test_arith_const_int_bound.py
-  tests original=16, converted=16, coverage=100.0%
-- converted: converted_tests/tvm_torch/tests/python/frontend/caffe2/test_forward.py
-  original:  repos/tvm/tests/python/frontend/caffe2/test_forward.py
-  tests original=6, converted=6, coverage=100.0%
-- converted: converted_tests/tvm_torch/tests/python/integration/test_arm_mprofile_dsp.py
-  original:  repos/tvm/tests/python/integration/test_arm_mprofile_dsp.py
-  tests original=7, converted=7, coverage=100.0%
-- converted: converted_tests/tvm_torch/tests/python/integration/test_dot.py
-  original:  repos/tvm/tests/python/integration/test_dot.py
-  tests original=1, converted=1, coverage=100.0%
 
 Pytest file summary (from per-file runs):
-  Original files:  70 passed, 26 failed
-  Converted files: 45 passed, 51 failed
+  Original files:  68 passed, 28 failed
+  Converted files: 53 passed, 43 failed
 
 Pytest batch execution summary (from one pytest run per side):
   Original tests: batch pytest failed during configuration (exit code 1); test counts unavailable
-  Converted tests: 14 run, 13 failed
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/test_bundled_images.py
-  expected original: repos/pytorch/test/test/test_bundled_images.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/test_cpp_extensions_aot.py
-  expected original: repos/pytorch/test/test/test_cpp_extensions_aot.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/test_cuda_sanitizer.py
-  expected original: repos/pytorch/test/test/test_cuda_sanitizer.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/test_functionalization_of_rng_ops.py
-  expected original: repos/pytorch/test/test/test_functionalization_of_rng_ops.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/test_jit_fuser.py
-  expected original: repos/pytorch/test/test/test_jit_fuser.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/test_numba_integration.py
-  expected original: repos/pytorch/test/test/test_numba_integration.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/test_tensorexpr.py
-  expected original: repos/pytorch/test/test/test_tensorexpr.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/ao/sparsity/test_activation_sparsifier.py
-  expected original: repos/pytorch/test/test/ao/sparsity/test_activation_sparsifier.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/bottleneck_test/test_args.py
-  expected original: repos/pytorch/test/test/bottleneck_test/test_args.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/custom_operator/test_custom_ops.py
-  expected original: repos/pytorch/test/test/custom_operator/test_custom_ops.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/distributed/test_c10d_spawn.py
-  expected original: repos/pytorch/test/test/distributed/test_c10d_spawn.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/distributed/test_c10d_spawn_gloo.py
-  expected original: repos/pytorch/test/test/distributed/test_c10d_spawn_gloo.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/distributed/test_dist2.py
-  expected original: repos/pytorch/test/test/distributed/test_dist2.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/distributed/test_multi_threaded_pg.py
-  expected original: repos/pytorch/test/test/distributed/test_multi_threaded_pg.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/distributed/launcher/bin/test_script_init_method.py
-  expected original: repos/pytorch/test/test/distributed/launcher/bin/test_script_init_method.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/distributed/tensor/test_experimental_ops.py
-  expected original: repos/pytorch/test/test/distributed/tensor/test_experimental_ops.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/distributed/tensor/test_tensor_ops.py
-  expected original: repos/pytorch/test/test/distributed/tensor/test_tensor_ops.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/dynamo/test_after_aot.py
-  expected original: repos/pytorch/test/test/dynamo/test_after_aot.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/dynamo/test_buffers_override.py
-  expected original: repos/pytorch/test/test/dynamo/test_buffers_override.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/dynamo/test_cudagraphs.py
-  expected original: repos/pytorch/test/test/dynamo/test_cudagraphs.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/dynamo/test_deque_reconstruct.py
-  expected original: repos/pytorch/test/test/dynamo/test_deque_reconstruct.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/dynamo/test_dicts.py
-  expected original: repos/pytorch/test/test/dynamo/test_dicts.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/dynamo/test_exceptions.py
-  expected original: repos/pytorch/test/test/dynamo/test_exceptions.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/dynamo/test_export_mutations.py
-  expected original: repos/pytorch/test/test/dynamo/test_export_mutations.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/dynamo/test_global.py
-  expected original: repos/pytorch/test/test/dynamo/test_global.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/dynamo/test_list.py
-  expected original: repos/pytorch/test/test/dynamo/test_list.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/dynamo/test_minifier.py
-  expected original: repos/pytorch/test/test/dynamo/test_minifier.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/dynamo/test_nops.py
-  expected original: repos/pytorch/test/test/dynamo/test_nops.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/dynamo/test_pre_dispatch.py
-  expected original: repos/pytorch/test/test/dynamo/test_pre_dispatch.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/dynamo/test_resume.py
-  expected original: repos/pytorch/test/test/dynamo/test_resume.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/dynamo/test_sets.py
-  expected original: repos/pytorch/test/test/dynamo/test_sets.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/dynamo/test_skip_guard_eval_unsafe.py
-  expected original: repos/pytorch/test/test/dynamo/test_skip_guard_eval_unsafe.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/export/test_sparse.py
-  expected original: repos/pytorch/test/test/export/test_sparse.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/export/test_swap.py
-  expected original: repos/pytorch/test/test/export/test_swap.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/functorch/test_memory_efficient_fusion.py
-  expected original: repos/pytorch/test/test/functorch/test_memory_efficient_fusion.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/functorch/test_rearrange.py
-  expected original: repos/pytorch/test/test/functorch/test_rearrange.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/fx/test_common_passes.py
-  expected original: repos/pytorch/test/test/fx/test_common_passes.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/fx/test_dynamism.py
-  expected original: repos/pytorch/test/test/fx/test_dynamism.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/fx/test_future.py
-  expected original: repos/pytorch/test/test/fx/test_future.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/fx/test_partitioner_order.py
-  expected original: repos/pytorch/test/test/fx/test_partitioner_order.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/fx/test_shape_inference.py
-  expected original: repos/pytorch/test/test/fx/test_shape_inference.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_best_config.py
-  expected original: repos/pytorch/test/test/inductor/test_best_config.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_combo_kernels.py
-  expected original: repos/pytorch/test/test/inductor/test_combo_kernels.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_control_flow.py
-  expected original: repos/pytorch/test/test/inductor/test_control_flow.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_cooperative_reductions.py
-  expected original: repos/pytorch/test/test/inductor/test_cooperative_reductions.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_coordinate_descent_tuner.py
-  expected original: repos/pytorch/test/test/inductor/test_coordinate_descent_tuner.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_cpu_repro.py
-  expected original: repos/pytorch/test/test/inductor/test_cpu_repro.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_fused_attention.py
-  expected original: repos/pytorch/test/test/inductor/test_fused_attention.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_graph_transform_observer.py
-  expected original: repos/pytorch/test/test/inductor/test_graph_transform_observer.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_group_batch_fusion.py
-  expected original: repos/pytorch/test/test/inductor/test_group_batch_fusion.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_helion_kernels.py
-  expected original: repos/pytorch/test/test/inductor/test_helion_kernels.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_kernel_benchmark.py
-  expected original: repos/pytorch/test/test/inductor/test_kernel_benchmark.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_move_constructors_to_cuda.py
-  expected original: repos/pytorch/test/test/inductor/test_move_constructors_to_cuda.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_online_softmax.py
-  expected original: repos/pytorch/test/test/inductor/test_online_softmax.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_perf.py
-  expected original: repos/pytorch/test/test/inductor/test_perf.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_quantization.py
-  expected original: repos/pytorch/test/test/inductor/test_quantization.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_smoke.py
-  expected original: repos/pytorch/test/test/inductor/test_smoke.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_split_cat_fx_passes.py
-  expected original: repos/pytorch/test/test/inductor/test_split_cat_fx_passes.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_static_cuda_launcher.py
-  expected original: repos/pytorch/test/test/inductor/test_static_cuda_launcher.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/inductor/test_triton_wrapper.py
-  expected original: repos/pytorch/test/test/inductor/test_triton_wrapper.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/jit/test_autodiff.py
-  expected original: repos/pytorch/test/test/jit/test_autodiff.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/jit/test_convert_activation.py
-  expected original: repos/pytorch/test/test/jit/test_convert_activation.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/jit/test_fuser_common.py
-  expected original: repos/pytorch/test/test/jit/test_fuser_common.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/jit/test_python_builtins.py
-  expected original: repos/pytorch/test/test/jit/test_python_builtins.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/jit/test_python_ir.py
-  expected original: repos/pytorch/test/test/jit/test_python_ir.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/jit/test_slice.py
-  expected original: repos/pytorch/test/test/jit/test_slice.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/nn/test_module_hooks.py
-  expected original: repos/pytorch/test/test/nn/test_module_hooks.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/onnx/test_autograd_funs.py
-  expected original: repos/pytorch/test/test/onnx/test_autograd_funs.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/onnx/test_models_quantized_onnxruntime.py
-  expected original: repos/pytorch/test/test/onnx/test_models_quantized_onnxruntime.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/onnx/test_onnx_opset.py
-  expected original: repos/pytorch/test/test/onnx/test_onnx_opset.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/package/package_a/test_module.py
-  expected original: repos/pytorch/test/test/package/package_a/test_module.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/package/package_c/test_module.py
-  expected original: repos/pytorch/test/test/package/package_c/test_module.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/profiler/test_torch_tidy.py
-  expected original: repos/pytorch/test/test/profiler/test_torch_tidy.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/quantization/core/experimental/test_nonuniform_observer.py
-  expected original: repos/pytorch/test/test/quantization/core/experimental/test_nonuniform_observer.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/quantization/eager/test_equalize_eager.py
-  expected original: repos/pytorch/test/test/quantization/eager/test_equalize_eager.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/quantization/fx/test_subgraph_rewriter.py
-  expected original: repos/pytorch/test/test/quantization/fx/test_subgraph_rewriter.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/torch_np/test_basic.py
-  expected original: repos/pytorch/test/test/torch_np/test_basic.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/torch_np/test_binary_ufuncs.py
-  expected original: repos/pytorch/test/test/torch_np/test_binary_ufuncs.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/torch_np/test_unary_ufuncs.py
-  expected original: repos/pytorch/test/test/torch_np/test_unary_ufuncs.py
-[warn] Original test file not found for converted test:
-  converted: converted_tests/torch_tvm/test/torch_np/numpy_tests/core/test_dlpack.py
-  expected original: repos/pytorch/test/test/torch_np/numpy_tests/core/test_dlpack.py
+  Converted tests: 11 run, 10 failed
+
+================================================================================
+[pytest] Running: repos/pytorch/test/test_bundled_images.py
+[pytest] FAIL: repos/pytorch/test/test_bundled_images.py (exit_code=2)
+[pytest] Running: converted_tests/torch_tvm/test/test_bundled_images.py
+[pytest] FAIL: converted_tests/torch_tvm/test/test_bundled_images.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/test_cpp_extensions_aot.py
+[pytest] FAIL: repos/pytorch/test/test_cpp_extensions_aot.py (exit_code=5)
+[pytest] Running: converted_tests/torch_tvm/test/test_cpp_extensions_aot.py
+[pytest] FAIL: converted_tests/torch_tvm/test/test_cpp_extensions_aot.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/test_cuda_sanitizer.py
+[pytest] FAIL: repos/pytorch/test/test_cuda_sanitizer.py (exit_code=5)
+[pytest] Running: converted_tests/torch_tvm/test/test_cuda_sanitizer.py
+[pytest] FAIL: converted_tests/torch_tvm/test/test_cuda_sanitizer.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/test_functionalization_of_rng_ops.py
+[pytest] PASS: repos/pytorch/test/test_functionalization_of_rng_ops.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/test_functionalization_of_rng_ops.py
+[pytest] FAIL: converted_tests/torch_tvm/test/test_functionalization_of_rng_ops.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/test_jit_fuser.py
+[pytest] FAIL: repos/pytorch/test/test_jit_fuser.py (exit_code=1)
+[pytest] Running: converted_tests/torch_tvm/test/test_jit_fuser.py
+[pytest] FAIL: converted_tests/torch_tvm/test/test_jit_fuser.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/test_numba_integration.py
+[pytest] PASS: repos/pytorch/test/test_numba_integration.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/test_numba_integration.py
+[pytest] PASS: converted_tests/torch_tvm/test/test_numba_integration.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/test_tensorexpr.py
+[pytest] PASS: repos/pytorch/test/test_tensorexpr.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/test_tensorexpr.py
+[pytest] FAIL: converted_tests/torch_tvm/test/test_tensorexpr.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/ao/sparsity/test_activation_sparsifier.py
+[pytest] PASS: repos/pytorch/test/ao/sparsity/test_activation_sparsifier.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/ao/sparsity/test_activation_sparsifier.py
+[pytest] PASS: converted_tests/torch_tvm/test/ao/sparsity/test_activation_sparsifier.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/bottleneck_test/test_args.py
+[pytest] FAIL: repos/pytorch/test/bottleneck_test/test_args.py (exit_code=5)
+[pytest] Running: converted_tests/torch_tvm/test/bottleneck_test/test_args.py
+[pytest] FAIL: converted_tests/torch_tvm/test/bottleneck_test/test_args.py (exit_code=5)
+[pytest] Running: repos/pytorch/test/custom_operator/test_custom_ops.py
+[pytest] FAIL: repos/pytorch/test/custom_operator/test_custom_ops.py (exit_code=2)
+[pytest] Running: converted_tests/torch_tvm/test/custom_operator/test_custom_ops.py
+[pytest] FAIL: converted_tests/torch_tvm/test/custom_operator/test_custom_ops.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/distributed/test_c10d_spawn.py
+[pytest] FAIL: repos/pytorch/test/distributed/test_c10d_spawn.py (exit_code=5)
+[pytest] Running: converted_tests/torch_tvm/test/distributed/test_c10d_spawn.py
+[pytest] PASS: converted_tests/torch_tvm/test/distributed/test_c10d_spawn.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/distributed/test_c10d_spawn_gloo.py
+[pytest] PASS: repos/pytorch/test/distributed/test_c10d_spawn_gloo.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/distributed/test_c10d_spawn_gloo.py
+[pytest] PASS: converted_tests/torch_tvm/test/distributed/test_c10d_spawn_gloo.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/distributed/test_dist2.py
+[pytest] PASS: repos/pytorch/test/distributed/test_dist2.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/distributed/test_dist2.py
+[pytest] FAIL: converted_tests/torch_tvm/test/distributed/test_dist2.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/distributed/test_multi_threaded_pg.py
+[pytest] PASS: repos/pytorch/test/distributed/test_multi_threaded_pg.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/distributed/test_multi_threaded_pg.py
+[pytest] PASS: converted_tests/torch_tvm/test/distributed/test_multi_threaded_pg.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/distributed/launcher/bin/test_script_init_method.py
+[pytest] FAIL: repos/pytorch/test/distributed/launcher/bin/test_script_init_method.py (exit_code=5)
+[pytest] Running: converted_tests/torch_tvm/test/distributed/launcher/bin/test_script_init_method.py
+[pytest] FAIL: converted_tests/torch_tvm/test/distributed/launcher/bin/test_script_init_method.py (exit_code=5)
+[pytest] Running: repos/pytorch/test/distributed/tensor/test_experimental_ops.py
+[pytest] PASS: repos/pytorch/test/distributed/tensor/test_experimental_ops.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/distributed/tensor/test_experimental_ops.py
+[pytest] FAIL: converted_tests/torch_tvm/test/distributed/tensor/test_experimental_ops.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/distributed/tensor/test_tensor_ops.py
+[pytest] PASS: repos/pytorch/test/distributed/tensor/test_tensor_ops.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/distributed/tensor/test_tensor_ops.py
+[pytest] FAIL: converted_tests/torch_tvm/test/distributed/tensor/test_tensor_ops.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/dynamo/test_after_aot.py
+[pytest] PASS: repos/pytorch/test/dynamo/test_after_aot.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/dynamo/test_after_aot.py
+[pytest] PASS: converted_tests/torch_tvm/test/dynamo/test_after_aot.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/dynamo/test_buffers_override.py
+[pytest] PASS: repos/pytorch/test/dynamo/test_buffers_override.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/dynamo/test_buffers_override.py
+[pytest] FAIL: converted_tests/torch_tvm/test/dynamo/test_buffers_override.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/dynamo/test_cudagraphs.py
+[pytest] PASS: repos/pytorch/test/dynamo/test_cudagraphs.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/dynamo/test_cudagraphs.py
+[pytest] PASS: converted_tests/torch_tvm/test/dynamo/test_cudagraphs.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/dynamo/test_deque_reconstruct.py
+[pytest] PASS: repos/pytorch/test/dynamo/test_deque_reconstruct.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/dynamo/test_deque_reconstruct.py
+[pytest] FAIL: converted_tests/torch_tvm/test/dynamo/test_deque_reconstruct.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/dynamo/test_dicts.py
+[pytest] PASS: repos/pytorch/test/dynamo/test_dicts.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/dynamo/test_dicts.py
+[pytest] FAIL: converted_tests/torch_tvm/test/dynamo/test_dicts.py (exit_code=5)
+[pytest] Running: repos/pytorch/test/dynamo/test_exceptions.py
+[pytest] PASS: repos/pytorch/test/dynamo/test_exceptions.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/dynamo/test_exceptions.py
+[pytest] FAIL: converted_tests/torch_tvm/test/dynamo/test_exceptions.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/dynamo/test_export_mutations.py
+[pytest] PASS: repos/pytorch/test/dynamo/test_export_mutations.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/dynamo/test_export_mutations.py
+[pytest] FAIL: converted_tests/torch_tvm/test/dynamo/test_export_mutations.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/dynamo/test_global.py
+[pytest] PASS: repos/pytorch/test/dynamo/test_global.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/dynamo/test_global.py
+[pytest] FAIL: converted_tests/torch_tvm/test/dynamo/test_global.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/dynamo/test_list.py
+[pytest] PASS: repos/pytorch/test/dynamo/test_list.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/dynamo/test_list.py
+[pytest] PASS: converted_tests/torch_tvm/test/dynamo/test_list.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/dynamo/test_minifier.py
+[pytest] PASS: repos/pytorch/test/dynamo/test_minifier.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/dynamo/test_minifier.py
+[pytest] FAIL: converted_tests/torch_tvm/test/dynamo/test_minifier.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/dynamo/test_nops.py
+[pytest] PASS: repos/pytorch/test/dynamo/test_nops.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/dynamo/test_nops.py
+[pytest] FAIL: converted_tests/torch_tvm/test/dynamo/test_nops.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/dynamo/test_pre_dispatch.py
+[pytest] PASS: repos/pytorch/test/dynamo/test_pre_dispatch.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/dynamo/test_pre_dispatch.py
+[pytest] FAIL: converted_tests/torch_tvm/test/dynamo/test_pre_dispatch.py (exit_code=5)
+[pytest] Running: repos/pytorch/test/dynamo/test_resume.py
+[pytest] PASS: repos/pytorch/test/dynamo/test_resume.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/dynamo/test_resume.py
+[pytest] PASS: converted_tests/torch_tvm/test/dynamo/test_resume.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/dynamo/test_sets.py
+[pytest] PASS: repos/pytorch/test/dynamo/test_sets.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/dynamo/test_sets.py
+[pytest] FAIL: converted_tests/torch_tvm/test/dynamo/test_sets.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/dynamo/test_skip_guard_eval_unsafe.py
+[pytest] PASS: repos/pytorch/test/dynamo/test_skip_guard_eval_unsafe.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/dynamo/test_skip_guard_eval_unsafe.py
+[pytest] FAIL: converted_tests/torch_tvm/test/dynamo/test_skip_guard_eval_unsafe.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/export/test_sparse.py
+[pytest] PASS: repos/pytorch/test/export/test_sparse.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/export/test_sparse.py
+[pytest] FAIL: converted_tests/torch_tvm/test/export/test_sparse.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/export/test_swap.py
+[pytest] FAIL: repos/pytorch/test/export/test_swap.py (exit_code=2)
+[pytest] Running: converted_tests/torch_tvm/test/export/test_swap.py
+[pytest] FAIL: converted_tests/torch_tvm/test/export/test_swap.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/functorch/test_memory_efficient_fusion.py
+[pytest] PASS: repos/pytorch/test/functorch/test_memory_efficient_fusion.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/functorch/test_memory_efficient_fusion.py
+[pytest] FAIL: converted_tests/torch_tvm/test/functorch/test_memory_efficient_fusion.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/functorch/test_rearrange.py
+[pytest] PASS: repos/pytorch/test/functorch/test_rearrange.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/functorch/test_rearrange.py
+[pytest] FAIL: converted_tests/torch_tvm/test/functorch/test_rearrange.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/fx/test_common_passes.py
+[pytest] PASS: repos/pytorch/test/fx/test_common_passes.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/fx/test_common_passes.py
+[pytest] FAIL: converted_tests/torch_tvm/test/fx/test_common_passes.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/fx/test_dynamism.py
+[pytest] PASS: repos/pytorch/test/fx/test_dynamism.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/fx/test_dynamism.py
+[pytest] PASS: converted_tests/torch_tvm/test/fx/test_dynamism.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/fx/test_future.py
+[pytest] FAIL: repos/pytorch/test/fx/test_future.py (exit_code=5)
+[pytest] Running: converted_tests/torch_tvm/test/fx/test_future.py
+[pytest] FAIL: converted_tests/torch_tvm/test/fx/test_future.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/fx/test_partitioner_order.py
+[pytest] PASS: repos/pytorch/test/fx/test_partitioner_order.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/fx/test_partitioner_order.py
+[pytest] PASS: converted_tests/torch_tvm/test/fx/test_partitioner_order.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/fx/test_shape_inference.py
+[pytest] FAIL: repos/pytorch/test/fx/test_shape_inference.py (exit_code=2)
+[pytest] Running: converted_tests/torch_tvm/test/fx/test_shape_inference.py
+[pytest] FAIL: converted_tests/torch_tvm/test/fx/test_shape_inference.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/inductor/test_best_config.py
+[pytest] FAIL: repos/pytorch/test/inductor/test_best_config.py (exit_code=1)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_best_config.py
+[pytest] PASS: converted_tests/torch_tvm/test/inductor/test_best_config.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/inductor/test_combo_kernels.py
+[pytest] PASS: repos/pytorch/test/inductor/test_combo_kernels.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_combo_kernels.py
+[pytest] FAIL: converted_tests/torch_tvm/test/inductor/test_combo_kernels.py (exit_code=2)
+[pytest-batch] Excluding large original file from batch: repos/pytorch/test/inductor/test_control_flow.py
+[pytest] Skipping pytest on large file: repos/pytorch/test/inductor/test_control_flow.py (lines=2269)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_control_flow.py
+[pytest] FAIL: converted_tests/torch_tvm/test/inductor/test_control_flow.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/inductor/test_cooperative_reductions.py
+[pytest] FAIL: repos/pytorch/test/inductor/test_cooperative_reductions.py (exit_code=1)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_cooperative_reductions.py
+[pytest] FAIL: converted_tests/torch_tvm/test/inductor/test_cooperative_reductions.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/inductor/test_coordinate_descent_tuner.py
+[pytest] FAIL: repos/pytorch/test/inductor/test_coordinate_descent_tuner.py (exit_code=1)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_coordinate_descent_tuner.py
+[pytest] FAIL: converted_tests/torch_tvm/test/inductor/test_coordinate_descent_tuner.py (exit_code=1)
+[pytest-batch] Excluding large original file from batch: repos/pytorch/test/inductor/test_cpu_repro.py
+[pytest] Skipping pytest on large file: repos/pytorch/test/inductor/test_cpu_repro.py (lines=5499)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_cpu_repro.py
+[pytest] FAIL: converted_tests/torch_tvm/test/inductor/test_cpu_repro.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/inductor/test_fused_attention.py
+[pytest] PASS: repos/pytorch/test/inductor/test_fused_attention.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_fused_attention.py
+[pytest] FAIL: converted_tests/torch_tvm/test/inductor/test_fused_attention.py (exit_code=5)
+[pytest] Running: repos/pytorch/test/inductor/test_graph_transform_observer.py
+[pytest] PASS: repos/pytorch/test/inductor/test_graph_transform_observer.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_graph_transform_observer.py
+[pytest] PASS: converted_tests/torch_tvm/test/inductor/test_graph_transform_observer.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/inductor/test_group_batch_fusion.py
+[pytest] PASS: repos/pytorch/test/inductor/test_group_batch_fusion.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_group_batch_fusion.py
+[pytest] FAIL: converted_tests/torch_tvm/test/inductor/test_group_batch_fusion.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/inductor/test_helion_kernels.py
+[pytest] PASS: repos/pytorch/test/inductor/test_helion_kernels.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_helion_kernels.py
+[pytest] FAIL: converted_tests/torch_tvm/test/inductor/test_helion_kernels.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/inductor/test_kernel_benchmark.py
+[pytest] FAIL: repos/pytorch/test/inductor/test_kernel_benchmark.py (exit_code=1)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_kernel_benchmark.py
+[pytest] PASS: converted_tests/torch_tvm/test/inductor/test_kernel_benchmark.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/inductor/test_move_constructors_to_cuda.py
+[pytest] FAIL: repos/pytorch/test/inductor/test_move_constructors_to_cuda.py (exit_code=1)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_move_constructors_to_cuda.py
+[pytest] FAIL: converted_tests/torch_tvm/test/inductor/test_move_constructors_to_cuda.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/inductor/test_online_softmax.py
+[pytest] FAIL: repos/pytorch/test/inductor/test_online_softmax.py (exit_code=1)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_online_softmax.py
+[pytest] FAIL: converted_tests/torch_tvm/test/inductor/test_online_softmax.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/inductor/test_perf.py
+[pytest] FAIL: repos/pytorch/test/inductor/test_perf.py (exit_code=1)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_perf.py
+[pytest] FAIL: converted_tests/torch_tvm/test/inductor/test_perf.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/inductor/test_quantization.py
+[pytest] PASS: repos/pytorch/test/inductor/test_quantization.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_quantization.py
+[pytest] PASS: converted_tests/torch_tvm/test/inductor/test_quantization.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/inductor/test_smoke.py
+[pytest] PASS: repos/pytorch/test/inductor/test_smoke.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_smoke.py
+[pytest] PASS: converted_tests/torch_tvm/test/inductor/test_smoke.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/inductor/test_split_cat_fx_passes.py
+[pytest] PASS: repos/pytorch/test/inductor/test_split_cat_fx_passes.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_split_cat_fx_passes.py
+[pytest] FAIL: converted_tests/torch_tvm/test/inductor/test_split_cat_fx_passes.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/inductor/test_static_cuda_launcher.py
+[pytest] PASS: repos/pytorch/test/inductor/test_static_cuda_launcher.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_static_cuda_launcher.py
+[pytest] FAIL: converted_tests/torch_tvm/test/inductor/test_static_cuda_launcher.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/inductor/test_triton_wrapper.py
+[pytest] FAIL: repos/pytorch/test/inductor/test_triton_wrapper.py (exit_code=1)
+[pytest] Running: converted_tests/torch_tvm/test/inductor/test_triton_wrapper.py
+[pytest] FAIL: converted_tests/torch_tvm/test/inductor/test_triton_wrapper.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/jit/test_autodiff.py
+[pytest] PASS: repos/pytorch/test/jit/test_autodiff.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/jit/test_autodiff.py
+[pytest] FAIL: converted_tests/torch_tvm/test/jit/test_autodiff.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/jit/test_convert_activation.py
+[pytest] PASS: repos/pytorch/test/jit/test_convert_activation.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/jit/test_convert_activation.py
+[pytest] FAIL: converted_tests/torch_tvm/test/jit/test_convert_activation.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/jit/test_fuser_common.py
+[pytest] PASS: repos/pytorch/test/jit/test_fuser_common.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/jit/test_fuser_common.py
+[pytest] FAIL: converted_tests/torch_tvm/test/jit/test_fuser_common.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/jit/test_python_builtins.py
+[pytest] PASS: repos/pytorch/test/jit/test_python_builtins.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/jit/test_python_builtins.py
+[pytest] FAIL: converted_tests/torch_tvm/test/jit/test_python_builtins.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/jit/test_python_ir.py
+[pytest] PASS: repos/pytorch/test/jit/test_python_ir.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/jit/test_python_ir.py
+[pytest] FAIL: converted_tests/torch_tvm/test/jit/test_python_ir.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/jit/test_slice.py
+[pytest] PASS: repos/pytorch/test/jit/test_slice.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/jit/test_slice.py
+[pytest] FAIL: converted_tests/torch_tvm/test/jit/test_slice.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/nn/test_module_hooks.py
+[pytest] PASS: repos/pytorch/test/nn/test_module_hooks.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/nn/test_module_hooks.py
+[pytest] PASS: converted_tests/torch_tvm/test/nn/test_module_hooks.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/onnx/test_autograd_funs.py
+[pytest] FAIL: repos/pytorch/test/onnx/test_autograd_funs.py (exit_code=2)
+[pytest] Running: converted_tests/torch_tvm/test/onnx/test_autograd_funs.py
+[pytest] FAIL: converted_tests/torch_tvm/test/onnx/test_autograd_funs.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/onnx/test_models_quantized_onnxruntime.py
+[pytest] FAIL: repos/pytorch/test/onnx/test_models_quantized_onnxruntime.py (exit_code=2)
+[pytest] Running: converted_tests/torch_tvm/test/onnx/test_models_quantized_onnxruntime.py
+[pytest] PASS: converted_tests/torch_tvm/test/onnx/test_models_quantized_onnxruntime.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/onnx/test_onnx_opset.py
+[pytest] FAIL: repos/pytorch/test/onnx/test_onnx_opset.py (exit_code=1)
+[pytest] Running: converted_tests/torch_tvm/test/onnx/test_onnx_opset.py
+[pytest] FAIL: converted_tests/torch_tvm/test/onnx/test_onnx_opset.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/package/package_a/test_module.py
+[pytest] FAIL: repos/pytorch/test/package/package_a/test_module.py (exit_code=5)
+[pytest] Running: converted_tests/torch_tvm/test/package/package_a/test_module.py
+[pytest] FAIL: converted_tests/torch_tvm/test/package/package_a/test_module.py (exit_code=5)
+[pytest] Running: repos/pytorch/test/package/package_c/test_module.py
+[pytest] FAIL: repos/pytorch/test/package/package_c/test_module.py (exit_code=5)
+[pytest] Running: converted_tests/torch_tvm/test/package/package_c/test_module.py
+[pytest] FAIL: converted_tests/torch_tvm/test/package/package_c/test_module.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/profiler/test_torch_tidy.py
+[pytest] PASS: repos/pytorch/test/profiler/test_torch_tidy.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/profiler/test_torch_tidy.py
+[pytest] FAIL: converted_tests/torch_tvm/test/profiler/test_torch_tidy.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/quantization/core/experimental/test_nonuniform_observer.py
+[pytest] FAIL: repos/pytorch/test/quantization/core/experimental/test_nonuniform_observer.py (exit_code=2)
+[pytest] Running: converted_tests/torch_tvm/test/quantization/core/experimental/test_nonuniform_observer.py
+[pytest] PASS: converted_tests/torch_tvm/test/quantization/core/experimental/test_nonuniform_observer.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/quantization/eager/test_equalize_eager.py
+[pytest] PASS: repos/pytorch/test/quantization/eager/test_equalize_eager.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/quantization/eager/test_equalize_eager.py
+[pytest] PASS: converted_tests/torch_tvm/test/quantization/eager/test_equalize_eager.py (exit_code=0)
+[pytest] Running: repos/pytorch/test/quantization/fx/test_subgraph_rewriter.py
+[pytest] PASS: repos/pytorch/test/quantization/fx/test_subgraph_rewriter.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/quantization/fx/test_subgraph_rewriter.py
+[pytest] FAIL: converted_tests/torch_tvm/test/quantization/fx/test_subgraph_rewriter.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/torch_np/test_basic.py
+[pytest] PASS: repos/pytorch/test/torch_np/test_basic.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/torch_np/test_basic.py
+[pytest] FAIL: converted_tests/torch_tvm/test/torch_np/test_basic.py (exit_code=2)
+[pytest] Running: repos/pytorch/test/torch_np/test_binary_ufuncs.py
+[pytest] PASS: repos/pytorch/test/torch_np/test_binary_ufuncs.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/torch_np/test_binary_ufuncs.py
+[pytest] FAIL: converted_tests/torch_tvm/test/torch_np/test_binary_ufuncs.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/torch_np/test_unary_ufuncs.py
+[pytest] PASS: repos/pytorch/test/torch_np/test_unary_ufuncs.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/torch_np/test_unary_ufuncs.py
+[pytest] FAIL: converted_tests/torch_tvm/test/torch_np/test_unary_ufuncs.py (exit_code=1)
+[pytest] Running: repos/pytorch/test/torch_np/numpy_tests/core/test_dlpack.py
+[pytest] PASS: repos/pytorch/test/torch_np/numpy_tests/core/test_dlpack.py (exit_code=0)
+[pytest] Running: converted_tests/torch_tvm/test/torch_np/numpy_tests/core/test_dlpack.py
+[pytest] FAIL: converted_tests/torch_tvm/test/torch_np/numpy_tests/core/test_dlpack.py (exit_code=1)
+
+[pytest-batch] Running batch pytest command:
+    /home/cl2837/miniforge3/envs/cs6158-final/bin/python -m pytest repos/pytorch/test/test_bundled_images.py repos/pytorch/test/test_cpp_extensions_aot.py repos/pytorch/test/test_cuda_sanitizer.py repos/pytorch/test/test_functionalization_of_rng_ops.py repos/pytorch/test/test_jit_fuser.py repos/pytorch/test/test_numba_integration.py repos/pytorch/test/test_tensorexpr.py repos/pytorch/test/ao/sparsity/test_activation_sparsifier.py repos/pytorch/test/bottleneck_test/test_args.py repos/pytorch/test/custom_operator/test_custom_ops.py repos/pytorch/test/distributed/test_c10d_spawn.py repos/pytorch/test/distributed/test_c10d_spawn_gloo.py repos/pytorch/test/distributed/test_dist2.py repos/pytorch/test/distributed/test_multi_threaded_pg.py repos/pytorch/test/distributed/launcher/bin/test_script_init_method.py repos/pytorch/test/distributed/tensor/test_experimental_ops.py repos/pytorch/test/distributed/tensor/test_tensor_ops.py repos/pytorch/test/dynamo/test_after_aot.py repos/pytorch/test/dynamo/test_buffers_override.py repos/pytorch/test/dynamo/test_cudagraphs.py repos/pytorch/test/dynamo/test_deque_reconstruct.py repos/pytorch/test/dynamo/test_dicts.py repos/pytorch/test/dynamo/test_exceptions.py repos/pytorch/test/dynamo/test_export_mutations.py repos/pytorch/test/dynamo/test_global.py repos/pytorch/test/dynamo/test_list.py repos/pytorch/test/dynamo/test_minifier.py repos/pytorch/test/dynamo/test_nops.py repos/pytorch/test/dynamo/test_pre_dispatch.py repos/pytorch/test/dynamo/test_resume.py repos/pytorch/test/dynamo/test_sets.py repos/pytorch/test/dynamo/test_skip_guard_eval_unsafe.py repos/pytorch/test/export/test_sparse.py repos/pytorch/test/export/test_swap.py repos/pytorch/test/functorch/test_memory_efficient_fusion.py repos/pytorch/test/functorch/test_rearrange.py repos/pytorch/test/fx/test_common_passes.py repos/pytorch/test/fx/test_dynamism.py repos/pytorch/test/fx/test_future.py repos/pytorch/test/fx/test_partitioner_order.py repos/pytorch/test/fx/test_shape_inference.py repos/pytorch/test/inductor/test_best_config.py repos/pytorch/test/inductor/test_combo_kernels.py repos/pytorch/test/inductor/test_cooperative_reductions.py repos/pytorch/test/inductor/test_coordinate_descent_tuner.py repos/pytorch/test/inductor/test_fused_attention.py repos/pytorch/test/inductor/test_graph_transform_observer.py repos/pytorch/test/inductor/test_group_batch_fusion.py repos/pytorch/test/inductor/test_helion_kernels.py repos/pytorch/test/inductor/test_kernel_benchmark.py repos/pytorch/test/inductor/test_move_constructors_to_cuda.py repos/pytorch/test/inductor/test_online_softmax.py repos/pytorch/test/inductor/test_perf.py repos/pytorch/test/inductor/test_quantization.py repos/pytorch/test/inductor/test_smoke.py repos/pytorch/test/inductor/test_split_cat_fx_passes.py repos/pytorch/test/inductor/test_static_cuda_launcher.py repos/pytorch/test/inductor/test_triton_wrapper.py repos/pytorch/test/jit/test_autodiff.py repos/pytorch/test/jit/test_convert_activation.py repos/pytorch/test/jit/test_fuser_common.py repos/pytorch/test/jit/test_python_builtins.py repos/pytorch/test/jit/test_python_ir.py repos/pytorch/test/jit/test_slice.py repos/pytorch/test/nn/test_module_hooks.py repos/pytorch/test/onnx/test_autograd_funs.py repos/pytorch/test/onnx/test_models_quantized_onnxruntime.py repos/pytorch/test/onnx/test_onnx_opset.py repos/pytorch/test/package/package_a/test_module.py repos/pytorch/test/package/package_c/test_module.py repos/pytorch/test/profiler/test_torch_tidy.py repos/pytorch/test/quantization/core/experimental/test_nonuniform_observer.py repos/pytorch/test/quantization/eager/test_equalize_eager.py repos/pytorch/test/quantization/fx/test_subgraph_rewriter.py repos/pytorch/test/torch_np/test_basic.py repos/pytorch/test/torch_np/test_binary_ufuncs.py repos/pytorch/test/torch_np/test_unary_ufuncs.py repos/pytorch/test/torch_np/numpy_tests/core/test_dlpack.py
+[pytest-batch] Exit code=2, tests_run=8, tests_failed=7, session_started=True
+
+[pytest-batch] Running batch pytest command:
+    /home/cl2837/miniforge3/envs/cs6158-final/bin/python -m pytest converted_tests/torch_tvm/test/test_bundled_images.py converted_tests/torch_tvm/test/test_cpp_extensions_aot.py converted_tests/torch_tvm/test/test_cuda_sanitizer.py converted_tests/torch_tvm/test/test_functionalization_of_rng_ops.py converted_tests/torch_tvm/test/test_jit_fuser.py converted_tests/torch_tvm/test/test_numba_integration.py converted_tests/torch_tvm/test/test_tensorexpr.py converted_tests/torch_tvm/test/ao/sparsity/test_activation_sparsifier.py converted_tests/torch_tvm/test/bottleneck_test/test_args.py converted_tests/torch_tvm/test/custom_operator/test_custom_ops.py converted_tests/torch_tvm/test/distributed/test_c10d_spawn.py converted_tests/torch_tvm/test/distributed/test_c10d_spawn_gloo.py converted_tests/torch_tvm/test/distributed/test_dist2.py converted_tests/torch_tvm/test/distributed/test_multi_threaded_pg.py converted_tests/torch_tvm/test/distributed/launcher/bin/test_script_init_method.py converted_tests/torch_tvm/test/distributed/tensor/test_experimental_ops.py converted_tests/torch_tvm/test/distributed/tensor/test_tensor_ops.py converted_tests/torch_tvm/test/dynamo/test_after_aot.py converted_tests/torch_tvm/test/dynamo/test_buffers_override.py converted_tests/torch_tvm/test/dynamo/test_cudagraphs.py converted_tests/torch_tvm/test/dynamo/test_deque_reconstruct.py converted_tests/torch_tvm/test/dynamo/test_dicts.py converted_tests/torch_tvm/test/dynamo/test_exceptions.py converted_tests/torch_tvm/test/dynamo/test_export_mutations.py converted_tests/torch_tvm/test/dynamo/test_global.py converted_tests/torch_tvm/test/dynamo/test_list.py converted_tests/torch_tvm/test/dynamo/test_minifier.py converted_tests/torch_tvm/test/dynamo/test_nops.py converted_tests/torch_tvm/test/dynamo/test_pre_dispatch.py converted_tests/torch_tvm/test/dynamo/test_resume.py converted_tests/torch_tvm/test/dynamo/test_sets.py converted_tests/torch_tvm/test/dynamo/test_skip_guard_eval_unsafe.py converted_tests/torch_tvm/test/export/test_sparse.py converted_tests/torch_tvm/test/export/test_swap.py converted_tests/torch_tvm/test/functorch/test_memory_efficient_fusion.py converted_tests/torch_tvm/test/functorch/test_rearrange.py converted_tests/torch_tvm/test/fx/test_common_passes.py converted_tests/torch_tvm/test/fx/test_dynamism.py converted_tests/torch_tvm/test/fx/test_future.py converted_tests/torch_tvm/test/fx/test_partitioner_order.py converted_tests/torch_tvm/test/fx/test_shape_inference.py converted_tests/torch_tvm/test/inductor/test_best_config.py converted_tests/torch_tvm/test/inductor/test_combo_kernels.py converted_tests/torch_tvm/test/inductor/test_control_flow.py converted_tests/torch_tvm/test/inductor/test_cooperative_reductions.py converted_tests/torch_tvm/test/inductor/test_coordinate_descent_tuner.py converted_tests/torch_tvm/test/inductor/test_cpu_repro.py converted_tests/torch_tvm/test/inductor/test_fused_attention.py converted_tests/torch_tvm/test/inductor/test_graph_transform_observer.py converted_tests/torch_tvm/test/inductor/test_group_batch_fusion.py converted_tests/torch_tvm/test/inductor/test_helion_kernels.py converted_tests/torch_tvm/test/inductor/test_kernel_benchmark.py converted_tests/torch_tvm/test/inductor/test_move_constructors_to_cuda.py converted_tests/torch_tvm/test/inductor/test_online_softmax.py converted_tests/torch_tvm/test/inductor/test_perf.py converted_tests/torch_tvm/test/inductor/test_quantization.py converted_tests/torch_tvm/test/inductor/test_smoke.py converted_tests/torch_tvm/test/inductor/test_split_cat_fx_passes.py converted_tests/torch_tvm/test/inductor/test_static_cuda_launcher.py converted_tests/torch_tvm/test/inductor/test_triton_wrapper.py converted_tests/torch_tvm/test/jit/test_autodiff.py converted_tests/torch_tvm/test/jit/test_convert_activation.py converted_tests/torch_tvm/test/jit/test_fuser_common.py converted_tests/torch_tvm/test/jit/test_python_builtins.py converted_tests/torch_tvm/test/jit/test_python_ir.py converted_tests/torch_tvm/test/jit/test_slice.py converted_tests/torch_tvm/test/nn/test_module_hooks.py converted_tests/torch_tvm/test/onnx/test_autograd_funs.py converted_tests/torch_tvm/test/onnx/test_models_quantized_onnxruntime.py converted_tests/torch_tvm/test/onnx/test_onnx_opset.py converted_tests/torch_tvm/test/package/package_a/test_module.py converted_tests/torch_tvm/test/package/package_c/test_module.py converted_tests/torch_tvm/test/profiler/test_torch_tidy.py converted_tests/torch_tvm/test/quantization/core/experimental/test_nonuniform_observer.py converted_tests/torch_tvm/test/quantization/eager/test_equalize_eager.py converted_tests/torch_tvm/test/quantization/fx/test_subgraph_rewriter.py converted_tests/torch_tvm/test/torch_np/test_basic.py converted_tests/torch_tvm/test/torch_np/test_binary_ufuncs.py converted_tests/torch_tvm/test/torch_np/test_unary_ufuncs.py converted_tests/torch_tvm/test/torch_np/numpy_tests/core/test_dlpack.py
+[pytest-batch] Exit code=2, tests_run=22, tests_failed=22, session_started=True
 
 ================================================================================
 SUMMARY for mode = torch_tvm
 ================================================================================
 Number of converted test files:       80
-Number with matching original file:   0
+Number with matching original file:   80
 Total test functions (original):      29435
-Total test functions (converted):     0
-Overall coverage (by test functions): 0.00%
+Total test functions (converted):     877
+Overall coverage (by test functions): 2.98%
 
 Per-file coverage (only where original exists):
+- converted: converted_tests/torch_tvm/test/test_bundled_images.py
+  original:  repos/pytorch/test/test_bundled_images.py
+  tests original=1, converted=1, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/test_cpp_extensions_aot.py
+  original:  repos/pytorch/test/test_cpp_extensions_aot.py
+  tests original=21, converted=15, coverage=71.4%
+- converted: converted_tests/torch_tvm/test/test_cuda_sanitizer.py
+  original:  repos/pytorch/test/test_cuda_sanitizer.py
+  tests original=31, converted=31, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/test_functionalization_of_rng_ops.py
+  original:  repos/pytorch/test/test_functionalization_of_rng_ops.py
+  tests original=11, converted=11, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/test_jit_fuser.py
+  original:  repos/pytorch/test/test_jit_fuser.py
+  tests original=51, converted=50, coverage=98.0%
+- converted: converted_tests/torch_tvm/test/test_numba_integration.py
+  original:  repos/pytorch/test/test_numba_integration.py
+  tests original=8, converted=8, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/test_tensorexpr.py
+  original:  repos/pytorch/test/test_tensorexpr.py
+  tests original=131, converted=8, coverage=6.1%
+- converted: converted_tests/torch_tvm/test/ao/sparsity/test_activation_sparsifier.py
+  original:  repos/pytorch/test/ao/sparsity/test_activation_sparsifier.py
+  tests original=1, converted=1, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/bottleneck_test/test_args.py
+  original:  repos/pytorch/test/bottleneck_test/test_args.py
+  tests original=0, converted=0, coverage=N/A
+- converted: converted_tests/torch_tvm/test/custom_operator/test_custom_ops.py
+  original:  repos/pytorch/test/custom_operator/test_custom_ops.py
+  tests original=12, converted=12, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/distributed/test_c10d_spawn.py
+  original:  repos/pytorch/test/distributed/test_c10d_spawn.py
+  tests original=0, converted=6, coverage=N/A
+- converted: converted_tests/torch_tvm/test/distributed/test_c10d_spawn_gloo.py
+  original:  repos/pytorch/test/distributed/test_c10d_spawn_gloo.py
+  tests original=11, converted=11, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/distributed/test_dist2.py
+  original:  repos/pytorch/test/distributed/test_dist2.py
+  tests original=12, converted=12, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/distributed/test_multi_threaded_pg.py
+  original:  repos/pytorch/test/distributed/test_multi_threaded_pg.py
+  tests original=22, converted=22, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/distributed/launcher/bin/test_script_init_method.py
+  original:  repos/pytorch/test/distributed/launcher/bin/test_script_init_method.py
+  tests original=0, converted=0, coverage=N/A
+- converted: converted_tests/torch_tvm/test/distributed/tensor/test_experimental_ops.py
+  original:  repos/pytorch/test/distributed/tensor/test_experimental_ops.py
+  tests original=3, converted=4, coverage=133.3%
+- converted: converted_tests/torch_tvm/test/distributed/tensor/test_tensor_ops.py
+  original:  repos/pytorch/test/distributed/tensor/test_tensor_ops.py
+  tests original=29, converted=0, coverage=0.0%
+- converted: converted_tests/torch_tvm/test/dynamo/test_after_aot.py
+  original:  repos/pytorch/test/dynamo/test_after_aot.py
+  tests original=2, converted=2, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/dynamo/test_buffers_override.py
+  original:  repos/pytorch/test/dynamo/test_buffers_override.py
+  tests original=2, converted=2, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/dynamo/test_cudagraphs.py
+  original:  repos/pytorch/test/dynamo/test_cudagraphs.py
+  tests original=8, converted=8, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/dynamo/test_deque_reconstruct.py
+  original:  repos/pytorch/test/dynamo/test_deque_reconstruct.py
+  tests original=3, converted=3, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/dynamo/test_dicts.py
+  original:  repos/pytorch/test/dynamo/test_dicts.py
+  tests original=84, converted=26, coverage=31.0%
+- converted: converted_tests/torch_tvm/test/dynamo/test_exceptions.py
+  original:  repos/pytorch/test/dynamo/test_exceptions.py
+  tests original=46, converted=46, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/dynamo/test_export_mutations.py
+  original:  repos/pytorch/test/dynamo/test_export_mutations.py
+  tests original=5, converted=5, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/dynamo/test_global.py
+  original:  repos/pytorch/test/dynamo/test_global.py
+  tests original=12, converted=12, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/dynamo/test_list.py
+  original:  repos/pytorch/test/dynamo/test_list.py
+  tests original=28, converted=28, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/dynamo/test_minifier.py
+  original:  repos/pytorch/test/dynamo/test_minifier.py
+  tests original=15, converted=15, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/dynamo/test_nops.py
+  original:  repos/pytorch/test/dynamo/test_nops.py
+  tests original=1, converted=1, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/dynamo/test_pre_dispatch.py
+  original:  repos/pytorch/test/dynamo/test_pre_dispatch.py
+  tests original=3, converted=3, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/dynamo/test_resume.py
+  original:  repos/pytorch/test/dynamo/test_resume.py
+  tests original=1, converted=1, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/dynamo/test_sets.py
+  original:  repos/pytorch/test/dynamo/test_sets.py
+  tests original=47, converted=47, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/dynamo/test_skip_guard_eval_unsafe.py
+  original:  repos/pytorch/test/dynamo/test_skip_guard_eval_unsafe.py
+  tests original=5, converted=5, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/export/test_sparse.py
+  original:  repos/pytorch/test/export/test_sparse.py
+  tests original=7, converted=7, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/export/test_swap.py
+  original:  repos/pytorch/test/export/test_swap.py
+  tests original=9, converted=9, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/functorch/test_memory_efficient_fusion.py
+  original:  repos/pytorch/test/functorch/test_memory_efficient_fusion.py
+  tests original=22, converted=22, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/functorch/test_rearrange.py
+  original:  repos/pytorch/test/functorch/test_rearrange.py
+  tests original=10, converted=10, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/fx/test_common_passes.py
+  original:  repos/pytorch/test/fx/test_common_passes.py
+  tests original=2, converted=2, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/fx/test_dynamism.py
+  original:  repos/pytorch/test/fx/test_dynamism.py
+  tests original=5, converted=5, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/fx/test_future.py
+  original:  repos/pytorch/test/fx/test_future.py
+  tests original=0, converted=1, coverage=N/A
+- converted: converted_tests/torch_tvm/test/fx/test_partitioner_order.py
+  original:  repos/pytorch/test/fx/test_partitioner_order.py
+  tests original=2, converted=2, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/fx/test_shape_inference.py
+  original:  repos/pytorch/test/fx/test_shape_inference.py
+  tests original=2, converted=2, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/inductor/test_best_config.py
+  original:  repos/pytorch/test/inductor/test_best_config.py
+  tests original=1, converted=1, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/inductor/test_combo_kernels.py
+  original:  repos/pytorch/test/inductor/test_combo_kernels.py
+  tests original=31, converted=42, coverage=135.5%
+- converted: converted_tests/torch_tvm/test/inductor/test_control_flow.py
+  original:  repos/pytorch/test/inductor/test_control_flow.py
+  tests original=51, converted=0, coverage=0.0%
+- converted: converted_tests/torch_tvm/test/inductor/test_cooperative_reductions.py
+  original:  repos/pytorch/test/inductor/test_cooperative_reductions.py
+  tests original=9, converted=5, coverage=55.6%
+- converted: converted_tests/torch_tvm/test/inductor/test_coordinate_descent_tuner.py
+  original:  repos/pytorch/test/inductor/test_coordinate_descent_tuner.py
+  tests original=5, converted=5, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/inductor/test_cpu_repro.py
+  original:  repos/pytorch/test/inductor/test_cpu_repro.py
+  tests original=225, converted=0, coverage=0.0%
+- converted: converted_tests/torch_tvm/test/inductor/test_fused_attention.py
+  original:  repos/pytorch/test/inductor/test_fused_attention.py
+  tests original=0, converted=0, coverage=N/A
+- converted: converted_tests/torch_tvm/test/inductor/test_graph_transform_observer.py
+  original:  repos/pytorch/test/inductor/test_graph_transform_observer.py
+  tests original=1, converted=1, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/inductor/test_group_batch_fusion.py
+  original:  repos/pytorch/test/inductor/test_group_batch_fusion.py
+  tests original=12, converted=10, coverage=83.3%
+- converted: converted_tests/torch_tvm/test/inductor/test_helion_kernels.py
+  original:  repos/pytorch/test/inductor/test_helion_kernels.py
+  tests original=2, converted=2, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/inductor/test_kernel_benchmark.py
+  original:  repos/pytorch/test/inductor/test_kernel_benchmark.py
+  tests original=18, converted=18, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/inductor/test_move_constructors_to_cuda.py
+  original:  repos/pytorch/test/inductor/test_move_constructors_to_cuda.py
+  tests original=7, converted=7, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/inductor/test_online_softmax.py
+  original:  repos/pytorch/test/inductor/test_online_softmax.py
+  tests original=16, converted=17, coverage=106.2%
+- converted: converted_tests/torch_tvm/test/inductor/test_perf.py
+  original:  repos/pytorch/test/inductor/test_perf.py
+  tests original=70, converted=0, coverage=0.0%
+- converted: converted_tests/torch_tvm/test/inductor/test_quantization.py
+  original:  repos/pytorch/test/inductor/test_quantization.py
+  tests original=2, converted=2, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/inductor/test_smoke.py
+  original:  repos/pytorch/test/inductor/test_smoke.py
+  tests original=3, converted=3, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/inductor/test_split_cat_fx_passes.py
+  original:  repos/pytorch/test/inductor/test_split_cat_fx_passes.py
+  tests original=11, converted=4, coverage=36.4%
+- converted: converted_tests/torch_tvm/test/inductor/test_static_cuda_launcher.py
+  original:  repos/pytorch/test/inductor/test_static_cuda_launcher.py
+  tests original=17, converted=17, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/inductor/test_triton_wrapper.py
+  original:  repos/pytorch/test/inductor/test_triton_wrapper.py
+  tests original=1, converted=1, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/jit/test_autodiff.py
+  original:  repos/pytorch/test/jit/test_autodiff.py
+  tests original=5, converted=5, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/jit/test_convert_activation.py
+  original:  repos/pytorch/test/jit/test_convert_activation.py
+  tests original=9, converted=6, coverage=66.7%
+- converted: converted_tests/torch_tvm/test/jit/test_fuser_common.py
+  original:  repos/pytorch/test/jit/test_fuser_common.py
+  tests original=1, converted=1, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/jit/test_python_builtins.py
+  original:  repos/pytorch/test/jit/test_python_builtins.py
+  tests original=15, converted=15, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/jit/test_python_ir.py
+  original:  repos/pytorch/test/jit/test_python_ir.py
+  tests original=4, converted=4, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/jit/test_slice.py
+  original:  repos/pytorch/test/jit/test_slice.py
+  tests original=18, converted=18, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/nn/test_module_hooks.py
+  original:  repos/pytorch/test/nn/test_module_hooks.py
+  tests original=43, converted=43, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/onnx/test_autograd_funs.py
+  original:  repos/pytorch/test/onnx/test_autograd_funs.py
+  tests original=7, converted=7, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/onnx/test_models_quantized_onnxruntime.py
+  original:  repos/pytorch/test/onnx/test_models_quantized_onnxruntime.py
+  tests original=7, converted=7, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/onnx/test_onnx_opset.py
+  original:  repos/pytorch/test/onnx/test_onnx_opset.py
+  tests original=14, converted=0, coverage=0.0%
+- converted: converted_tests/torch_tvm/test/package/package_a/test_module.py
+  original:  repos/pytorch/test/package/package_a/test_module.py
+  tests original=0, converted=0, coverage=N/A
+- converted: converted_tests/torch_tvm/test/package/package_c/test_module.py
+  original:  repos/pytorch/test/package/package_c/test_module.py
+  tests original=0, converted=0, coverage=N/A
+- converted: converted_tests/torch_tvm/test/profiler/test_torch_tidy.py
+  original:  repos/pytorch/test/profiler/test_torch_tidy.py
+  tests original=22, converted=22, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/quantization/core/experimental/test_nonuniform_observer.py
+  original:  repos/pytorch/test/quantization/core/experimental/test_nonuniform_observer.py
+  tests original=6, converted=6, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/quantization/eager/test_equalize_eager.py
+  original:  repos/pytorch/test/quantization/eager/test_equalize_eager.py
+  tests original=5, converted=5, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/quantization/fx/test_subgraph_rewriter.py
+  original:  repos/pytorch/test/quantization/fx/test_subgraph_rewriter.py
+  tests original=14, converted=14, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/torch_np/test_basic.py
+  original:  repos/pytorch/test/torch_np/test_basic.py
+  tests original=43, converted=43, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/torch_np/test_binary_ufuncs.py
+  original:  repos/pytorch/test/torch_np/test_binary_ufuncs.py
+  tests original=38, converted=38, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/torch_np/test_unary_ufuncs.py
+  original:  repos/pytorch/test/torch_np/test_unary_ufuncs.py
+  tests original=42, converted=42, coverage=100.0%
+- converted: converted_tests/torch_tvm/test/torch_np/numpy_tests/core/test_dlpack.py
+  original:  repos/pytorch/test/torch_np/numpy_tests/core/test_dlpack.py
+  tests original=12, converted=10, coverage=83.3%
 
 Pytest file summary (from per-file runs):
-  Original files:  0 passed, 0 failed
-  Converted files: 0 passed, 0 failed
+  Original files:  53 passed, 27 failed
+  Converted files: 20 passed, 60 failed
 
 Pytest batch execution summary (from one pytest run per side):
-  Original tests: no session started (no files or all deselected)
-  Converted tests: no session started (no files or all deselected)
+  Original tests:  8 run, 7 failed
+  Converted tests: 22 run, 22 failed
+
+================================================================================
